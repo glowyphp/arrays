@@ -10,6 +10,7 @@ use function count;
 use function explode;
 use function is_array;
 use function is_null;
+use function strpos;
 
 class Arrays
 {
@@ -85,20 +86,32 @@ class Arrays
     /**
      * Checks if the given dot-notated key exists in the array.
      *
-     * @param  mixed $key Key
+     * @param  string|array  $keys
      */
-    public function has($key): bool
+    public function has($keys): bool
     {
         $array = $this->elements;
 
-        $segments = explode('.', $key);
+        $keys = (array) $keys;
 
-        foreach ($segments as $segment) {
-            if (! is_array($array) or ! array_key_exists($segment, $array)) {
-                return false;
-            }
+        if (! $array || $keys === []) {
+          return false;
+        }
 
-            $array = $array[$segment];
+        foreach ($keys as $key) {
+          $subKeyArray = $array;
+
+          if (isset($array[$key])) {
+              continue;
+          }
+
+          foreach (explode('.', $key) as $segment) {
+              if (is_array($subKeyArray) && isset($subKeyArray[$segment])) {
+                  $subKeyArray = $subKeyArray[$segment];
+              } else {
+                  return false;
+              }
+          }
         }
 
         return true;
@@ -119,23 +132,23 @@ class Arrays
         }
 
         if (is_null($key)) {
-           return $array;
-       }
+            return $array;
+        }
 
-       if (isset($array[$key])) {
-           return $array[$key];
-       }
+        if (isset($array[$key])) {
+            return $array[$key];
+        }
 
         if (strpos($key, '.') === false) {
             return $array[$key] ?? $default;
         }
 
         foreach (explode('.', $key) as $segment) {
-            if (is_array($array) && isset($array[$segment])) {
-                $array = $array[$segment];
-            } else {
+            if (! is_array($array) || ! isset($array[$segment])) {
                 return $default;
             }
+
+            $array = $array[$segment];
         }
 
         return $array;
@@ -144,27 +157,89 @@ class Arrays
     /**
      * Deletes an array value using "dot notation".
      *
-     * @param  string $key Key
+     * @param  array|string $keys
      */
-    public function delete(string $key): bool
+    public function delete($keys): self
     {
         $array = $this->elements;
 
-        $segments = explode('.', $key);
+        $original = &$array;
 
-        while (count($segments) > 1) {
-            $segment = array_shift($segments);
+        $keys = (array) $keys;
 
-            if (! isset($array[$segment]) || ! is_array($array[$segment])) {
-                return false;
-            }
-
-            $array =& $array[$segment];
+        if (count($keys) === 0) {
+            return self;
         }
 
-        unset($array[array_shift($segments)]);
+        foreach ($keys as $key) {
+            if (isset($array[$key])) {
+                unset($array[$key]);
+                continue;
+            }
 
-        return true;
+            $segements = explode('.', $key);
+
+            $array = &$original;
+
+            while (count($segements) > 1) {
+                $segement = array_shift($segements);
+
+                if (! isset($array[$segement]) || ! is_array($array[$segement])) {
+                    continue 2;
+                }
+
+                $array = &$array[$segement];
+            }
+
+            unset($array[array_shift($segements)]);
+        }
+
+        $this->elements = $array;
+
+        return $this;
+    }
+
+    /**
+     * Expands a dot notation array into a full multi-dimensional array.
+     */
+    public function undot(): self
+    {
+        $array = $this->elements;
+        //$this->elements = [];
+
+        foreach ($array as $key => $value) {
+            $this->set($key, $value);
+        }
+
+print_r($this->elements);
+die();
+        return $this;
+    }
+
+    /**
+     * Flatten a multi-dimensional associative array with dots.
+     *
+     * @param  string $prepend Prepend string
+     */
+    public function dot(string $prepend = ''): self
+    {
+        $_dot = function ($array, $prepend) use (&$_dot) {
+            $results = [];
+
+            foreach ($array as $key => $value) {
+                if (is_array($value) && ! empty($value)) {
+                    $results = array_merge($results, $_dot($value, $prepend . $key . '.'));
+                } else {
+                    $results[$prepend . $key] = $value;
+                }
+            }
+
+            return $results;
+        };
+
+        $this->elements = $_dot($this->elements, $prepend);
+
+        return $this;
     }
 
     /**

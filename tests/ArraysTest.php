@@ -31,11 +31,56 @@ test('test get() method', function() {
 });
 
 test('test has() method', function() {
+    $this->assertTrue(Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam'], 'score' => ['5', '4']]])->has(['film.stars', 'film.score']));
     $this->assertTrue(Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->has('film.stars'));
     $this->assertFalse(Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->has('film.scores'));
 });
 
 test('test delete() method', function() {
-    $this->assertTrue(Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->delete('film.stars'));
-    //$this->assertFalse(Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->delete('film.scores'));
+    $array = Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]]);
+    $array->delete('film.stars');
+    $this->assertFalse($array->has('film.stars'));
+
+    $array = Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam'], 'score' => ['5', '4']]]);
+    $array->delete('film.stars');
+    $array->delete('film.score');
+    $this->assertFalse($array->has(['film.stars', 'film.score']));
+});
+
+test('test dot() method', function() {
+    $this->assertEquals([
+                            'movies.the_thin_red_line.title' => 'The Thin Red Line',
+                            'movies.the_thin_red_line.directed_by' => 'Terrence Malick',
+                            'movies.the_thin_red_line.produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                            'movies.the_thin_red_line.decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+                         ],
+                    Arrays::create([
+                                    'movies' => [
+                                        'the_thin_red_line' => [
+                                            'title' => 'The Thin Red Line',
+                                            'directed_by' => 'Terrence Malick',
+                                            'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                                            'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+                                        ],
+                                    ],
+                                 ])->dot()->toArray());
+});
+
+test('test undot() method', function() {
+    $this->assertEquals([
+                            'movies' => [
+                               'the_thin_red_line' => [
+                                   'title' => 'The Thin Red Line',
+                                   'directed_by' => 'Terrence Malick',
+                                   'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                                   'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+                               ],
+                            ],
+                        ],
+                    Arrays::create([
+                                        'movies.the_thin_red_line.title' => 'The Thin Red Line',
+                                        'movies.the_thin_red_line.directed_by' => 'Terrence Malick',
+                                        'movies.the_thin_red_line.produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                                        'movies.the_thin_red_line.decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+                                    ])->undot()->toArray());
 });
