@@ -12,13 +12,13 @@ test('test arrays() helper', function() {
     $this->assertEquals(Arrays::create(), arrays());
 });
 
-test('test toArray() method', function() {
-    $this->assertEquals(['SG-1', 'SG-2'], Arrays::create(['SG-1', 'SG-2'])->toArray());
+test('test all() method', function() {
+    $this->assertEquals(['SG-1', 'SG-2'], Arrays::create(['SG-1', 'SG-2'])->all());
 });
 
 test('test set() method', function() {
     $this->assertEquals(['stars' => ['Jack', 'Daniel', 'Sam']],
-                        Arrays::create([])->set('stars', ['Jack', 'Daniel', 'Sam'])->toArray());
+                        Arrays::create([])->set('stars', ['Jack', 'Daniel', 'Sam'])->all());
 });
 
 test('test get() method', function() {
@@ -63,7 +63,7 @@ test('test dot() method', function() {
                                             'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
                                         ],
                                     ],
-                                 ])->dot()->toArray());
+                                 ])->dot()->all());
 });
 
 test('test undot() method', function() {
@@ -82,5 +82,12 @@ test('test undot() method', function() {
                                         'movies.the_thin_red_line.directed_by' => 'Terrence Malick',
                                         'movies.the_thin_red_line.produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
                                         'movies.the_thin_red_line.decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
-                                    ])->undot()->toArray());
+                                    ])->undot()->all());
+});
+
+
+test('test flush() method', function() {
+    $arrays = Arrays::create()->set('stars', ['Jack', 'Daniel', 'Sam']);
+    $arrays->flush();
+    $this->assertEquals([], $arrays->all());
 });

@@ -47,7 +47,8 @@ $arrays = arrays();
 | <a href="#arrays_delete">`delete()`</a> | Deletes an array value using "dot notation".|
 | <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
 | <a href="#arrays_dot">`dot()`</a> | Flatten a multi-dimensional associative array with dots. |
-| <a href="#arrays_toArray">`toArray()`</a> | Convert the current array to a native PHP array. |
+| <a href="#arrays_all">`all()`</a> | Convert the current array to a native PHP array. |
+| <a href="#arrays_flush">`flush()`</a> | Convert the current array to a native PHP array. |
 
 #### Methods Details
 
@@ -185,21 +186,36 @@ public function undot(): self
 $arrays->undot();
 ```
 
-##### <a name="arrays_toArray"></a> Method: `toArray()`
+##### <a name="arrays_all"></a> Method: `all()`
 
 ```php
 /**
- * Convert the current array to a native PHP array.
+ *  Get all itmes from stored array.
  */
-public function toArray(): array
+public function all(): array
 ```
 
 **Examples**
 
 ```php
-foreach ($arrays->toArray() as $key => $value) {
+foreach ($arrays->all() as $key => $value) {
     // code...
 }
+```
+
+##### <a name="arrays_flush"></a> Method: `flush()`
+
+```php
+/**
+ * Flush all values from the array.
+ */
+public function flush(): void
+```
+
+**Examples**
+
+```php
+$arrays->flush();
 ```
 
 ### Tests

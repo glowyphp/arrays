@@ -15,34 +15,34 @@ use function strpos;
 class Arrays
 {
     /**
-     * The underlying array elements.
+     * The underlying array items.
      *
      * @var array
      */
-    protected $elements = [];
+    protected $items = [];
 
     /**
      * Create a new arrayable object from the given elements.
      *
-     * Initializes a Arrays object and assigns $elements the supplied values.
+     * Initializes a Arrays object and assigns $items the supplied values.
      *
-     * @param mixed $elements Elements
+     * @param mixed $items Elements
      */
-    public function __construct(array $elements = [])
+    public function __construct(array $items = [])
     {
-        $this->elements = (array) $elements;
+        $this->items = (array) $items;
     }
 
     /**
      * Create a new arrayable object from the given elements.
      *
-     * Initializes a Arrays object and assigns $elements the supplied values.
+     * Initializes a Arrays object and assigns $items the supplied values.
      *
-     * @param mixed $elements Elements
+     * @param mixed $items Elements
      */
-    public static function create(array $elements = []): Arrays
+    public static function create(array $items = []): Arrays
     {
-        return new Arrays($elements);
+        return new Arrays($items);
     }
 
     /**
@@ -55,7 +55,7 @@ class Arrays
      */
     public function set(string $key, $value): self
     {
-        $array = &$this->elements;
+        $array = &$this->items;
 
         if (is_null($key)) {
             return $array = $value;
@@ -89,7 +89,7 @@ class Arrays
      */
     public function has($keys): bool
     {
-        $array = $this->elements;
+        $array = $this->items;
 
         $keys = (array) $keys;
 
@@ -124,7 +124,7 @@ class Arrays
      */
     public function get($key, $default = null)
     {
-        $array = $this->elements;
+        $array = $this->items;
 
         if (! is_array($array)) {
             return $default;
@@ -160,7 +160,7 @@ class Arrays
      */
     public function delete($keys): self
     {
-        $array = $this->elements;
+        $array = $this->items;
 
         $original = &$array;
 
@@ -193,7 +193,7 @@ class Arrays
             unset($array[array_shift($segements)]);
         }
 
-        $this->elements = $array;
+        $this->items = $array;
 
         return $this;
     }
@@ -203,9 +203,9 @@ class Arrays
      */
     public function undot(): self
     {
-        $array = $this->elements;
+        $array = $this->items;
 
-        $this->elements = [];
+        $this->items = [];
 
         foreach ($array as $key => $value) {
             $this->set($key, $value);
@@ -235,16 +235,24 @@ class Arrays
             return $results;
         };
 
-        $this->elements = $_dot($this->elements, $prepend);
+        $this->items = $_dot($this->items, $prepend);
 
         return $this;
     }
 
     /**
-     * Convert the current array to a native PHP array.
+     * Flush all values from the array.
      */
-    public function toArray(): array
+    public function flush(): void
     {
-        return $this->elements;
+        $this->items = [];
+    }
+
+    /**
+     *  Get all itmes from stored array.
+     */
+    public function all(): array
+    {
+        return $this->items;
     }
 }
