@@ -50,6 +50,7 @@ $arrays = arrays();
 | <a href="#arrays_all">`all()`</a> | Get all items from stored array. |
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 | <a href="#arrays_sortAssoc">`sortAssoc()`</a> | Sorts a multi-dimensional associative array by a certain field. |
+| <a href="#arrays_count">`count()`</a> | Return the number of items in a given key. |
 
 #### Methods Details
 
@@ -240,6 +241,31 @@ $result = Arrays::create([1 => ['title' => 'Post 2'],
 
 $result = Arrays::create([1 => ['title' => 'Post 2'],
                           0 => ['title' => 'Post 1']])->sortAssoc('title', 'DESC')->all();
+```
+
+##### <a name="arrays_count"></a> Method: `count()`
+
+```php
+/**
+ * Return the number of items in a given key.
+ *
+ * @param  int|string|null $key
+ */
+public function count($key = null): int
+```
+
+**Examples**
+
+```php
+$result = Arrays::create(['Jack', 'Daniel', 'Sam'])->count();
+
+$result = Arrays::create(['names' => ['Jack', 'Daniel', 'Sam']])->count();
+
+$result = Arrays::create(['names' => ['Jack', 'Daniel', 'Sam'],
+                          'tags' => ['star', 'movie']])->count('tags');
+
+$result = Arrays::create(['collection' => ['names' => ['Jack', 'Daniel', 'Sam'],
+                                           'tags' => ['star', 'movie']]])->count('collection.tags');
 ```
 
 ### Tests

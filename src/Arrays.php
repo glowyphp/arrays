@@ -298,6 +298,16 @@ class Arrays
     }
 
     /**
+     * Return the number of items in a given key.
+     *
+     * @param  int|string|null $key
+     */
+    public function count($key = null): int
+    {
+        return count($this->get($key));
+    }
+
+    /**
      *  Get all items from stored array.
      */
     public function all(): array

@@ -133,3 +133,10 @@ test('test sort() method', function() {
     $this->assertTrue($array_equal($arrays_original, $arrays_result));
 
 });
+
+test('test count() method', function() {
+    $this->assertEquals(3, Arrays::create(['Jack', 'Daniel', 'Sam'])->count());
+    $this->assertEquals(1, Arrays::create(['names' => ['Jack', 'Daniel', 'Sam']])->count());
+    $this->assertEquals(2, Arrays::create(['names' => ['Jack', 'Daniel', 'Sam'], 'tags' => ['star', 'movie']])->count('tags'));
+    $this->assertEquals(2, Arrays::create(['collection' => ['names' => ['Jack', 'Daniel', 'Sam'], 'tags' => ['star', 'movie']]])->count('collection.tags'));
+});
