@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Atomastic\Arrays;
 
-use function array_key_exists;
+use function array_merge;
 use function array_shift;
 use function count;
 use function explode;
@@ -54,7 +54,7 @@ class Arrays
      */
     public function set(string $key, $value): self
     {
-        $array = $this->elements;
+        $array = &$this->elements;
 
         if (is_null($key)) {
             return $array = $value;
@@ -78,7 +78,7 @@ class Arrays
 
         $array[array_shift($segments)] = $value;
 
-        $this->elements = $array;
+        //$this->elements = $array;
 
         return $this;
     }
@@ -86,7 +86,7 @@ class Arrays
     /**
      * Checks if the given dot-notated key exists in the array.
      *
-     * @param  string|array  $keys
+     * @param  string|array $keys
      */
     public function has($keys): bool
     {
@@ -95,23 +95,23 @@ class Arrays
         $keys = (array) $keys;
 
         if (! $array || $keys === []) {
-          return false;
+            return false;
         }
 
         foreach ($keys as $key) {
-          $subKeyArray = $array;
+            $subKeyArray = $array;
 
-          if (isset($array[$key])) {
-              continue;
-          }
+            if (isset($array[$key])) {
+                continue;
+            }
 
-          foreach (explode('.', $key) as $segment) {
-              if (is_array($subKeyArray) && isset($subKeyArray[$segment])) {
-                  $subKeyArray = $subKeyArray[$segment];
-              } else {
-                  return false;
-              }
-          }
+            foreach (explode('.', $key) as $segment) {
+                if (! is_array($subKeyArray) || ! isset($subKeyArray[$segment])) {
+                    return false;
+                }
+
+                $subKeyArray = $subKeyArray[$segment];
+            }
         }
 
         return true;
@@ -205,14 +205,13 @@ class Arrays
     public function undot(): self
     {
         $array = $this->elements;
-        //$this->elements = [];
+
+        $this->elements = [];
 
         foreach ($array as $key => $value) {
             $this->set($key, $value);
         }
 
-print_r($this->elements);
-die();
         return $this;
     }
 
@@ -223,7 +222,7 @@ die();
      */
     public function dot(string $prepend = ''): self
     {
-        $_dot = function ($array, $prepend) use (&$_dot) {
+        $_dot = static function ($array, $prepend) use (&$_dot) {
             $results = [];
 
             foreach ($array as $key => $value) {
