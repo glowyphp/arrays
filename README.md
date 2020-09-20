@@ -47,8 +47,8 @@ $arrays = arrays();
 | <a href="#arrays_delete">`delete()`</a> | Deletes an array value using "dot notation".|
 | <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
 | <a href="#arrays_dot">`dot()`</a> | Flatten a multi-dimensional associative array with dots. |
-| <a href="#arrays_all">`all()`</a> | Convert the current array to a native PHP array. |
-| <a href="#arrays_flush">`flush()`</a> | Convert the current array to a native PHP array. |
+| <a href="#arrays_all">`all()`</a> | Get all items from stored array. |
+| <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 
 #### Methods Details
 
@@ -190,7 +190,7 @@ $arrays->undot();
 
 ```php
 /**
- *  Get all itmes from stored array.
+ *  Get all items from stored array.
  */
 public function all(): array
 ```
