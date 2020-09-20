@@ -277,5 +277,5 @@ Run tests
 ```
 
 ### License
-[The MIT License (MIT)](https://github.com/atomastic/arrays/blob/master/LICENSE.txt)
+[The MIT License (MIT)](https://github.com/atomastic/arrays/blob/master/LICENSE)
 Copyright (c) 2020 [Sergey Romanenko](https://github.com/Awilum)
