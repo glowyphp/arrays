@@ -8,12 +8,12 @@ if (! function_exists('arrays')) {
     /**
      * Create a new arrayable object from the given elements.
      *
-     * Initializes a Arrays object and assigns $elements the supplied values.
+     * Initializes a Arrays object and assigns $items the supplied values.
      *
-     * @param mixed $elements Elements
+     * @param mixed $items Elements
      */
-    function arrays(array $elements = []): Arrays
+    function arrays(array $items = []): Arrays
     {
-        return new Arrays($elements);
+        return new Arrays($items);
     }
 }
