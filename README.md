@@ -40,10 +40,14 @@ $arrays = arrays();
 
 | Method | Description |
 |---|---|
-| <a href="#arrays_create">`create()`</a> | Initializes a Arrays object and assigns both $string and $encoding properties the supplied values. $string is cast to a string prior to assignment. Throws an InvalidArgumentException if the first argument is an array or object without a `__toString` method. |
-| <a href="#arrays_stripSpaces">`stripSpaces()`</a> | Strip all whitespaces from the given string. |
-| <a href="#arrays_trimSlashes">`trimSlashes()`</a> | Removes any leading and trailing slashes from a string. |
-| <a href="#arrays_reduceSlashes">`reduceSlashes()`</a> | Reduces multiple slashes in a string to single slashes. |
+| <a href="#arrays_create">`create()`</a> | Create a new arrayable object from the given elements. Initializes a Arrays object and assigns $elements the supplied values. |
+| <a href="#arrays_set">`set()`</a> | Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced. |
+| <a href="#arrays_get">`get()`</a> | Get an item from an array using "dot" notation. |
+| <a href="#arrays_has">`has()`</a> | Checks if the given dot-notated key exists in the array. |
+| <a href="#arrays_delete">`delete()`</a> | Deletes an array value using "dot notation".|
+| <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
+| <a href="#arrays_dot">`dot()`</a> | Flatten a multi-dimensional associative array with dots. |
+| <a href="#arrays_toArray">`toArray()`</a> | Convert the current array to a native PHP array. |
 
 #### Methods Details
 
@@ -51,36 +55,151 @@ $arrays = arrays();
 
 ```php
 /**
- * Initializes a Arrays object and assigns both $string and $encoding properties
- * the supplied values. $string is cast to a string prior to assignment. Throws
- * an InvalidArgumentException if the first argument is an array or object
- * without a __toString method.
+ * Create a new arrayable object from the given elements.
  *
- * @param mixed  $string   Value to modify, after being cast to string. Default: ''
- * @param string $encoding The character encoding. Default: UTF-8
+ * Initializes a Arrays object and assigns $elements the supplied values.
+ *
+ * @param mixed $elements Elements
  */
-public static function of($string = '', string $encoding = 'UTF-8'): self
+public static function create(array $elements = []): Arrays
 ```
 
 **Examples**
 
 ```php
-$string = Arrays::create('SG-1 returns from an off-world mission');
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ]
+                        ]
+                    ]);
 ```
 
-##### <a name="arrays_stripSpaces"></a> Method: `stripSpaces()`
+##### <a name="arrays_set"></a> Method: `set()`
 
 ```php
 /**
- * Strip all whitespaces from the given string.
+ * Set an array item to a given value using "dot" notation.
+ *
+ * If no key is given to the method, the entire array will be replaced.
+ *
+ * @param  string $key   Key
+ * @param  mixed  $value Value
  */
-public function stripSpaces(): self
+public function set(string $key, $value): self
 ```
 
 **Examples**
 
 ```php
-$string = Arrays::create('SG-1 returns from an off-world mission')->stripSpaces();
+$arrays->set('movies.the-thin-red-line.title', 'The Thin Red Line');
+```
+
+##### <a name="arrays_get"></a> Method: `get()`
+
+```php
+/**
+ * Get an item from an array using "dot" notation.
+ *
+ * @param  string|int|null $key     Key
+ * @param  mixed           $default Default
+ */
+public function get($key, $default = null)
+```
+
+**Examples**
+
+```php
+$arrays->set('movies.the-thin-red-line.title', 'The Thin Red Line');
+```
+
+##### <a name="arrays_has"></a> Method: `has()`
+
+```php
+/**
+ * Checks if the given dot-notated key exists in the array.
+ *
+ * @param  string|array $keys Keys
+ */
+public function has($keys): bool
+```
+
+**Examples**
+
+```php
+if ($arrays->has('movies.the-thin-red-line')) {
+    // Do something...
+}
+```
+
+##### <a name="arrays_delete"></a> Method: `delete()`
+
+```php
+/**
+ * Deletes an array value using "dot notation".
+ *
+ * @param  array|string $keys Keys
+ */
+public function delete($keys): self
+```
+
+**Examples**
+
+```php
+$arrays->delete('movies.the-thin-red-line');
+```
+
+##### <a name="arrays_dot"></a> Method: `dot()`
+
+```php
+/**
+ * Flatten a multi-dimensional associative array with dots.
+ *
+ * @param  string $prepend Prepend string
+ */
+public function dot(string $prepend = ''): self
+```
+
+**Examples**
+
+```php
+$arrays->dot();
+```
+
+##### <a name="arrays_undot"></a> Method: `undot()`
+
+```php
+/**
+ * Expands a dot notation array into a full multi-dimensional array.
+ */
+public function undot(): self
+```
+
+**Examples**
+
+```php
+$arrays->undot();
+```
+
+##### <a name="arrays_toArray"></a> Method: `toArray()`
+
+```php
+/**
+ * Convert the current array to a native PHP array.
+ */
+public function toArray(): array
+```
+
+**Examples**
+
+```php
+foreach ($arrays->toArray() as $key => $value) {
+    // code...
+}
 ```
 
 ### Tests
