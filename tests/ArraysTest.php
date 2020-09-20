@@ -91,3 +91,45 @@ test('test flush() method', function() {
     $arrays->flush();
     $this->assertEquals([], $arrays->all());
 });
+
+test('test sort() method', function() {
+    // Default
+    $arrays_original = [0 => ['title' => 'Post 1'],
+                        1 => ['title' => 'Post 2']];
+
+    $arrays_result = Arrays::create([1 => ['title' => 'Post 2'],
+                                     0 => ['title' => 'Post 1']])->sortAssoc('title')->all();
+
+    $array_equal = function($a, $b) {
+        return serialize($a) === serialize($b);
+    };
+
+    $this->assertTrue($array_equal($arrays_original, $arrays_result));
+
+    // SORT ASC
+    $arrays_original = [0 => ['title' => 'Post 1'],
+                        1 => ['title' => 'Post 2']];
+
+    $arrays_result = Arrays::create([1 => ['title' => 'Post 2'],
+                                     0 => ['title' => 'Post 1']])->sortAssoc('title', 'ASC')->all();
+
+    $array_equal = function($a, $b) {
+        return serialize($a) === serialize($b);
+    };
+
+    $this->assertTrue($array_equal($arrays_original, $arrays_result));
+
+    // SORT DESC
+    $arrays_original = [1 => ['title' => 'Post 2'],
+                        0 => ['title' => 'Post 1']];
+
+    $arrays_result = Arrays::create([1 => ['title' => 'Post 2'],
+                                     0 => ['title' => 'Post 1']])->sortAssoc('title', 'DESC')->all();
+
+    $array_equal = function($a, $b) {
+        return serialize($a) === serialize($b);
+    };
+
+    $this->assertTrue($array_equal($arrays_original, $arrays_result));
+
+});

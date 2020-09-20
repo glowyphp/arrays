@@ -49,6 +49,7 @@ $arrays = arrays();
 | <a href="#arrays_dot">`dot()`</a> | Flatten a multi-dimensional associative array with dots. |
 | <a href="#arrays_all">`all()`</a> | Get all items from stored array. |
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
+| <a href="#arrays_sortAssoc">`sortAssoc()`</a> | Sorts a multi-dimensional associative array by a certain field. |
 
 #### Methods Details
 
@@ -216,6 +217,29 @@ public function flush(): void
 
 ```php
 $arrays->flush();
+```
+
+##### <a name="arrays_sortAssoc"></a> Method: `sortAssoc()`
+
+```php
+/**
+ * Sorts a multi-dimensional associative array by a certain field.
+ *
+ * @param  string $field      The name of the field path
+ * @param  string $direction  Order type DESC (descending) or ASC (ascending)
+ * @param  const  $sort_flags A PHP sort method flags.
+ */
+public function sortAssoc(string $field, string $direction = 'ASC', $sort_flags = SORT_REGULAR): self
+```
+
+**Examples**
+
+```php
+$result = Arrays::create([1 => ['title' => 'Post 2'],
+                          0 => ['title' => 'Post 1']])->sortAssoc('title', 'ASC')->all();
+
+$result = Arrays::create([1 => ['title' => 'Post 2'],
+                          0 => ['title' => 'Post 1']])->sortAssoc('title', 'DESC')->all();
 ```
 
 ### Tests

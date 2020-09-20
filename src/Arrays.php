@@ -5,12 +5,24 @@ declare(strict_types=1);
 namespace Atomastic\Arrays;
 
 use function array_merge;
+use function array_reverse;
 use function array_shift;
+use function arsort;
+use function asort;
 use function count;
 use function explode;
+use function function_exists;
 use function is_array;
 use function is_null;
+use function mb_strtolower;
+use function natsort;
+use function print_r;
 use function strpos;
+use function strtolower;
+use function strval;
+
+use const SORT_NATURAL;
+use const SORT_REGULAR;
 
 class Arrays
 {
@@ -249,7 +261,44 @@ class Arrays
     }
 
     /**
-     *  Get all itmes from stored array.
+     * Sorts a multi-dimensional associative array by a certain field.
+     *
+     * @param  string $field      The name of the field path
+     * @param  string $direction  Order type DESC (descending) or ASC (ascending)
+     * @param  const  $sort_flags A PHP sort method flags.
+     */
+    public function sortAssoc(string $field, string $direction = 'ASC', $sort_flags = SORT_REGULAR): self
+    {
+        $array = $this->items;
+
+        if (count($array) <= 0) {
+            return self;
+        }
+
+        foreach ($array as $key => $row) {
+            $helper[$key] = function_exists('mb_strtolower') ? mb_strtolower(strval(static::create($row)->get($field))) : strtolower(strval(static::create($row)->get($field)));
+        }
+
+        if ($sort_flags === SORT_NATURAL) {
+            natsort($helper);
+            ($direction === 'DESC') and $helper = array_reverse($helper);
+        } elseif ($direction === 'DESC') {
+            arsort($helper, $sort_flags);
+        } else {
+            asort($helper, $sort_flags);
+        }
+
+        foreach ($helper as $key => $val) {
+            $result[$key] = $array[$key];
+        }
+
+        $this->items = $result;
+
+        return $this;
+    }
+
+    /**
+     *  Get all items from stored array.
      */
     public function all(): array
     {
