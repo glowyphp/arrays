@@ -40,7 +40,7 @@ $arrays = arrays();
 
 | Method | Description |
 |---|---|
-| <a href="#arrays_create">`create()`</a> | Create a new arrayable object from the given elements. Initializes a Arrays object and assigns $elements the supplied values. |
+| <a href="#arrays_create">`create()`</a> | Create a new arrayable object from the given elements. Initializes a Arrays object and assigns $items the supplied values. |
 | <a href="#arrays_set">`set()`</a> | Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced. |
 | <a href="#arrays_get">`get()`</a> | Get an item from an array using "dot" notation. |
 | <a href="#arrays_has">`has()`</a> | Checks if the given dot-notated key exists in the array. |
@@ -60,11 +60,11 @@ $arrays = arrays();
 /**
  * Create a new arrayable object from the given elements.
  *
- * Initializes a Arrays object and assigns $elements the supplied values.
+ * Initializes a Arrays object and assigns $items the supplied values.
  *
- * @param mixed $elements Elements
+ * @param mixed $items Elements
  */
-public static function create(array $elements = []): Arrays
+public static function create(array $items = []): Arrays
 ```
 
 **Examples**
