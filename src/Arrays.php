@@ -50,7 +50,8 @@ class Arrays
      *
      * If no key is given to the method, the entire array will be replaced.
      *
-     * @param  mixed $value
+     * @param  string $key   Key
+     * @param  mixed  $value Value
      */
     public function set(string $key, $value): self
     {
@@ -78,15 +79,13 @@ class Arrays
 
         $array[array_shift($segments)] = $value;
 
-        //$this->elements = $array;
-
         return $this;
     }
 
     /**
      * Checks if the given dot-notated key exists in the array.
      *
-     * @param  string|array $keys
+     * @param  string|array $keys Keys
      */
     public function has($keys): bool
     {
@@ -157,7 +156,7 @@ class Arrays
     /**
      * Deletes an array value using "dot notation".
      *
-     * @param  array|string $keys
+     * @param  array|string $keys Keys
      */
     public function delete($keys): self
     {
