@@ -117,9 +117,7 @@ public function get($key, $default = null)
 **Examples**
 
 ```php
-$arrays->set('movies.the-thin-red-line.title', 'The Thin Red Line');
-
-$arrays->get('movies.the-thin-red-line.title'); // 'The Thin Red Line'
+$title = $arrays->get('movies.the-thin-red-line.title');
 ```
 
 ##### <a name="arrays_has"></a> Method: `has()`
