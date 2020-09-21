@@ -118,6 +118,8 @@ public function get($key, $default = null)
 
 ```php
 $arrays->set('movies.the-thin-red-line.title', 'The Thin Red Line');
+
+$arrays->get('movies.the-thin-red-line.title'); // 'The Thin Red Line'
 ```
 
 ##### <a name="arrays_has"></a> Method: `has()`
