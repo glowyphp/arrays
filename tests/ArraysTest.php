@@ -1,42 +1,50 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Atomastic\Arrays\Arrays;
 
-test('test create() method', function() {
+test('test create() method', function (): void {
     $this->assertEquals(new Arrays(), Arrays::create());
 });
 
-test('test arrays() helper', function() {
+test('test arrays() helper', function (): void {
     $this->assertEquals(Arrays::create(), arrays());
 });
 
-test('test all() method', function() {
+test('test all() method', function (): void {
     $this->assertEquals(['SG-1', 'SG-2'], Arrays::create(['SG-1', 'SG-2'])->all());
 });
 
-test('test set() method', function() {
-    $this->assertEquals(['stars' => ['Jack', 'Daniel', 'Sam']],
-                        Arrays::create([])->set('stars', ['Jack', 'Daniel', 'Sam'])->all());
+test('test set() method', function (): void {
+    $this->assertEquals(
+        ['stars' => ['Jack', 'Daniel', 'Sam']],
+        Arrays::create([])->set('stars', ['Jack', 'Daniel', 'Sam'])->all()
+    );
 });
 
-test('test get() method', function() {
-    $this->assertEquals(['Jack', 'Daniel', 'Sam'],
-                        Arrays::create(['stars' => ['Jack', 'Daniel', 'Sam']])->get('stars'));
-    $this->assertEquals(['Jack', 'Daniel', 'Sam'],
-                        Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->get('film.stars'));
-    $this->assertEquals(['test'],
-                        Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->get('film.scores', ['test']));
+test('test get() method', function (): void {
+    $this->assertEquals(
+        ['Jack', 'Daniel', 'Sam'],
+        Arrays::create(['stars' => ['Jack', 'Daniel', 'Sam']])->get('stars')
+    );
+    $this->assertEquals(
+        ['Jack', 'Daniel', 'Sam'],
+        Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->get('film.stars')
+    );
+    $this->assertEquals(
+        ['test'],
+        Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->get('film.scores', ['test'])
+    );
 });
 
-test('test has() method', function() {
+test('test has() method', function (): void {
     $this->assertTrue(Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam'], 'score' => ['5', '4']]])->has(['film.stars', 'film.score']));
     $this->assertTrue(Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->has('film.stars'));
     $this->assertFalse(Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->has('film.scores'));
 });
 
-test('test delete() method', function() {
+test('test delete() method', function (): void {
     $array = Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]]);
     $array->delete('film.stars');
     $this->assertFalse($array->has('film.stars'));
@@ -47,94 +55,109 @@ test('test delete() method', function() {
     $this->assertFalse($array->has(['film.stars', 'film.score']));
 });
 
-test('test dot() method', function() {
-    $this->assertEquals([
-                            'movies.the_thin_red_line.title' => 'The Thin Red Line',
-                            'movies.the_thin_red_line.directed_by' => 'Terrence Malick',
-                            'movies.the_thin_red_line.produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
-                            'movies.the_thin_red_line.decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
-                         ],
-                    Arrays::create([
-                                    'movies' => [
-                                        'the_thin_red_line' => [
-                                            'title' => 'The Thin Red Line',
-                                            'directed_by' => 'Terrence Malick',
-                                            'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
-                                            'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
-                                        ],
-                                    ],
-                                 ])->dot()->all());
+test('test dot() method', function (): void {
+    $this->assertEquals(
+        [
+            'movies.the_thin_red_line.title' => 'The Thin Red Line',
+            'movies.the_thin_red_line.directed_by' => 'Terrence Malick',
+            'movies.the_thin_red_line.produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+            'movies.the_thin_red_line.decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+        ],
+        Arrays::create([
+            'movies' => [
+                'the_thin_red_line' => [
+                    'title' => 'The Thin Red Line',
+                    'directed_by' => 'Terrence Malick',
+                    'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                    'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+                ],
+            ],
+        ])->dot()->all()
+    );
 });
 
-test('test undot() method', function() {
-    $this->assertEquals([
-                            'movies' => [
-                               'the_thin_red_line' => [
-                                   'title' => 'The Thin Red Line',
-                                   'directed_by' => 'Terrence Malick',
-                                   'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
-                                   'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
-                               ],
-                            ],
-                        ],
-                    Arrays::create([
-                                        'movies.the_thin_red_line.title' => 'The Thin Red Line',
-                                        'movies.the_thin_red_line.directed_by' => 'Terrence Malick',
-                                        'movies.the_thin_red_line.produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
-                                        'movies.the_thin_red_line.decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
-                                    ])->undot()->all());
+test('test undot() method', function (): void {
+    $this->assertEquals(
+        [
+            'movies' => [
+                'the_thin_red_line' => [
+                    'title' => 'The Thin Red Line',
+                    'directed_by' => 'Terrence Malick',
+                    'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                    'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+                ],
+            ],
+        ],
+        Arrays::create([
+            'movies.the_thin_red_line.title' => 'The Thin Red Line',
+            'movies.the_thin_red_line.directed_by' => 'Terrence Malick',
+            'movies.the_thin_red_line.produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+            'movies.the_thin_red_line.decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+        ])->undot()->all()
+    );
 });
 
 
-test('test flush() method', function() {
+test('test flush() method', function (): void {
     $arrays = Arrays::create()->set('stars', ['Jack', 'Daniel', 'Sam']);
     $arrays->flush();
     $this->assertEquals([], $arrays->all());
 });
 
-test('test sort() method', function() {
+test('test sort() method', function (): void {
     // Default
-    $arrays_original = [0 => ['title' => 'Post 1'],
-                        1 => ['title' => 'Post 2']];
+    $arrays_original = [
+        0 => ['title' => 'Post 1'],
+        1 => ['title' => 'Post 2'],
+    ];
 
-    $arrays_result = Arrays::create([1 => ['title' => 'Post 2'],
-                                     0 => ['title' => 'Post 1']])->sortAssoc('title')->all();
+    $arrays_result = Arrays::create([
+        1 => ['title' => 'Post 2'],
+        0 => ['title' => 'Post 1'],
+    ])->sortAssoc('title')->all();
 
-    $array_equal = function($a, $b) {
+    $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
     };
 
     $this->assertTrue($array_equal($arrays_original, $arrays_result));
 
     // SORT ASC
-    $arrays_original = [0 => ['title' => 'Post 1'],
-                        1 => ['title' => 'Post 2']];
+    $arrays_original = [
+        0 => ['title' => 'Post 1'],
+        1 => ['title' => 'Post 2'],
+    ];
 
-    $arrays_result = Arrays::create([1 => ['title' => 'Post 2'],
-                                     0 => ['title' => 'Post 1']])->sortAssoc('title', 'ASC')->all();
+    $arrays_result = Arrays::create([
+        1 => ['title' => 'Post 2'],
+        0 => ['title' => 'Post 1'],
+    ])->sortAssoc('title', 'ASC')->all();
 
-    $array_equal = function($a, $b) {
+    $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
     };
 
     $this->assertTrue($array_equal($arrays_original, $arrays_result));
 
     // SORT DESC
-    $arrays_original = [1 => ['title' => 'Post 2'],
-                        0 => ['title' => 'Post 1']];
+    $arrays_original = [
+        1 => ['title' => 'Post 2'],
+        0 => ['title' => 'Post 1'],
+    ];
 
-    $arrays_result = Arrays::create([1 => ['title' => 'Post 2'],
-                                     0 => ['title' => 'Post 1']])->sortAssoc('title', 'DESC')->all();
+    $arrays_result = Arrays::create([
+        1 => ['title' => 'Post 2'],
+        0 => ['title' => 'Post 1'],
+    ])->sortAssoc('title', 'DESC')->all();
 
-    $array_equal = function($a, $b) {
+    $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
     };
 
     $this->assertTrue($array_equal($arrays_original, $arrays_result));
-
 });
 
-test('test count() method', function() {
+test('test count() method', function (): void {
     $this->assertEquals(3, Arrays::create(['Jack', 'Daniel', 'Sam'])->count());
     $this->assertEquals(1, Arrays::create(['names' => ['Jack', 'Daniel', 'Sam']])->count());
     $this->assertEquals(2, Arrays::create(['names' => ['Jack', 'Daniel', 'Sam'], 'tags' => ['star', 'movie']])->count('tags'));

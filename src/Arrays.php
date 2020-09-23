@@ -16,7 +16,6 @@ use function is_array;
 use function is_null;
 use function mb_strtolower;
 use function natsort;
-use function print_r;
 use function strpos;
 use function strtolower;
 use function strval;
@@ -263,11 +262,11 @@ class Arrays
     /**
      * Sorts a multi-dimensional associative array by a certain field.
      *
-     * @param  string $field      The name of the field path
-     * @param  string $direction  Order type DESC (descending) or ASC (ascending)
-     * @param  const  $sort_flags A PHP sort method flags.
+     * @param  string $field     The name of the field path
+     * @param  string $direction Order type DESC (descending) or ASC (ascending)
+     * @param  const  $sortFlags A PHP sort method flags.
      */
-    public function sortAssoc(string $field, string $direction = 'ASC', $sort_flags = SORT_REGULAR): self
+    public function sortAssoc(string $field, string $direction = 'ASC', $sortFlags = SORT_REGULAR): self
     {
         $array = $this->items;
 
@@ -279,13 +278,13 @@ class Arrays
             $helper[$key] = function_exists('mb_strtolower') ? mb_strtolower(strval(static::create($row)->get($field))) : strtolower(strval(static::create($row)->get($field)));
         }
 
-        if ($sort_flags === SORT_NATURAL) {
+        if ($sortFlags === SORT_NATURAL) {
             natsort($helper);
             ($direction === 'DESC') and $helper = array_reverse($helper);
         } elseif ($direction === 'DESC') {
-            arsort($helper, $sort_flags);
+            arsort($helper, $sortFlags);
         } else {
-            asort($helper, $sort_flags);
+            asort($helper, $sortFlags);
         }
 
         foreach ($helper as $key => $val) {

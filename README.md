@@ -228,9 +228,9 @@ $arrays->flush();
  *
  * @param  string $field      The name of the field path
  * @param  string $direction  Order type DESC (descending) or ASC (ascending)
- * @param  const  $sort_flags A PHP sort method flags.
+ * @param  const  $sortFlags  A PHP sort method flags.
  */
-public function sortAssoc(string $field, string $direction = 'ASC', $sort_flags = SORT_REGULAR): self
+public function sortAssoc(string $field, string $direction = 'ASC', $sortFlags = SORT_REGULAR): self
 ```
 
 **Examples**
