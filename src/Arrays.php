@@ -297,6 +297,15 @@ class Arrays
     }
 
     /**
+     * Divide an array into two arrays.
+     * One with keys and the other with values.
+     */
+    public function divide(): array
+    {
+        return [array_keys($this->items), array_values($this->items)];
+    }
+
+    /**
      * Return the number of items in a given key.
      *
      * @param  int|string|null $key

@@ -51,6 +51,7 @@ $arrays = arrays();
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 | <a href="#arrays_sortAssoc">`sortAssoc()`</a> | Sorts a multi-dimensional associative array by a certain field. |
 | <a href="#arrays_count">`count()`</a> | Return the number of items in a given key. |
+| <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 
 #### Methods Details
 
@@ -266,6 +267,23 @@ $result = Arrays::create(['names' => ['Jack', 'Daniel', 'Sam'],
 
 $result = Arrays::create(['collection' => ['names' => ['Jack', 'Daniel', 'Sam'],
                                            'tags' => ['star', 'movie']]])->count('collection.tags');
+```
+
+
+##### <a name="arrays_divide"></a> Method: `divide()`
+
+```php
+/**
+ * Divide an array into two arrays.
+ * One with keys and the other with values.
+ */
+public function divide(): array
+```
+
+**Examples**
+
+```php
+$result = Arrays::create(['name' => 'Daniel'])->divide();
 ```
 
 ### Tests
