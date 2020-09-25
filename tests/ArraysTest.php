@@ -18,8 +18,13 @@ test('test all() method', function (): void {
 
 test('test set() method', function (): void {
     $this->assertEquals(
-        ['stars' => ['Jack', 'Daniel', 'Sam']],
-        Arrays::create([])->set('stars', ['Jack', 'Daniel', 'Sam'])->all()
+        ['movies' => ['SG-1' => ['stars' => ['Jack', 'Daniel', 'Sam']]]],
+        Arrays::create([])->set('movies', ['SG-1' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->all()
+    );
+
+    $this->assertEquals(
+        ['movies' => ['SG-1' => ['stars' => ['Jack', 'Daniel', 'Sam']]]],
+        Arrays::create([])->set('movies.SG-1.stars', ['Jack', 'Daniel', 'Sam'])->all()
     );
 });
 
@@ -30,18 +35,28 @@ test('test get() method', function (): void {
     );
     $this->assertEquals(
         ['Jack', 'Daniel', 'Sam'],
-        Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->get('film.stars')
+        Arrays::create(['movies' => ['SG-1' => ['stars' => ['Jack', 'Daniel', 'Sam']]]])->get('movies.SG-1.stars')
     );
     $this->assertEquals(
         ['test'],
-        Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->get('film.scores', ['test'])
+        Arrays::create(['movies' => ['SG-1' => ['stars' => ['Jack', 'Daniel', 'Sam']]]])->get('film.scores', ['test'])
     );
 });
 
 test('test has() method', function (): void {
-    $this->assertTrue(Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam'], 'score' => ['5', '4']]])->has(['film.stars', 'film.score']));
-    $this->assertTrue(Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->has('film.stars'));
-    $this->assertFalse(Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]])->has('film.scores'));
+    $this->assertTrue(Arrays::create(['movies' => ['SG-1' => ['stars' => ['Jack', 'Daniel', 'Sam'], 'score' => ['5', '4']]]])->has(['movies.SG-1.stars', 'movies.SG-1.score']));
+    $this->assertTrue(Arrays::create(['movies' => ['SG-1' => ['stars' => ['Jack', 'Daniel', 'Sam']]]])->has('movies.SG-1.stars'));
+    $this->assertFalse(Arrays::create(['movies' => ['SG-1' => ['Jack', 'Daniel', 'Sam']]])->has('movies.SG-1.scores'));
+
+    $this->assertTrue(Arrays::create(['movies' => [0 => ['stars' => ['Jack', 'Daniel', 'Sam']]]])->has('movies.0.stars'));
+    $this->assertFalse(Arrays::create(['movies' => [0 => ['stars' => ['Jack', 'Daniel', 'Sam']]]])->has('movies.0.scores'));
+
+    $this->assertFalse(Arrays::create([])->has([null]));
+    $this->assertTrue(Arrays::create(['' => 'foobar'])->has(''));
+    $this->assertTrue(Arrays::create(['' => 'foobar'])->has(['']));
+    $this->assertFalse(Arrays::create([''])->has(''));
+    $this->assertFalse(Arrays::create([])->has(''));
+    $this->assertFalse(Arrays::create([])->has(['']));
 });
 
 test('test delete() method', function (): void {
