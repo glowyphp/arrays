@@ -51,6 +51,7 @@ $arrays = arrays();
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 | <a href="#arrays_sortAssoc">`sortAssoc()`</a> | Sorts a multi-dimensional associative array by a certain field. |
 | <a href="#arrays_count">`count()`</a> | Return the number of items in a given key. |
+| <a href="#arrays_isEqual">`isEqual()`</a> | Check if the current array is equal to the given `$array` or not. |
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 | <a href="#arrays_toQuery">`toQuery()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 
@@ -268,6 +269,27 @@ $result = Arrays::create(['names' => ['Jack', 'Daniel', 'Sam'],
 
 $result = Arrays::create(['collection' => ['names' => ['Jack', 'Daniel', 'Sam'],
                                            'tags' => ['star', 'movie']]])->count('collection.tags');
+```
+
+##### <a name="arrays_isEqual"></a> Method: `isEqual()`
+
+```php
+/**
+ * Check if the current array is equal to the given $array or not.
+ *
+ * @param array $array Array
+ */
+public function isEqual(array $array): bool
+```
+
+**Examples**
+
+```php
+$array = Arrays::create(['foo' => 'bar']);
+
+if ($array->isEqual(['foo' => 'bar'])) {
+    // do something...
+}
 ```
 
 ##### <a name="arrays_divide"></a> Method: `divide()`

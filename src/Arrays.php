@@ -316,6 +316,16 @@ class Arrays
     }
 
     /**
+     * Check if the current array is equal to the given $array or not.
+     *
+     * @param array $array Array
+     */
+    public function isEqual(array $array): bool
+    {
+        return $this->toArray() === $array;
+    }
+
+    /**
      * Convert the array into a query string.
      */
     public function toQuery(): string

@@ -183,6 +183,12 @@ test('test divide() method', function (): void {
     $this->assertEquals([['name'], ['Daniel']], Arrays::create(['name' => 'Daniel'])->divide());
 });
 
+test('test isEqual() method', function (): void {
+    $this->assertTrue(Arrays::create([])->isEqual([]));
+    $this->assertTrue(Arrays::create(['name' => 'Daniel'])->isEqual(['name' => 'Daniel']));
+    $this->assertFalse(Arrays::create(['name' => 'Daniel'])->isEqual(['name' => 'Sam']));
+});
+
 test('test toQuery() method', function (): void {
     $this->assertEquals('', Arrays::create([])->toQuery());
     $this->assertEquals('foo=bar', Arrays::create(['foo' => 'bar'])->toQuery());
