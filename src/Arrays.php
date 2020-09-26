@@ -326,7 +326,7 @@ class Arrays
     }
 
     /**
-     * Convert the array into a query string.
+     * Convert the current array into a query string.
      */
     public function toQuery(): string
     {
@@ -339,6 +339,28 @@ class Arrays
     public function toArray(): array
     {
         return $this->items;
+    }
+
+    /**
+     * Convert the current array to JSON.
+     *
+     * @param int $options Bitmask consisting of encode options
+     * @param int $depth   Encode Depth. Set the maximum depth. Must be greater than zero.
+     */
+    public function toJson($options = 0, int $depth = 512): string
+    {
+        $options = ($options ? 0 : JSON_UNESCAPED_UNICODE)
+            | JSON_UNESCAPED_SLASHES
+            | ($options ? JSON_PRETTY_PRINT : 0)
+            | (defined('JSON_PRESERVE_ZERO_FRACTION') ? JSON_PRESERVE_ZERO_FRACTION : 0);
+
+        $result = json_encode($this->toArray(), $options, $depth);
+
+        if ($result === false) {
+            return '';
+        }
+
+        return $result;
     }
 
     /**

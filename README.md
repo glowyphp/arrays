@@ -54,6 +54,8 @@ $arrays = arrays();
 | <a href="#arrays_isEqual">`isEqual()`</a> | Check if the current array is equal to the given `$array` or not. |
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 | <a href="#arrays_toQuery">`toQuery()`</a> | Divide an array into two arrays. One with keys and the other with values. |
+| <a href="#arrays_toArray">`toArray()`</a> | Get all items from stored array and convert them to array. |
+| <a href="#arrays_toJson">`toJson()`</a> | Convert the current array to JSON. |
 
 #### Methods Details
 
@@ -336,6 +338,24 @@ public function toArray(): array
 
 ```php
 $result = Arrays::create(['foo' => 'bar', 'bar' => 'baz'])->toArray();
+```
+
+##### <a name="arrays_toJson"></a> Method: `toJson()`
+
+```php
+/**
+ * Convert the current array to JSON.
+ *
+ * @param int $options Bitmask consisting of encode options
+ * @param int $depth   Encode Depth. Set the maximum depth. Must be greater than zero.
+ */
+public function toJson($options = 0, int $depth = 512): string
+```
+
+**Examples**
+
+```php
+$result = Arrays::create(['foo' => 'bar', 'bar' => 'baz'])->toJson();
 ```
 
 ### Tests
