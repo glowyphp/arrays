@@ -119,7 +119,7 @@ test('test flush() method', function (): void {
     $this->assertEquals([], $arrays->all());
 });
 
-test('test sort() method', function (): void {
+test('test sortBy() method', function (): void {
     // Default
     $arrays_original = [
         0 => ['title' => 'Post 1'],
@@ -129,7 +129,7 @@ test('test sort() method', function (): void {
     $arrays_result = Arrays::create([
         1 => ['title' => 'Post 2'],
         0 => ['title' => 'Post 1'],
-    ])->sortAssoc('title')->all();
+    ])->sortBy('title')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -146,7 +146,7 @@ test('test sort() method', function (): void {
     $arrays_result = Arrays::create([
         1 => ['title' => 'Post 2'],
         0 => ['title' => 'Post 1'],
-    ])->sortAssoc('title', 'ASC')->all();
+    ])->sortBy('title', 'ASC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -163,7 +163,7 @@ test('test sort() method', function (): void {
     $arrays_result = Arrays::create([
         1 => ['title' => 'Post 2'],
         0 => ['title' => 'Post 1'],
-    ])->sortAssoc('title', 'DESC')->all();
+    ])->sortBy('title', 'DESC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);

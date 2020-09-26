@@ -49,7 +49,7 @@ $arrays = arrays();
 | <a href="#arrays_dot">`dot()`</a> | Flatten a multi-dimensional associative array with dots. |
 | <a href="#arrays_all">`all()`</a> | Get all items from stored array. |
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
-| <a href="#arrays_sortAssoc">`sortAssoc()`</a> | Sorts a multi-dimensional associative array by a certain field. |
+| <a href="#arrays_sortBy">`sortBy()`</a> | Sorts a multi-dimensional associative array by a certain field. |
 | <a href="#arrays_count">`count()`</a> | Return the number of items in a given key. |
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 | <a href="#arrays_isEqual">`isEqual()`</a> | Check if the current array is equal to the given `$array` or not. |
@@ -226,27 +226,28 @@ public function flush(): void
 $arrays->flush();
 ```
 
-##### <a name="arrays_sortAssoc"></a> Method: `sortAssoc()`
+##### <a name="arrays_sortBy"></a> Method: `sortBy()`
 
 ```php
 /**
  * Sorts a multi-dimensional associative array by a certain field.
  *
- * @param  string $field      The name of the field path
- * @param  string $direction  Order type DESC (descending) or ASC (ascending)
- * @param  const  $sortFlags  A PHP sort method flags.
+ * @param  string $key       The name of the key. Using "dot" notation
+ * @param  string $direction Order type DESC (descending) or ASC (ascending)
+ * @param  int    $sortFlags A PHP sort method flags.
+ *                           https://www.php.net/manual/ru/function.sort.php
  */
-public function sortAssoc(string $field, string $direction = 'ASC', $sortFlags = SORT_REGULAR): self
+public function sortBy(string $key, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
 ```
 
 **Examples**
 
 ```php
 $result = Arrays::create([1 => ['title' => 'Post 2'],
-                          0 => ['title' => 'Post 1']])->sortAssoc('title', 'ASC')->all();
+                          0 => ['title' => 'Post 1']])->sortBy('title', 'ASC')->all();
 
 $result = Arrays::create([1 => ['title' => 'Post 2'],
-                          0 => ['title' => 'Post 1']])->sortAssoc('title', 'DESC')->all();
+                          0 => ['title' => 'Post 1']])->sortBy('title', 'DESC')->all();
 ```
 
 ##### <a name="arrays_count"></a> Method: `count()`

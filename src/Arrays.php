@@ -262,11 +262,12 @@ class Arrays
     /**
      * Sorts a multi-dimensional associative array by a certain field.
      *
-     * @param  string $field     The name of the field path
+     * @param  string $key       The name of the key. Using "dot" notation
      * @param  string $direction Order type DESC (descending) or ASC (ascending)
-     * @param  const  $sortFlags A PHP sort method flags.
+     * @param  int    $sortFlags A PHP sort method flags.
+     *                           https://www.php.net/manual/ru/function.sort.php
      */
-    public function sortAssoc(string $field, string $direction = 'ASC', $sortFlags = SORT_REGULAR): self
+    public function sortBy(string $key, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
     {
         $array = $this->items;
 
@@ -274,8 +275,8 @@ class Arrays
             return self;
         }
 
-        foreach ($array as $key => $row) {
-            $helper[$key] = function_exists('mb_strtolower') ? mb_strtolower(strval(static::create($row)->get($field))) : strtolower(strval(static::create($row)->get($field)));
+        foreach ($array as $k => $row) {
+            $helper[$k] = function_exists('mb_strtolower') ? mb_strtolower(strval(static::create($row)->get($key))) : strtolower(strval(static::create($row)->get($key)));
         }
 
         if ($sortFlags === SORT_NATURAL) {
@@ -287,8 +288,8 @@ class Arrays
             asort($helper, $sortFlags);
         }
 
-        foreach ($helper as $key => $val) {
-            $result[$key] = $array[$key];
+        foreach ($helper as $k => $val) {
+            $result[$k] = $array[$k];
         }
 
         $this->items = $result;
