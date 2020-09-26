@@ -248,3 +248,15 @@ test('test pull() method', function (): void {
     $array->pull('movies.1');
     $this->assertFalse($array->has('movies.1'));
 });
+
+test('test append() method', function (): void {
+    $this->assertEquals([0 => 'foo', 1 => 'bar'], Arrays::create(['foo'])->append('bar')->toArray());
+    $this->assertEquals([0 => 'foo', 1 => ['bar']], Arrays::create(['foo'])->append(['bar'])->toArray());
+    $this->assertEquals([0 => 'foo', 1 => ['bar', 'foo']], Arrays::create(['foo'])->append(['bar', 'foo'])->toArray());
+});
+
+test('test prepend() method', function (): void {
+    $this->assertEquals([0 => 'bar', 1 => 'foo'], Arrays::create(['foo'])->prepend('bar')->toArray());
+    $this->assertEquals([0 => ['bar'], 1 => 'foo'], Arrays::create(['foo'])->prepend(['bar'])->toArray());
+    $this->assertEquals([0 => ['bar', 'foo'], 1 => 'foo'], Arrays::create(['foo'])->prepend(['bar', 'foo'])->toArray());
+});

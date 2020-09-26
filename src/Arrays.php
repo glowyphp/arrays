@@ -10,6 +10,7 @@ use function array_keys;
 use function array_merge;
 use function array_reverse;
 use function array_shift;
+use function array_unshift;
 use function array_values;
 use function array_walk_recursive;
 use function arsort;
@@ -221,6 +222,30 @@ class Arrays
         }
 
         $this->items = $array;
+
+        return $this;
+    }
+
+    /**
+     * Push an item into the end of an array.
+     *
+     * @param mixed $value The new item to append
+     */
+    function append($value = null): self
+    {
+        $this->items[] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Push an item into the beginning of an array.
+     *
+     * @param mixed $value The new item to append
+     */
+    function prepend($value = null): self
+    {
+        array_unshift($this->items, $value);
 
         return $this;
     }
