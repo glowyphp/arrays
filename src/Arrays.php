@@ -324,6 +324,14 @@ class Arrays
     }
 
     /**
+     * Get all items from stored array and convert them to array.
+     */
+    public function toArray(): array
+    {
+        return $this->items;
+    }
+
+    /**
      *  Get all items from stored array.
      */
     public function all(): array

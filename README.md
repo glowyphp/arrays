@@ -301,6 +301,21 @@ public function toQuery(): string
 $result = Arrays::create(['foo' => 'bar', 'bar' => 'baz'])->toQuery();
 ```
 
+##### <a name="arrays_toArray"></a> Method: `toArray()`
+
+```php
+/**
+ * Get all items from stored array and convert them to array.
+ */
+public function toArray(): array
+```
+
+**Examples**
+
+```php
+$result = Arrays::create(['foo' => 'bar', 'bar' => 'baz'])->toArray();
+```
+
 ### Tests
 
 Run tests
