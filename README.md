@@ -53,6 +53,7 @@ $arrays = arrays();
 | <a href="#arrays_count">`count()`</a> | Return the number of items in a given key. |
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 | <a href="#arrays_isEqual">`isEqual()`</a> | Check if the current array is equal to the given `$array` or not. |
+| <a href="#arrays_isAssoc">`isAssoc()`</a> | Determines if an array is associative. |
 | <a href="#arrays_toQuery">`toQuery()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 | <a href="#arrays_toArray">`toArray()`</a> | Get all items from stored array and convert them to array. |
 | <a href="#arrays_toJson">`toJson()`</a> | Convert the current array to JSON. |
@@ -292,6 +293,26 @@ public function isEqual(array $array): bool
 $array = Arrays::create(['foo' => 'bar']);
 
 if ($array->isEqual(['foo' => 'bar'])) {
+    // do something...
+}
+```
+
+
+##### <a name="arrays_isAssoc"></a> Method: `isAssoc()`
+
+```php
+/**
+ * Determines if an array is associative.
+ */
+public function isAssoc(): bool
+```
+
+**Examples**
+
+```php
+$array = Arrays::create(['foo' => 'bar']);
+
+if ($array->isAssoc()) {
     // do something...
 }
 ```

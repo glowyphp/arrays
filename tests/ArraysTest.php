@@ -189,6 +189,14 @@ test('test isEqual() method', function (): void {
     $this->assertFalse(Arrays::create(['name' => 'Daniel'])->isEqual(['name' => 'Sam']));
 });
 
+test('test isAssoc() method', function (): void {
+    $this->assertTrue(Arrays::create(['a' => 'a', 0 => 'b'])->isAssoc());
+    $this->assertTrue(Arrays::create([1 => 'a', 0 => 'b'])->isAssoc());
+    $this->assertTrue(Arrays::create([1 => 'a', 2 => 'b'])->isAssoc());
+    $this->assertFalse(Arrays::create([0 => 'a', 1 => 'b'])->isAssoc());
+    $this->assertFalse(Arrays::create(['a', 'b'])->isAssoc());
+});
+
 test('test toQuery() method', function (): void {
     $this->assertEquals('', Arrays::create([])->toQuery());
     $this->assertEquals('foo=bar', Arrays::create(['foo' => 'bar'])->toQuery());

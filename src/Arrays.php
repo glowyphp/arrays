@@ -327,6 +327,16 @@ class Arrays
     }
 
     /**
+     * Determines if an array is associative.
+     */
+    public function isAssoc(): bool
+    {
+        $keys = array_keys($this->toArray());
+
+        return array_keys($keys) !== $keys;
+    }
+
+    /**
      *  Get all items from stored array.
      */
     public function all(): array
