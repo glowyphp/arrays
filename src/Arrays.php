@@ -345,6 +345,50 @@ class Arrays
     }
 
     /**
+     * Get the first value from the current array.
+     */
+    public function first()
+    {
+        $key_first = $this->firstKey();
+
+        if ($key_first === null) {
+            return null;
+        }
+
+        return $this->get($key_first);
+    }
+
+    /**
+     * Get the first key from the current array.
+     */
+    public function firstKey()
+    {
+        return array_key_first($this->toArray());
+    }
+
+    /**
+     * Get the last value from the current array.
+     */
+    public function last()
+    {
+        $key_last = $this->lastKey();
+
+        if ($key_last === null) {
+            return null;
+        }
+
+        return $this->get($key_last);
+    }
+
+    /**
+     * Get the last key from the current array.
+     */
+    public function lastKey()
+    {
+        return array_key_last($this->toArray());
+    }
+
+    /**
      * Convert the current array into a query string.
      */
     public function toQuery(): string

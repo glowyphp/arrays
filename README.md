@@ -54,6 +54,10 @@ $arrays = arrays();
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 | <a href="#arrays_isEqual">`isEqual()`</a> | Check if the current array is equal to the given `$array` or not. |
 | <a href="#arrays_isAssoc">`isAssoc()`</a> | Determines if an array is associative. |
+| <a href="#arrays_first">`first()`</a> | Get the first value from the current array. |
+| <a href="#arrays_firstKey">`firstKey()`</a> | Get the first key from the current array. |
+| <a href="#arrays_last">`last()`</a> | Get the last value from the current array. |
+| <a href="#arrays_lastKey">`lastKey()`</a> | Get the last key from the current array. |
 | <a href="#arrays_toQuery">`toQuery()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 | <a href="#arrays_toArray">`toArray()`</a> | Get all items from stored array and convert them to array. |
 | <a href="#arrays_toJson">`toJson()`</a> | Convert the current array to JSON. |
@@ -331,6 +335,66 @@ public function divide(): array
 
 ```php
 $result = Arrays::create(['name' => 'Daniel'])->divide();
+```
+
+##### <a name="arrays_first"></a> Method: `first()`
+
+```php
+/**
+ * Get the first value from the current array.
+ */
+public function first()
+```
+
+**Examples**
+
+```php
+$result = Arrays::create(['SG-1', 'SG-2'])->first();
+```
+
+##### <a name="arrays_firstKey"></a> Method: `firstKey()`
+
+```php
+/**
+ * Get the first key from the current array.
+ */
+public function firstKey()
+```
+
+**Examples**
+
+```php
+$result = Arrays::create(['SG-1', 'SG-2'])->firstKey();
+```
+
+##### <a name="arrays_last"></a> Method: `last()`
+
+```php
+/**
+ * Get the last value from the current array.
+ */
+public function last()
+```
+
+**Examples**
+
+```php
+$result = Arrays::create(['SG-1', 'SG-2'])->last();
+```
+
+##### <a name="arrays_lastKey"></a> Method: `lastKey()`
+
+```php
+/**
+ * Get the last key from the current array.
+ */
+public function lastKey()
+```
+
+**Examples**
+
+```php
+$result = Arrays::create(['SG-1', 'SG-2'])->lastKey();
 ```
 
 ##### <a name="arrays_toQuery"></a> Method: `toQuery()`

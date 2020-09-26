@@ -220,3 +220,23 @@ test('test toString() method', function (): void {
     $this->assertEquals('foo1,bar1,foo2,bar2', Arrays::create(['foo1' => 'bar1', 'foo2' => 'bar2'])->toString(',', true));
     $this->assertEquals('foo1,bar1,foo2,bar2', Arrays::create(['foo1' => 'bar1 ', 'foo2' => ' bar2'])->toString(',', true, true));
 });
+
+test('test first() method', function (): void {
+    $this->assertEquals('SG-1', Arrays::create(['SG-1', 'SG-2'])->first());
+    $this->assertEquals('bar1', Arrays::create(['foo1' => 'bar1', 'foo2' => 'bar2'])->first());
+});
+
+test('test firstKey() method', function (): void {
+    $this->assertEquals(0, Arrays::create(['SG-1', 'SG-2'])->firstKey());
+    $this->assertEquals('foo1', Arrays::create(['foo1' => 'bar1', 'foo2' => 'bar2'])->firstKey());
+});
+
+test('test last() method', function (): void {
+    $this->assertEquals('SG-2', Arrays::create(['SG-1', 'SG-2'])->last());
+    $this->assertEquals('bar2', Arrays::create(['foo1' => 'bar1', 'foo2' => 'bar2'])->last());
+});
+
+test('test lastKey() method', function (): void {
+    $this->assertEquals(1, Arrays::create(['SG-1', 'SG-2'])->lastKey());
+    $this->assertEquals('foo2', Arrays::create(['foo1' => 'bar1', 'foo2' => 'bar2'])->lastKey());
+});
