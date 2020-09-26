@@ -4,22 +4,38 @@ declare(strict_types=1);
 
 namespace Atomastic\Arrays;
 
+use function array_key_first;
+use function array_key_last;
+use function array_keys;
 use function array_merge;
 use function array_reverse;
 use function array_shift;
+use function array_values;
+use function array_walk_recursive;
 use function arsort;
 use function asort;
 use function count;
+use function defined;
 use function explode;
 use function function_exists;
+use function http_build_query;
 use function is_array;
 use function is_null;
+use function json_encode;
+use function mb_strlen;
 use function mb_strtolower;
+use function mb_substr;
 use function natsort;
+use function preg_replace;
 use function strpos;
 use function strtolower;
 use function strval;
 
+use const JSON_PRESERVE_ZERO_FRACTION;
+use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
+use const PHP_QUERY_RFC3986;
 use const SORT_NATURAL;
 use const SORT_REGULAR;
 
@@ -298,19 +314,19 @@ class Arrays
     }
 
     /**
-      * Get a value from the array, and remove it.
-      *
-      * @param  string  $key     Key
-      * @param  mixed   $default Default value
-      */
-     public function pull($key, $default = null)
-     {
-         $value = $this->get($key, $default);
+     * Get a value from the array, and remove it.
+     *
+     * @param  string $key     Key
+     * @param  mixed  $default Default value
+     */
+    public function pull(string $key, $default = null)
+    {
+        $value = $this->get($key, $default);
 
-         $this->delete($key);
+        $this->delete($key);
 
-         return $value;
-     }
+        return $value;
+    }
 
     /**
      * Divide an array into two arrays.
@@ -425,7 +441,7 @@ class Arrays
      * @param int $options Bitmask consisting of encode options
      * @param int $depth   Encode Depth. Set the maximum depth. Must be greater than zero.
      */
-    public function toJson($options = 0, int $depth = 512): string
+    public function toJson(int $options = 0, int $depth = 512): string
     {
         $options = ($options ? 0 : JSON_UNESCAPED_UNICODE)
             | JSON_UNESCAPED_SLASHES
@@ -444,28 +460,27 @@ class Arrays
     /**
      * Convert the current array to string recursively implodes an array with optional key inclusion.
      *
-     * @param string  $glue         Value that glues elements together.
-     * @param bool    $includeKeys  Include keys before their values.
-     * @param bool    $trimAll      Trim ALL whitespace from string.
+     * @param string $glue        Value that glues elements together.
+     * @param bool   $includeKeys Include keys before their values.
+     * @param bool   $trimAll     Trim ALL whitespace from string.
      */
-    public function toString(string $glue = ',', $includeKeys = false, $trimAll = true): string
+    public function toString(string $glue = ',', bool $includeKeys = false, bool $trimAll = true): string
     {
         $string = '';
 
         $array = $this->toArray();
 
         // Recursively iterates array and adds key/value to glued string
-        array_walk_recursive($array, function($value, $key) use ($glue, $includeKeys, &$string)
-        {
+        array_walk_recursive($array, static function ($value, $key) use ($glue, $includeKeys, &$string): void {
             $includeKeys and $string .= $key . $glue;
-            $string .= $value . $glue;
+            $string                  .= $value . $glue;
         });
 
         // Removes last $glue from string
         mb_strlen($glue) > 0 and $string = mb_substr($string, 0, -mb_strlen($glue));
 
         // Trim ALL whitespace
-        $trimAll and $string = preg_replace("/(\s)/ixsm", '', $string);
+        $trimAll and $string = preg_replace('/(\s)/ixsm', '', $string);
 
         return $string;
     }
