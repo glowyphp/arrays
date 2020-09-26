@@ -50,6 +50,7 @@ $arrays = arrays();
 | <a href="#arrays_all">`all()`</a> | Get all items from stored array. |
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 | <a href="#arrays_sortBy">`sortBy()`</a> | Sorts a multi-dimensional associative array by a certain field. |
+| <a href="#arrays_pull">`pull()`</a> | Get a value from the array, and remove it. |
 | <a href="#arrays_count">`count()`</a> | Return the number of items in a given key. |
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 | <a href="#arrays_isEqual">`isEqual()`</a> | Check if the current array is equal to the given `$array` or not. |
@@ -253,6 +254,24 @@ $result = Arrays::create([1 => ['title' => 'Post 2'],
 
 $result = Arrays::create([1 => ['title' => 'Post 2'],
                           0 => ['title' => 'Post 1']])->sortBy('title', 'DESC')->all();
+```
+
+##### <a name="arrays_pull"></a> Method: `pull()`
+
+```php
+/**
+ * Get a value from the array, and remove it.
+ *
+ * @param  string  $key     Key
+ * @param  mixed   $default Default value
+ */
+public function pull($key, $default = null)
+```
+
+**Examples**
+
+```php
+$result = Arrays::create(['movies' => ['SG-1', 'Mulan']])->pull('movies.1');
 ```
 
 ##### <a name="arrays_count"></a> Method: `count()`

@@ -131,7 +131,7 @@ class Arrays
      * Get an item from an array using "dot" notation.
      *
      * @param  string|int|null $key     Key
-     * @param  mixed           $default Default
+     * @param  mixed           $default Default value
      */
     public function get($key, $default = null)
     {
@@ -296,6 +296,21 @@ class Arrays
 
         return $this;
     }
+
+    /**
+      * Get a value from the array, and remove it.
+      *
+      * @param  string  $key     Key
+      * @param  mixed   $default Default value
+      */
+     public function pull($key, $default = null)
+     {
+         $value = $this->get($key, $default);
+
+         $this->delete($key);
+
+         return $value;
+     }
 
     /**
      * Divide an array into two arrays.

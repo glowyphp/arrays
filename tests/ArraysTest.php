@@ -240,3 +240,11 @@ test('test lastKey() method', function (): void {
     $this->assertEquals(1, Arrays::create(['SG-1', 'SG-2'])->lastKey());
     $this->assertEquals('foo2', Arrays::create(['foo1' => 'bar1', 'foo2' => 'bar2'])->lastKey());
 });
+
+test('test pull() method', function (): void {
+    $array = Arrays::create(['movies' => ['SG-1', 'Mulan']]);
+    $this->assertTrue($array->has('movies.1'));
+
+    $array->pull('movies.1');
+    $this->assertFalse($array->has('movies.1'));
+});
