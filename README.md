@@ -56,6 +56,7 @@ $arrays = arrays();
 | <a href="#arrays_toQuery">`toQuery()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 | <a href="#arrays_toArray">`toArray()`</a> | Get all items from stored array and convert them to array. |
 | <a href="#arrays_toJson">`toJson()`</a> | Convert the current array to JSON. |
+| <a href="#arrays_toString">`toString()`</a> | Convert the current array to JSON. |
 
 #### Methods Details
 
@@ -356,6 +357,25 @@ public function toJson($options = 0, int $depth = 512): string
 
 ```php
 $result = Arrays::create(['foo' => 'bar', 'bar' => 'baz'])->toJson();
+```
+
+##### <a name="arrays_toString"></a> Method: `toString()`
+
+```php
+/**
+ * Convert the current array to string recursively implodes an array with optional key inclusion.
+ *
+ * @param string  $glue         Value that glues elements together.
+ * @param bool    $includeKeys  Include keys before their values.
+ * @param bool    $trimAll      Trim ALL whitespace from string.
+ */
+public function toString(string $glue = ',', $includeKeys = false, $trimAll = true): string
+```
+
+**Examples**
+
+```php
+$result = Arrays::create(['foo' => 'bar', 'bar' => 'baz'])->toString();
 ```
 
 ### Tests

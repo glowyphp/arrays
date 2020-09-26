@@ -206,3 +206,9 @@ test('test toJson() method', function (): void {
     $this->assertEquals('["SG-1","SG-2"]', Arrays::create(['SG-1', 'SG-2'])->toJson());
     $this->assertEquals('{"foo":"bar","bar":"baz"}', Arrays::create(['foo' => 'bar', 'bar' => 'baz'])->toJson());
 });
+
+test('test toString() method', function (): void {
+    $this->assertEquals('SG-1,SG-2', Arrays::create(['SG-1', 'SG-2'])->toString());
+    $this->assertEquals('foo1,bar1,foo2,bar2', Arrays::create(['foo1' => 'bar1', 'foo2' => 'bar2'])->toString(',', true));
+    $this->assertEquals('foo1,bar1,foo2,bar2', Arrays::create(['foo1' => 'bar1 ', 'foo2' => ' bar2'])->toString(',', true, true));
+});

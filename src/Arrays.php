@@ -364,6 +364,35 @@ class Arrays
     }
 
     /**
+     * Convert the current array to string recursively implodes an array with optional key inclusion.
+     *
+     * @param string  $glue         Value that glues elements together.
+     * @param bool    $includeKeys  Include keys before their values.
+     * @param bool    $trimAll      Trim ALL whitespace from string.
+     */
+    public function toString(string $glue = ',', $includeKeys = false, $trimAll = true): string
+    {
+        $string = '';
+
+        $array = $this->toArray();
+
+        // Recursively iterates array and adds key/value to glued string
+        array_walk_recursive($array, function($value, $key) use ($glue, $includeKeys, &$string)
+        {
+            $includeKeys and $string .= $key . $glue;
+            $string .= $value . $glue;
+        });
+
+        // Removes last $glue from string
+        mb_strlen($glue) > 0 and $string = mb_substr($string, 0, -mb_strlen($glue));
+
+        // Trim ALL whitespace
+        $trimAll and $string = preg_replace("/(\s)/ixsm", '', $string);
+
+        return $string;
+    }
+
+    /**
      *  Get all items from stored array.
      */
     public function all(): array
