@@ -182,3 +182,12 @@ test('test count() method', function (): void {
 test('test divide() method', function (): void {
     $this->assertEquals([['name'], ['Daniel']], Arrays::create(['name' => 'Daniel'])->divide());
 });
+
+test('test toQuery() method', function (): void {
+    $this->assertEquals('', Arrays::create([])->toQuery());
+    $this->assertEquals('foo=bar', Arrays::create(['foo' => 'bar'])->toQuery());
+    $this->assertEquals('foo=bar&bar=baz', Arrays::create(['foo' => 'bar', 'bar' => 'baz'])->toQuery());
+    $this->assertEquals('foo=bar&bar=1', Arrays::create(['foo' => 'bar', 'bar' => true])->toQuery());
+    $this->assertEquals('foo=bar', Arrays::create(['foo' => 'bar', 'bar' => null])->toQuery());
+    $this->assertEquals('foo=bar&bar=', Arrays::create(['foo' => 'bar', 'bar' => ''])->toQuery());
+});

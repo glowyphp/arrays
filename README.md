@@ -52,6 +52,7 @@ $arrays = arrays();
 | <a href="#arrays_sortAssoc">`sortAssoc()`</a> | Sorts a multi-dimensional associative array by a certain field. |
 | <a href="#arrays_count">`count()`</a> | Return the number of items in a given key. |
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
+| <a href="#arrays_toQuery">`toQuery()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 
 #### Methods Details
 
@@ -269,7 +270,6 @@ $result = Arrays::create(['collection' => ['names' => ['Jack', 'Daniel', 'Sam'],
                                            'tags' => ['star', 'movie']]])->count('collection.tags');
 ```
 
-
 ##### <a name="arrays_divide"></a> Method: `divide()`
 
 ```php
@@ -284,6 +284,21 @@ public function divide(): array
 
 ```php
 $result = Arrays::create(['name' => 'Daniel'])->divide();
+```
+
+##### <a name="arrays_toQuery"></a> Method: `toQuery()`
+
+```php
+/**
+ * Convert the array into a query string.
+ */
+public function toQuery(): string
+```
+
+**Examples**
+
+```php
+$result = Arrays::create(['foo' => 'bar', 'bar' => 'baz'])->toQuery();
 ```
 
 ### Tests

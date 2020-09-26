@@ -316,6 +316,14 @@ class Arrays
     }
 
     /**
+     * Convert the array into a query string.
+     */
+    public function toQuery(): string
+    {
+        return http_build_query($this->items, '', '&', PHP_QUERY_RFC3986);
+    }
+
+    /**
      *  Get all items from stored array.
      */
     public function all(): array
