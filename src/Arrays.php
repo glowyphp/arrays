@@ -326,6 +326,14 @@ class Arrays
     }
 
     /**
+     *  Get all items from stored array.
+     */
+    public function all(): array
+    {
+        return $this->items;
+    }
+
+    /**
      * Convert the current array into a query string.
      */
     public function toQuery(): string
@@ -390,13 +398,5 @@ class Arrays
         $trimAll and $string = preg_replace("/(\s)/ixsm", '', $string);
 
         return $string;
-    }
-
-    /**
-     *  Get all items from stored array.
-     */
-    public function all(): array
-    {
-        return $this->items;
     }
 }
