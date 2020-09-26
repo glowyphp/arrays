@@ -273,7 +273,7 @@ public function pull($key, $default = null)
 **Examples**
 
 ```php
-$result = Arrays::create(['movies' => ['SG-1', 'Mulan']])->pull('movies.1');
+$arrays->pull('movies.the-thin-red-line');
 ```
 
 ##### <a name="arrays_count"></a> Method: `count()`
@@ -290,15 +290,7 @@ public function count($key = null): int
 **Examples**
 
 ```php
-$result = Arrays::create(['Jack', 'Daniel', 'Sam'])->count();
-
-$result = Arrays::create(['names' => ['Jack', 'Daniel', 'Sam']])->count();
-
-$result = Arrays::create(['names' => ['Jack', 'Daniel', 'Sam'],
-                          'tags' => ['star', 'movie']])->count('tags');
-
-$result = Arrays::create(['collection' => ['names' => ['Jack', 'Daniel', 'Sam'],
-                                           'tags' => ['star', 'movie']]])->count('collection.tags');
+$total = $arrays->count();
 ```
 
 ##### <a name="arrays_isEqual"></a> Method: `isEqual()`
@@ -315,9 +307,7 @@ public function isEqual(array $array): bool
 **Examples**
 
 ```php
-$array = Arrays::create(['foo' => 'bar']);
-
-if ($array->isEqual(['foo' => 'bar'])) {
+if ($arrays->isEqual($array2)) {
     // do something...
 }
 ```
@@ -335,9 +325,7 @@ public function isAssoc(): bool
 **Examples**
 
 ```php
-$array = Arrays::create(['foo' => 'bar']);
-
-if ($array->isAssoc()) {
+if ($arrays->isAssoc()) {
     // do something...
 }
 ```
@@ -355,7 +343,7 @@ public function divide(): array
 **Examples**
 
 ```php
-$result = Arrays::create(['name' => 'Daniel'])->divide();
+$result = $arrays->divide();
 ```
 
 ##### <a name="arrays_first"></a> Method: `first()`
@@ -370,7 +358,7 @@ public function first()
 **Examples**
 
 ```php
-$result = Arrays::create(['SG-1', 'SG-2'])->first();
+$result = $arrays->first();
 ```
 
 ##### <a name="arrays_firstKey"></a> Method: `firstKey()`
@@ -385,7 +373,7 @@ public function firstKey()
 **Examples**
 
 ```php
-$result = Arrays::create(['SG-1', 'SG-2'])->firstKey();
+$result = $arrays->firstKey();
 ```
 
 ##### <a name="arrays_last"></a> Method: `last()`
@@ -400,7 +388,7 @@ public function last()
 **Examples**
 
 ```php
-$result = Arrays::create(['SG-1', 'SG-2'])->last();
+$result = $arrays->last();
 ```
 
 ##### <a name="arrays_lastKey"></a> Method: `lastKey()`
@@ -415,7 +403,7 @@ public function lastKey()
 **Examples**
 
 ```php
-$result = Arrays::create(['SG-1', 'SG-2'])->lastKey();
+$result = $arrays->lastKey();
 ```
 
 ##### <a name="arrays_toQuery"></a> Method: `toQuery()`
@@ -430,7 +418,7 @@ public function toQuery(): string
 **Examples**
 
 ```php
-$result = Arrays::create(['foo' => 'bar', 'bar' => 'baz'])->toQuery();
+$result = $arrays->toQuery();
 ```
 
 ##### <a name="arrays_toArray"></a> Method: `toArray()`
@@ -445,7 +433,7 @@ public function toArray(): array
 **Examples**
 
 ```php
-$result = Arrays::create(['foo' => 'bar', 'bar' => 'baz'])->toArray();
+$result = $arrays->toArray();
 ```
 
 ##### <a name="arrays_toJson"></a> Method: `toJson()`
@@ -463,7 +451,7 @@ public function toJson($options = 0, int $depth = 512): string
 **Examples**
 
 ```php
-$result = Arrays::create(['foo' => 'bar', 'bar' => 'baz'])->toJson();
+$result = $arrays->toJson();
 ```
 
 ##### <a name="arrays_toString"></a> Method: `toString()`
@@ -482,7 +470,7 @@ public function toString(string $glue = ',', $includeKeys = false, $trimAll = tr
 **Examples**
 
 ```php
-$result = Arrays::create(['foo' => 'bar', 'bar' => 'baz'])->toString();
+$result = $arrays->toString();
 ```
 
 ### Tests
