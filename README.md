@@ -40,31 +40,32 @@ $arrays = arrays();
 
 | Method | Description |
 |---|---|
-| <a href="#arrays_create">`create()`</a> | Create a new arrayable object from the given elements. Initializes a Arrays object and assigns $items the supplied values. |
-| <a href="#arrays_set">`set()`</a> | Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced. |
-| <a href="#arrays_get">`get()`</a> | Get an item from an array using "dot" notation. |
-| <a href="#arrays_has">`has()`</a> | Checks if the given dot-notated key exists in the array. |
-| <a href="#arrays_delete">`delete()`</a> | Deletes an array value using "dot notation".|
-| <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
-| <a href="#arrays_dot">`dot()`</a> | Flatten a multi-dimensional associative array with dots. |
 | <a href="#arrays_append">`append()`</a> | Push an item into the end of an array. |
-| <a href="#arrays_prepend">`prepend()`</a> | Push an item into the beginning of an array. |
 | <a href="#arrays_all">`all()`</a> | Get all items from stored array. |
-| <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
-| <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
-| <a href="#arrays_pull">`pull()`</a> | Get a value from the array, and remove it. |
 | <a href="#arrays_count">`count()`</a> | Return the number of items in a given key. |
+| <a href="#arrays_create">`create()`</a> | Create a new arrayable object from the given elements. Initializes a Arrays object and assigns $items the supplied values. |
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
-| <a href="#arrays_isEqual">`isEqual()`</a> | Check if the current array is equal to the given `$array` or not. |
-| <a href="#arrays_isAssoc">`isAssoc()`</a> | Determines if an array is associative. |
+| <a href="#arrays_dot">`dot()`</a> | Flatten a multi-dimensional associative array with dots. |
+| <a href="#arrays_delete">`delete()`</a> | Deletes an array value using "dot notation".|
+| <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 | <a href="#arrays_first">`first()`</a> | Get the first value from the current array. |
 | <a href="#arrays_firstKey">`firstKey()`</a> | Get the first key from the current array. |
+| <a href="#arrays_get">`get()`</a> | Get an item from an array using "dot" notation. |
+| <a href="#arrays_has">`has()`</a> | Checks if the given dot-notated key exists in the array. |
+| <a href="#arrays_prepend">`prepend()`</a> | Push an item into the beginning of an array. |
+| <a href="#arrays_pull">`pull()`</a> | Get a value from the array, and remove it. |
 | <a href="#arrays_last">`last()`</a> | Get the last value from the current array. |
 | <a href="#arrays_lastKey">`lastKey()`</a> | Get the last key from the current array. |
-| <a href="#arrays_toQuery">`toQuery()`</a> | Convert the current array into a query string. |
+| <a href="#arrays_isEqual">`isEqual()`</a> | Check if the current array is equal to the given `$array` or not. |
+| <a href="#arrays_isAssoc">`isAssoc()`</a> | Determines if an array is associative. |
 | <a href="#arrays_toArray">`toArray()`</a> | Get all items from stored array and convert them to array. |
 | <a href="#arrays_toJson">`toJson()`</a> | Convert the current array to JSON. |
+| <a href="#arrays_toQuery">`toQuery()`</a> | Convert the current array into a query string. |
 | <a href="#arrays_toString">`toString()`</a> | Convert the current array to string recursively implodes an array with optional key inclusion. |
+| <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
+| <a href="#arrays_set">`set()`</a> | Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced. |
+| <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
+
 
 #### Methods Details
 
