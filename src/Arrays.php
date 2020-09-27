@@ -301,14 +301,14 @@ class Arrays
     }
 
     /**
-     * Sorts a associative array by a certain key.
+     * Sorts a associative array by a certain sub key.
      *
-     * @param  string $key       The name of the key. Using "dot" notation
+     * @param  string $subKey    The name of the sub key.
      * @param  string $direction Order type DESC (descending) or ASC (ascending)
      * @param  int    $sortFlags A PHP sort method flags.
      *                           https://www.php.net/manual/ru/function.sort.php
      */
-    public function sortByKey(string $key, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
+    public function sortBySubKey(string $subKey, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
     {
         $array = $this->items;
 
@@ -317,7 +317,7 @@ class Arrays
         }
 
         foreach ($array as $k => $row) {
-            $helper[$k] = function_exists('mb_strtolower') ? mb_strtolower(strval(static::create($row)->get($key))) : strtolower(strval(static::create($row)->get($key)));
+            $helper[$k] = function_exists('mb_strtolower') ? mb_strtolower(strval(static::create($row)->get($subKey))) : strtolower(strval(static::create($row)->get($subKey)));
         }
 
         if ($sortFlags === SORT_NATURAL) {

@@ -51,7 +51,7 @@ $arrays = arrays();
 | <a href="#arrays_prepend">`prepend()`</a> | Push an item into the beginning of an array. |
 | <a href="#arrays_all">`all()`</a> | Get all items from stored array. |
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
-| <a href="#arrays_sortByKey">`sortByKey()`</a> | Sorts a associative array by a certain field. |
+| <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
 | <a href="#arrays_pull">`pull()`</a> | Get a value from the array, and remove it. |
 | <a href="#arrays_count">`count()`</a> | Return the number of items in a given key. |
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
@@ -240,28 +240,28 @@ public function flush(): void
 $arrays->flush();
 ```
 
-##### <a name="arrays_sortByKey"></a> Method: `sortByKey()`
+##### <a name="arrays_sortBySubKey"></a> Method: `sortBySubKey()`
 
 ```php
 /**
- * Sorts a associative array by a certain key.
+ * Sorts a associative array by a certain sub key.
  *
- * @param  string $key       The name of the key. Using "dot" notation
+ * @param  string $subKey    The name of the sub key.
  * @param  string $direction Order type DESC (descending) or ASC (ascending)
  * @param  int    $sortFlags A PHP sort method flags.
  *                           https://www.php.net/manual/ru/function.sort.php
  */
-public function sortByKey(string $key, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
+public function sortBySubKey(string $subKey, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
 ```
 
 **Examples**
 
 ```php
 $result = Arrays::create([1 => ['title' => 'Post 2'],
-                          0 => ['title' => 'Post 1']])->sortByKey('title', 'ASC')->all();
+                          0 => ['title' => 'Post 1']])->sortBySubKey('title', 'ASC')->all();
 
 $result = Arrays::create([1 => ['title' => 'Post 2'],
-                          0 => ['title' => 'Post 1']])->sortByKey('title', 'DESC')->all();
+                          0 => ['title' => 'Post 1']])->sortBySubKey('title', 'DESC')->all();
 ```
 
 ##### <a name="arrays_pull"></a> Method: `pull()`
