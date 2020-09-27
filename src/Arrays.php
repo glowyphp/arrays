@@ -301,14 +301,14 @@ class Arrays
     }
 
     /**
-     * Sorts a associative array by a certain field.
+     * Sorts a associative array by a certain key.
      *
      * @param  string $key       The name of the key. Using "dot" notation
      * @param  string $direction Order type DESC (descending) or ASC (ascending)
      * @param  int    $sortFlags A PHP sort method flags.
      *                           https://www.php.net/manual/ru/function.sort.php
      */
-    public function sortBy(string $key, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
+    public function sortByKey(string $key, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
     {
         $array = $this->items;
 

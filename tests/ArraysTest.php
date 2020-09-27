@@ -119,7 +119,7 @@ test('test flush() method', function (): void {
     $this->assertEquals([], $arrays->all());
 });
 
-test('test sortBy() method', function (): void {
+test('test sortByKey() method', function (): void {
     // Default
     $arrays_original = [
         0 => ['title' => 'Post 1'],
@@ -129,7 +129,7 @@ test('test sortBy() method', function (): void {
     $arrays_result = Arrays::create([
         1 => ['title' => 'Post 2'],
         0 => ['title' => 'Post 1'],
-    ])->sortBy('title')->all();
+    ])->sortByKey('title')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -146,7 +146,7 @@ test('test sortBy() method', function (): void {
     $arrays_result = Arrays::create([
         1 => ['title' => 'Post 2'],
         0 => ['title' => 'Post 1'],
-    ])->sortBy('title', 'ASC')->all();
+    ])->sortByKey('title', 'ASC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -163,7 +163,7 @@ test('test sortBy() method', function (): void {
     $arrays_result = Arrays::create([
         1 => ['title' => 'Post 2'],
         0 => ['title' => 'Post 1'],
-    ])->sortBy('title', 'DESC')->all();
+    ])->sortByKey('title', 'DESC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -188,7 +188,7 @@ test('test sortBy() method', function (): void {
                             ]
                         ]);
     $movies = $arrays_original->get('movies');
-    $arrays_result = Arrays::create($movies)->sortBy('title', 'DESC')->all();
+    $arrays_result = Arrays::create($movies)->sortByKey('title', 'DESC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -213,13 +213,14 @@ test('test sortBy() method', function (): void {
                             ]
                         ]);
     $movies = $arrays_original->get('movies');
-    $arrays_result = Arrays::create($movies)->sortBy('title', 'ASC')->all();
+    $arrays_result = Arrays::create($movies)->sortByKey('title', 'ASC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
     };
 
     $this->assertFalse($array_equal($movies, $arrays_result));
+
 });
 
 test('test count() method', function (): void {
