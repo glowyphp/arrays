@@ -120,7 +120,7 @@ public function set(string $key, $value): self
 **Examples**
 
 ```php
-$arrays->set('movies.the-thin-red-line.title', 'The Thin Red Line');
+$arrays = Arrays::create()->set('movies.the-thin-red-line.title', 'The Thin Red Line');
 ```
 
 ##### <a name="arrays_get"></a> Method: `get()`
@@ -138,6 +138,23 @@ public function get($key, $default = null)
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ]);
+
 $title = $arrays->get('movies.the-thin-red-line.title');
 ```
 
@@ -155,6 +172,23 @@ public function has($keys): bool
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ]);
+
 if ($arrays->has('movies.the-thin-red-line')) {
     // Do something...
 }
@@ -174,6 +208,23 @@ public function delete($keys): self
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ]);
+
 $arrays->delete('movies.the-thin-red-line');
 ```
 
@@ -191,6 +242,23 @@ public function dot(string $prepend = ''): self
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ]);
+
 $arrays->dot();
 ```
 
@@ -206,6 +274,23 @@ public function undot(): self
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ]);
+
 $arrays->undot();
 ```
 
@@ -221,6 +306,23 @@ public function all(): array
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ]);
+
 foreach ($arrays->all() as $key => $value) {
     // code...
 }
@@ -238,6 +340,23 @@ public function flush(): void
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ]);
+
 $arrays->flush();
 ```
 
@@ -258,11 +377,20 @@ public function sortBySubKey(string $subKey, string $direction = 'ASC', int $sor
 **Examples**
 
 ```php
-$result = Arrays::create([1 => ['title' => 'Post 2'],
-                          0 => ['title' => 'Post 1']])->sortBySubKey('title', 'ASC')->all();
-
-$result = Arrays::create([1 => ['title' => 'Post 2'],
-                          0 => ['title' => 'Post 1']])->sortBySubKey('title', 'DESC')->all();
+$arrays = Arrays::create([
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                    ])->sortBySubKey('title', 'DESC');
 ```
 
 ##### <a name="arrays_pull"></a> Method: `pull()`
@@ -280,6 +408,23 @@ public function pull($key, $default = null)
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ]);
+
 $arrays->pull('movies.the-thin-red-line');
 ```
 
@@ -297,6 +442,23 @@ public function count($key = null): int
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ]);
+
 $total = $arrays->count();
 ```
 
@@ -314,11 +476,29 @@ public function isEqual(array $array): bool
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ]);
+
+$array2 = [];
+
 if ($arrays->isEqual($array2)) {
     // do something...
 }
 ```
-
 
 ##### <a name="arrays_isAssoc"></a> Method: `isAssoc()`
 
@@ -332,6 +512,23 @@ public function isAssoc(): bool
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ]);
+
 if ($arrays->isAssoc()) {
     // do something...
 }
@@ -350,6 +547,23 @@ public function divide(): array
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ]);
+
 $result = $arrays->divide();
 ```
 
@@ -365,6 +579,21 @@ public function first()
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                       ]);
+
 $result = $arrays->first();
 ```
 
@@ -380,6 +609,21 @@ public function firstKey()
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                       ]);
+
 $result = $arrays->firstKey();
 ```
 
@@ -395,6 +639,21 @@ public function last()
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                       ]);
+
 $result = $arrays->last();
 ```
 
@@ -410,6 +669,21 @@ public function lastKey()
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                       ]);
+
 $result = $arrays->lastKey();
 ```
 
@@ -425,6 +699,21 @@ public function toQuery(): string
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                       ]);
+                       
 $result = $arrays->toQuery();
 ```
 
@@ -440,6 +729,21 @@ public function toArray(): array
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                       ]);
+
 $result = $arrays->toArray();
 ```
 
@@ -458,6 +762,21 @@ public function toJson($options = 0, int $depth = 512): string
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                       ]);
+
 $result = $arrays->toJson();
 ```
 
@@ -477,6 +796,21 @@ public function toString(string $glue = ',', $includeKeys = false, $trimAll = tr
 **Examples**
 
 ```php
+$arrays = Arrays::create([
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                       ]);
+
 $result = $arrays->toString();
 ```
 
