@@ -445,6 +445,19 @@ class Arrays
     }
 
     /**
+     * Create a chunked version of current array.
+     *
+     * @param int  $size         Size of each chunk.
+     * @param bool $preserveKeys Whether array keys are preserved or no.
+     */
+    public function chunk($size, $preserveKeys = false)
+    {
+         $this->items = array_chunk($this->items, $size, $preserveKeys);
+
+        return $this;
+    }
+
+    /**
      * Convert the current array into a query string.
      */
     public function toQuery(): string

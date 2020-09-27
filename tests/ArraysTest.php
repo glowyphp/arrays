@@ -311,3 +311,12 @@ test('test prepend() method', function (): void {
     $this->assertEquals([0 => ['bar'], 1 => 'foo'], Arrays::create(['foo'])->prepend(['bar'])->toArray());
     $this->assertEquals([0 => ['bar', 'foo'], 1 => 'foo'], Arrays::create(['foo'])->prepend(['bar', 'foo'])->toArray());
 });
+
+test('test chunk() method', function (): void {
+    $this->assertEquals([0 => [0 => 'a', 1 => 'b']],
+                        Arrays::create(['a', 'b'])->chunk(2)->toArray());
+    $this->assertEquals([0 => [0 => 'a', 1 => 'b']],
+                        Arrays::create(['a' => 'a', 'b' => 'b'])->chunk(2)->toArray());
+    $this->assertEquals([0 => ['a' => 'a', 'b' => 'b']],
+                        Arrays::create(['a' => 'a', 'b' => 'b'])->chunk(2, true)->toArray());
+});
