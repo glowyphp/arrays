@@ -51,7 +51,7 @@ $arrays = arrays();
 | <a href="#arrays_prepend">`prepend()`</a> | Push an item into the beginning of an array. |
 | <a href="#arrays_all">`all()`</a> | Get all items from stored array. |
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
-| <a href="#arrays_sortBy">`sortBy()`</a> | Sorts a multi-dimensional associative array by a certain field. |
+| <a href="#arrays_sortBy">`sortBy()`</a> | Sorts a associative array by a certain field. |
 | <a href="#arrays_pull">`pull()`</a> | Get a value from the array, and remove it. |
 | <a href="#arrays_count">`count()`</a> | Return the number of items in a given key. |
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
@@ -91,6 +91,12 @@ $arrays = Arrays::create([
                                'directed_by' => 'Terrence Malick',
                                'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
                                'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
                            ]
                         ]
                     ]);
@@ -238,7 +244,7 @@ $arrays->flush();
 
 ```php
 /**
- * Sorts a multi-dimensional associative array by a certain field.
+ * Sorts a associative array by a certain field.
  *
  * @param  string $key       The name of the key. Using "dot" notation
  * @param  string $direction Order type DESC (descending) or ASC (ascending)

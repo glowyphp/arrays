@@ -301,7 +301,7 @@ class Arrays
     }
 
     /**
-     * Sorts a multi-dimensional associative array by a certain field.
+     * Sorts a associative array by a certain field.
      *
      * @param  string $key       The name of the key. Using "dot" notation
      * @param  string $direction Order type DESC (descending) or ASC (ascending)
@@ -313,7 +313,7 @@ class Arrays
         $array = $this->items;
 
         if (count($array) <= 0) {
-            return self;
+            return $this;
         }
 
         foreach ($array as $k => $row) {
