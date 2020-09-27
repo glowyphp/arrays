@@ -26,6 +26,16 @@ test('test set() method', function (): void {
         ['movies' => ['SG-1' => ['stars' => ['Jack', 'Daniel', 'Sam']]]],
         Arrays::create([])->set('movies.SG-1.stars', ['Jack', 'Daniel', 'Sam'])->all()
     );
+
+    $this->assertEquals(
+        ['movies' => ['SG-1' => ['stars' => ['Jack', 'Daniel', 'Sam']]]],
+        Arrays::create()->set('movies.SG-1.stars', ['Jack', 'Daniel', 'Sam'])->all()
+    );
+
+    $this->assertEquals(
+        ['movies' => ['SG-1' => ['stars' => []]]],
+        Arrays::create()->set('movies.SG-1.stars', [])->all()
+    );
 });
 
 test('test get() method', function (): void {
