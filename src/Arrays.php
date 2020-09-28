@@ -450,9 +450,21 @@ class Arrays
      * @param int  $size         Size of each chunk.
      * @param bool $preserveKeys Whether array keys are preserved or no.
      */
-    public function chunk($size, $preserveKeys = false)
+    public function chunk($size, $preserveKeys = false): self
     {
          $this->items = array_chunk($this->items, $size, $preserveKeys);
+
+        return $this;
+    }
+
+    /**
+     * Create an array using the current array as keys and the other array as values.
+     *
+     * @param array $array Values array
+     */
+    public function combine(array $array): self
+    {
+        $this->items = array_combine($this->items, $array);
 
         return $this;
     }

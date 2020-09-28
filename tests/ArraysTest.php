@@ -330,3 +330,8 @@ test('test chunk() method', function (): void {
     $this->assertEquals([0 => ['a' => 'a', 'b' => 'b']],
                         Arrays::create(['a' => 'a', 'b' => 'b'])->chunk(2, true)->toArray());
 });
+
+test('test combine() method', function (): void {
+    $this->assertEquals(['green' => 'avacado', 'red' => 'apple', 'yellow' => 'banana'],
+                        Arrays::create(['green', 'red', 'yellow'])->combine(['avacado', 'apple', 'banana'])->toArray());
+});
