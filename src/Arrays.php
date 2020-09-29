@@ -472,11 +472,23 @@ class Arrays
     /**
      * Compute the current array values which not present in the given one.
      *
-     * @param array $array Array for diff
+     * @param array $array Array for diff.
      */
     public function diff(array $array): self
     {
         $this->items = array_diff($this->items, $array);
+
+        return $this;
+    }
+
+    /**
+     * Filter the current array for elements satisfying the predicate $callback function.
+     *
+     * @param callable $callback The callback function.
+     */
+    public function filter(callable $callback): self
+    {
+        $this->items = array_filter($this->items, $callback);
 
         return $this;
     }

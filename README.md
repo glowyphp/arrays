@@ -53,6 +53,7 @@ $arrays = arrays();
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 | <a href="#arrays_first">`first()`</a> | Get the first value from the current array. |
 | <a href="#arrays_firstKey">`firstKey()`</a> | Get the first key from the current array. |
+| <a href="#arrays_filter">`filter()`</a> | Filter the current array for elements satisfying the predicate $callback function. |
 | <a href="#arrays_get">`get()`</a> | Get an item from an array using "dot" notation. |
 | <a href="#arrays_has">`has()`</a> | Checks if the given dot-notated key exists in the array. |
 | <a href="#arrays_prepend">`prepend()`</a> | Push an item into the beginning of an array. |
@@ -363,6 +364,24 @@ $arrays = Arrays::create([
 $arrays->delete('movies.the-thin-red-line');
 ```
 
+##### <a name="arrays_filter"></a> Method: `filter()`
+
+```php
+/**
+ * Filter the current array for elements satisfying the predicate $callback function.
+ *
+ * @param callable $callback The callback function.
+ */
+public function filter(callable $callback): self
+```
+
+**Examples**
+
+```php
+$arrays = Arrays::create([6, 7, 8, 9, 10, 11, 12])->filter(function($var) {
+                            return !($var & 1);
+                        })->toArray();
+```
 
 ##### <a name="arrays_flush"></a> Method: `flush()`
 
@@ -395,7 +414,6 @@ $arrays = Arrays::create([
 
 $arrays->flush();
 ```
-
 
 ##### <a name="arrays_first"></a> Method: `first()`
 

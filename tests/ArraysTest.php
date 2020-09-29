@@ -351,3 +351,10 @@ test('test shuffle() method', function (): void {
     $this->assertEquals(Arrays::create(range(0, 100, 10))->shuffle(42),
                         Arrays::create(range(0, 100, 10))->shuffle(42));
 });
+
+test('test filter() method', function (): void {
+    $this->assertEquals([0 => 6, 2 => 8, 4 => 10, 6 => 12],
+                           Arrays::create([6, 7, 8, 9, 10, 11, 12])->filter(function($var) {
+                               return !($var & 1);
+                           })->toArray());
+});
