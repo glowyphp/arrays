@@ -220,7 +220,7 @@ Array
 public function count($key = null): int
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -241,6 +241,14 @@ $arrays = Arrays::create([
                     ]);
 
 $total = $arrays->count();
+
+print_r($total);
+```
+
+##### The above example will output:
+
+```
+1
 ```
 
 ##### <a name="arrays_create"></a> Method: `create()`
