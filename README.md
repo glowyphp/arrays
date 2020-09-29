@@ -330,10 +330,23 @@ Array
 public function combine(array $array): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create(['green', 'red', 'yellow'])->combine(['avacado', 'apple', 'banana'])->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [green] => avacado
+    [red] => apple
+    [yellow] => banana
+)
 ```
 
 ##### <a name="arrays_divide"></a> Method: `divide()`
@@ -346,7 +359,7 @@ $arrays = Arrays::create(['green', 'red', 'yellow'])->combine(['avacado', 'apple
 public function divide(): array
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -367,6 +380,45 @@ $arrays = Arrays::create([
                     ]);
 
 $result = $arrays->divide();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => Array
+        (
+            [0] => movies
+        )
+
+    [1] => Array
+        (
+            [0] => Array
+                (
+                    [the_thin_red_line] => Array
+                        (
+                            [title] => The Thin Red Line
+                            [directed_by] => Terrence Malick
+                            [produced_by] => Robert Michael, Geisler Grant Hill, John Roberdeau
+                            [decription] => Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.
+                        )
+
+                    [bad_times_at_the_el_royale] => Array
+                        (
+                            [title] => Bad Times at the El Royale
+                            [directed_by] => Drew Goddard
+                            [produced_by] => Drew Goddard, Steve Asbell
+                            [decription] => Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.
+                        )
+
+                )
+
+        )
+
+)
 ```
 
 ##### <a name="arrays_diff"></a> Method: `diff()`
@@ -380,10 +432,20 @@ $result = $arrays->divide();
 public function diff(array $array): self
 ```
 
-**Examples**
+##### Example
 
 ```php
-Arrays::create(['foo', 'bar'])->diff(['foo', 'bar'])->toArray());
+$arrays = Arrays::create(['foo', 'bar'])->diff(['foo', 'bar'])->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+)
 ```
 
 ##### <a name="arrays_dot"></a> Method: `dot()`
@@ -397,7 +459,7 @@ Arrays::create(['foo', 'bar'])->diff(['foo', 'bar'])->toArray());
 public function dot(string $prepend = ''): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -418,8 +480,25 @@ $arrays = Arrays::create([
                     ]);
 
 $arrays->dot();
+
+print_r($arrays->toArray());
 ```
 
+##### The above example will output:
+
+```
+Array
+(
+    [movies.the_thin_red_line.title] => The Thin Red Line
+    [movies.the_thin_red_line.directed_by] => Terrence Malick
+    [movies.the_thin_red_line.produced_by] => Robert Michael, Geisler Grant Hill, John Roberdeau
+    [movies.the_thin_red_line.decription] => Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.
+    [movies.bad_times_at_the_el_royale.title] => Bad Times at the El Royale
+    [movies.bad_times_at_the_el_royale.directed_by] => Drew Goddard
+    [movies.bad_times_at_the_el_royale.produced_by] => Drew Goddard, Steve Asbell
+    [movies.bad_times_at_the_el_royale.decription] => Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.
+)
+```
 
 ##### <a name="arrays_delete"></a> Method: `delete()`
 
