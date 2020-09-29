@@ -1010,6 +1010,14 @@ $arrays = Arrays::create([
                        ]);
 
 $result = $arrays->lastKey();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+bad_times_at_the_el_royale
 ```
 
 ##### <a name="arrays_intersect"></a> Method: `intersect()`
@@ -1026,7 +1034,21 @@ public function intersect(array $array): self
 ##### Example
 
 ```php
-$arrays = Arrays::create(["a" => "green", "red", "blue"])->intersect(["b" => "green", "yellow", "red"])->toArray();
+$arrays = Arrays::create(["a" => "green", "red", "blue"])
+                ->intersect(["b" => "green", "yellow", "red"])
+                ->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [a] => green
+    [0] => red
+)
 ```
 
 ##### <a name="arrays_intersectAssoc"></a> Method: `intersectAssoc()`
@@ -1043,7 +1065,20 @@ public function intersectAssoc(array $array): self
 ##### Example
 
 ```php
-$arrays = Arrays::create(["a" => "green", "b" => "brown", "c" => "blue", "red"])->intersectAssoc(["a" => "green", "b" => "yellow", "blue", "red"])->toArray();
+$arrays = Arrays::create(["a" => "green", "b" => "brown", "c" => "blue", "red"])
+                ->intersectAssoc(["a" => "green", "b" => "yellow", "blue", "red"])
+                ->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [a] => green
+)
 ```
 
 ##### <a name="arrays_intersectKey"></a> Method: `intersectKey()`
@@ -1060,7 +1095,21 @@ public function intersectKey(array $array): self
 ##### Example
 
 ```php
-$arrays = Arrays::create(['blue'  => 1, 'red'  => 2, 'green'  => 3, 'purple' => 4])->intersectKey(['green' => 5, 'blue' => 6, 'yellow' => 7, 'cyan'   => 8])->toArray();
+$arrays = Arrays::create(['blue'  => 1, 'red'  => 2, 'green'  => 3, 'purple' => 4])
+                ->intersectKey(['green' => 5, 'blue' => 6, 'yellow' => 7, 'cyan' => 8])
+                ->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [blue] => 1
+    [green] => 3
+)
 ```
 
 ##### <a name="arrays_isEqual"></a> Method: `isEqual()`
@@ -1150,9 +1199,25 @@ public function map(callable $callback): self
 ##### Example
 
 ```php
-$arrays = Arrays::create([1, 2, 3, 4, 5])->map(function ($n) {
-                return ($n * $n * $n);
-            })->toArray());
+$arrays = Arrays::create([1, 2, 3, 4, 5])
+                ->map(function ($n) {
+                    return ($n * $n * $n);
+                })->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => 1
+    [1] => 8
+    [2] => 27
+    [3] => 64
+    [4] => 125
+)
 ```
 
 ##### <a name="arrays_merge"></a> Method: `merge()`
@@ -1170,9 +1235,48 @@ public function merge(array $array, bool $recursively = false): self
 ##### Example
 
 ```php
-$arrays = Arrays::create(['color' => 'red', 2, 4])->merge(['a', 'b', 'color' => 'green', 'shape' => 'trapezoid', 4])->toArray();
+$arrays = Arrays::create(['color' => 'red', 2, 4])
+                ->merge(['a', 'b', 'color' => 'green', 'shape' => 'trapezoid', 4])
+                ->toArray();
 
-$arrays = Arrays::create(['color' => ['favorite' => 'red'], 5])->merge([10, 'color' => ['favorite' => 'green', 'blue']], true)->toArray();
+$arrays2 = Arrays::create(['color' => ['favorite' => 'red'], 5])
+                 ->merge([10, 'color' => ['favorite' => 'green', 'blue']], true)
+                 ->toArray();
+
+print_r($arrays);
+print_r($arrays2);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [color] => green
+    [0] => 2
+    [1] => 4
+    [2] => a
+    [3] => b
+    [shape] => trapezoid
+    [4] => 4
+)
+
+Array
+(
+    [color] => Array
+        (
+            [favorite] => Array
+                (
+                    [0] => red
+                    [1] => green
+                )
+
+            [0] => blue
+        )
+
+    [0] => 5
+    [1] => 10
+)
 ```
 
 ##### <a name="arrays_toArray"></a> Method: `toArray()`
@@ -1203,8 +1307,33 @@ $arrays = Arrays::create([
                        ]);
 
 $result = $arrays->toArray();
+
+print_r($result);
 ```
 
+##### The above example will output:
+
+```
+Array
+(
+    [the_thin_red_line] => Array
+        (
+            [title] => The Thin Red Line
+            [directed_by] => Terrence Malick
+            [produced_by] => Robert Michael, Geisler Grant Hill, John Roberdeau
+            [decription] => Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.
+        )
+
+    [bad_times_at_the_el_royale] => Array
+        (
+            [title] => Bad Times at the El Royale
+            [directed_by] => Drew Goddard
+            [produced_by] => Drew Goddard, Steve Asbell
+            [decription] => Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.
+        )
+
+)
+```
 
 ##### <a name="arrays_toJson"></a> Method: `toJson()`
 
@@ -1237,6 +1366,14 @@ $arrays = Arrays::create([
                        ]);
 
 $result = $arrays->toJson();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+{"the_thin_red_line":{"title":"The Thin Red Line","directed_by":"Terrence Malick","produced_by":"Robert Michael, Geisler Grant Hill, John Roberdeau","decription":"Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War."},"bad_times_at_the_el_royale":{"title":"Bad Times at the El Royale","directed_by":"Drew Goddard","produced_by":"Drew Goddard, Steve Asbell","decription":"Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be."}}
 ```
 
 ##### <a name="arrays_toQuery"></a> Method: `toQuery()`
@@ -1267,6 +1404,14 @@ $arrays = Arrays::create([
                        ]);
 
 $result = $arrays->toQuery();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+the_thin_red_line%5Btitle%5D=The%20Thin%20Red%20Line&the_thin_red_line%5Bdirected_by%5D=Terrence%20Malick&the_thin_red_line%5Bproduced_by%5D=Robert%20Michael%2C%20Geisler%20Grant%20Hill%2C%20John%20Roberdeau&the_thin_red_line%5Bdecription%5D=Adaptation%20of%20James%20Jones%20autobiographical%201962%20novel%2C%20focusing%20on%20the%20conflict%20at%20Guadalcanal%20during%20the%20second%20World%20War.&bad_times_at_the_el_royale%5Btitle%5D=Bad%20Times%20at%20the%20El%20Royale&bad_times_at_the_el_royale%5Bdirected_by%5D=Drew%20Goddard&bad_times_at_the_el_royale%5Bproduced_by%5D=Drew%20Goddard%2C%20Steve%20Asbell&bad_times_at_the_el_royale%5Bdecription%5D=Early%201970s.%20Four%20strangers%20check%20in%20at%20the%20El%20Royale%20Hotel.%20The%20hotel%20is%20deserted%2C%20staffed%20by%20a%20single%20desk%20clerk.%20Some%20of%20the%20new%20guests%20reasons%20for%20being%20there%20are%20less%20than%20innocent%20and%20some%20are%20not%20who%20they%20appear%20to%20be.
 ```
 
 ##### <a name="arrays_toString"></a> Method: `toString()`
@@ -1291,16 +1436,33 @@ $arrays = Arrays::create([
                                'directed_by' => 'Terrence Malick',
                                'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
                                'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
-                           ],
-                           'bad_times_at_the_el_royale' => [
-                               'title' => 'Bad Times at the El Royale',
-                               'directed_by' => 'Drew Goddard',
-                               'produced_by' => 'Drew Goddard, Steve Asbell',
-                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
                            ]
                        ]);
 
 $result = $arrays->toString();
+
+print_r($result);
+
+$arrays2 = Arrays::create([
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ]
+                       ]);
+
+$result2 = $arrays2->toString(',', false, false);
+
+print_r($result2);
+```
+
+##### The above example will output:
+
+```
+TheThinRedLine,TerrenceMalick,RobertMichael,GeislerGrantHill,JohnRoberdeau,AdaptationofJamesJonesautobiographical1962novel,focusingontheconflictatGuadalcanalduringthesecondWorldWar.
+
+The Thin Red Line,Terrence Malick,Robert Michael, Geisler Grant Hill, John Roberdeau,Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.
 ```
 
 ##### <a name="arrays_set"></a> Method: `set()`
@@ -1353,7 +1515,33 @@ $arrays = Arrays::create([
                                'produced_by' => 'Drew Goddard, Steve Asbell',
                                'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
                            ]
-                    ])->sortBySubKey('title', 'DESC');
+                    ])->sortBySubKey('title', 'ASC');
+
+print_r($arrays->toArray());
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [bad_times_at_the_el_royale] => Array
+        (
+            [title] => Bad Times at the El Royale
+            [directed_by] => Drew Goddard
+            [produced_by] => Drew Goddard, Steve Asbell
+            [decription] => Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.
+        )
+
+    [the_thin_red_line] => Array
+        (
+            [title] => The Thin Red Line
+            [directed_by] => Terrence Malick
+            [produced_by] => Robert Michael, Geisler Grant Hill, John Roberdeau
+            [decription] => Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.
+        )
+
+)
 ```
 
 ##### <a name="arrays_shuffle"></a> Method: `shuffle()`
@@ -1371,6 +1559,21 @@ public function shuffle($seed = null): self
 
 ```php
 $arrays = Arrays::create([1, 2, 3, 4, 5])->shuffle();
+
+print_r($arrays->toArray());
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => 4
+    [1] => 3
+    [2] => 5
+    [3] => 1
+    [4] => 2
+)
 ```
 
 ##### <a name="arrays_undot"></a> Method: `undot()`
@@ -1386,23 +1589,29 @@ public function undot(): self
 
 ```php
 $arrays = Arrays::create([
-                        'movies' => [
-                           'the_thin_red_line' => [
-                               'title' => 'The Thin Red Line',
-                               'directed_by' => 'Terrence Malick',
-                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
-                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
-                           ],
-                           'bad_times_at_the_el_royale' => [
-                               'title' => 'Bad Times at the El Royale',
-                               'directed_by' => 'Drew Goddard',
-                               'produced_by' => 'Drew Goddard, Steve Asbell',
-                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
-                           ]
-                        ]
-                    ]);
+                            'movies.the_thin_red_line.title' => 'The Thin Red Line'
+                        ]);
 
 $arrays->undot();
+
+print_r($arrays->toArray());
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [movies] => Array
+        (
+            [the_thin_red_line] => Array
+                (
+                    [title] => The Thin Red Line
+                )
+
+        )
+
+)
 ```
 
 ### Tests
