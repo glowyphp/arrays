@@ -662,7 +662,7 @@ Array
 public function firstKey()
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -681,6 +681,14 @@ $arrays = Arrays::create([
                        ]);
 
 $result = $arrays->firstKey();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+the_thin_red_line
 ```
 
 ##### <a name="arrays_flip"></a> Method: `flip()`
@@ -692,10 +700,23 @@ $result = $arrays->firstKey();
 public function flip(): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create(['oranges', 'apples', 'pears'])->flip()->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [oranges] => 0
+    [apples] => 1
+    [pears] => 2
+)
 ```
 
 ##### <a name="arrays_get"></a> Method: `get()`
@@ -710,7 +731,7 @@ $arrays = Arrays::create(['oranges', 'apples', 'pears'])->flip()->toArray();
 public function get($key, $default = null)
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -730,9 +751,16 @@ $arrays = Arrays::create([
                         ]
                     ]);
 
-$title = $arrays->get('movies.the-thin-red-line.title');
+$title = $arrays->get('movies.the_thin_red_line.title');
+
+print_r($title);
 ```
 
+##### The above example will output:
+
+```
+The Thin Red Line
+```
 
 ##### <a name="arrays_has"></a> Method: `has()`
 
