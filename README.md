@@ -72,6 +72,7 @@ $arrays = arrays();
 | <a href="#arrays_map">`map()`</a> | Apply the given $callback function to the every element of the current array, collecting the results. |
 | <a href="#arrays_merge">`merge()`</a> | Merge the current array with the provided one. |
 | <a href="#arrays_reindex">`reindex()`</a> | Create a numerically re-indexed array based on the current array. |
+| <a href="#arrays_replace">`replace()`</a> | Replace values in the current array with values in the given one that have the same key. |
 | <a href="#arrays_toArray">`toArray()`</a> | Get all items from stored array and convert them to array. |
 | <a href="#arrays_toJson">`toJson()`</a> | Convert the current array to JSON. |
 | <a href="#arrays_toQuery">`toQuery()`</a> | Convert the current array into a query string. |
@@ -1343,6 +1344,63 @@ Array
     [1] => bar
 )
 ```
+
+
+##### <a name="arrays_replace"></a> Method: `replace()`
+
+```php
+/**
+ * Replace values in the current array with values in the given one
+ * that have the same key.
+ *
+ * @param array $array       Array of replacing values.
+ * @param bool  $recursive Whether array will be replaced recursively or no. Default is false.
+ */
+public function replace(array $array, $recursive = false): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['orange', 'banana', 'apple', 'raspberry'])
+                ->replace([0 => 'cherry'])
+                ->toArray();
+
+print_r($arrays);
+
+$arrays = Arrays::create(['citrus' => ['orange'], 'berries' => ['blackberry', 'raspberry']])
+                ->replace(['citrus' => ['pineapple'], 'berries' => ['blueberry']], true)
+                ->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => cherry
+    [1] => banana
+    [2] => apple
+    [3] => raspberry
+)
+Array
+(
+    [citrus] => Array
+        (
+            [0] => pineapple
+        )
+
+    [berries] => Array
+        (
+            [0] => blueberry
+            [1] => raspberry
+        )
+
+)
+```
+
 
 ##### <a name="arrays_toArray"></a> Method: `toArray()`
 

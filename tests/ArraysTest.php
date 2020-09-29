@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use Atomastic\Arrays\Arrays;
 
-print_r(Arrays::create([10 => 'foo', 111 => 'bar'])->reindex()->toArray());
-die();
 test('test create() method', function (): void {
     $this->assertEquals(new Arrays(), Arrays::create());
 });
@@ -440,5 +438,17 @@ test('test reindex() method', function (): void {
     $this->assertEquals(
         [0 => 'foo', 1 => 'bar'],
         Arrays::create([10 => 'foo', 111 => 'bar'])->reindex()->toArray()
+    );
+});
+
+test('test replace() method', function (): void {
+    $this->assertEquals(
+        ['cherry', 'banana', 'apple', 'raspberry'],
+        Arrays::create(['orange', 'banana', 'apple', 'raspberry'])->replace([0 => 'cherry'])->toArray()
+    );
+
+    $this->assertEquals(
+        ['citrus' => [0 => 'pineapple'], 'berries' => [0 => 'blueberry', 1 => 'raspberry']],
+        Arrays::create(['citrus' => ['orange'], 'berries' => ['blackberry', 'raspberry']])->replace(['citrus' => ['pineapple'], 'berries' => ['blueberry']], true)->toArray()
     );
 });

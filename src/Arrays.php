@@ -568,11 +568,11 @@ class Arrays
      * Merge the current array with the provided one.
      *
      * @param array $array       Array to merge with (overwrites).
-     * @param bool  $recursively Whether array will be merged recursively or no. Default is false.
+     * @param bool  $recursive Whether array will be merged recursively or no. Default is false.
      */
-    public function merge(array $array, bool $recursively = false): self
+    public function merge(array $array, bool $recursive = false): self
     {
-        if ($recursively) {
+        if ($recursive) {
             $this->items = array_merge_recursive($this->items, $array);
         } else {
             $this->items = array_merge($this->items, $array);
@@ -600,6 +600,24 @@ class Arrays
     public function reindex(): self
     {
         $this->items = array_values($this->items);
+
+        return $this;
+    }
+
+    /**
+     * Replace values in the current array with values in the given one
+     * that have the same key.
+     *
+     * @param array $array       Array of replacing values.
+     * @param bool  $recursive Whether array will be replaced recursively or no. Default is false.
+     */
+    public function replace(array $array, $recursive = false): self
+    {
+        if ($recursive) {
+            $this->items = array_replace_recursive($this->items, $array);
+        } else {
+            $this->items = array_replace($this->items, $array);
+        }
 
         return $this;
     }
