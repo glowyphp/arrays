@@ -482,3 +482,35 @@ test('test slice() method', function (): void {
         Arrays::create(['a', 'b', 'c', 'd', 'e'])->slice(0, 3)->toArray()
     );
 });
+
+test('test unique() method', function (): void {
+    $this->assertEquals(
+        ['a' => 'green', 0 => 'red', 1 => 'blue'],
+        Arrays::create(["a" => "green", "red", "b" => "green", "blue", "red"])->unique()->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => 4, 2 => '3'],
+        Arrays::create([4, "4", "3", 4, 3, "3"])->unique()->toArray()
+    );
+});
+
+test('test walk() method', function (): void {
+    $this->assertEquals(
+        ['a' => 'a', 'b' => 'b', 'c' => 'c'],
+        Arrays::create(["a" => "lemon", "b" => "orange", "c" => "banana"])
+                ->walk(function(&$value, $key) {
+                    $value = $key;
+                })
+                ->toArray()
+    );
+
+    $this->assertEquals(
+        ['a' => 'a', 'b' => 'b', 'c' => 'c'],
+        Arrays::create(["a" => "lemon", "b" => "orange", "c" => "banana"])
+                ->walk(function(&$value, $key) {
+                    $value = $key;
+                }, true)
+                ->toArray()
+    );
+});

@@ -83,7 +83,8 @@ $arrays = arrays();
 | <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
 | <a href="#arrays_shuffle">`shuffle()`</a> | Shuffle the given array and return the result. |
 | <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
-
+| <a href="#arrays_unique">`unique()`</a> | Remove duplicate values from the current array. |
+| <a href="#arrays_walk">`walk()`</a> | Apply the given function to the every element of the current array, discarding the results. |
 
 #### Methods Details
 
@@ -1820,6 +1821,74 @@ Array
 
         )
 
+)
+```
+
+##### <a name="arrays_unique"></a> Method: `unique()`
+
+```php
+/**
+ * Remove duplicate values from the current array.
+ *
+ * @param int $sortFlags Sort flags used to modify the sorting behavior.
+ *                       Sorting type flags:
+ *                       https://www.php.net/manual/en/function.array-unique
+ */
+public function unique(int $sortFlags = SORT_STRING): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(["a" => "green", "red", "b" => "green", "blue", "red"])->unique()->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [a] => green
+    [0] => red
+    [1] => blue
+)
+```
+
+
+##### <a name="arrays_walk"></a> Method: `walk()`
+
+```php
+/**
+ * Apply the given function to the every element of the current array,
+ * discarding the results.
+ *
+ * @param bool $recursively Whether array will be walked recursively or no. Default is false.
+ */
+public function walk(callable $callable, bool $recursive = false): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(["a" => "lemon", "b" => "orange", "c" => "banana"])
+                ->walk(function(&$value, $key) {
+                    $value = $key;
+                })
+                ->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [a] => a
+    [b] => b
+    [c] => c
 )
 ```
 

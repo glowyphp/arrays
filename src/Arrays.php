@@ -24,8 +24,10 @@ use function array_replace_recursive;
 use function array_reverse;
 use function array_shift;
 use function array_slice;
+use function array_unique;
 use function array_unshift;
 use function array_values;
+use function array_walk;
 use function array_walk_recursive;
 use function arsort;
 use function asort;
@@ -55,6 +57,7 @@ use const JSON_UNESCAPED_UNICODE;
 use const PHP_QUERY_RFC3986;
 use const SORT_NATURAL;
 use const SORT_REGULAR;
+use const SORT_STRING;
 
 class Arrays
 {
@@ -738,5 +741,36 @@ class Arrays
         $trimAll and $string = preg_replace('/(\s)/ixsm', '', $string);
 
         return $string;
+    }
+
+    /**
+     * Remove duplicate values from the current array.
+     *
+     * @param int $sortFlags Sort flags used to modify the sorting behavior.
+     *                       Sorting type flags:
+     *                       https://www.php.net/manual/en/function.array-unique
+     */
+    public function unique(int $sortFlags = SORT_STRING): self
+    {
+        $this->items = array_unique($this->items, $sortFlags);
+
+        return $this;
+    }
+
+    /**
+     * Apply the given function to the every element of the current array,
+     * discarding the results.
+     *
+     * @param bool $recursively Whether array will be walked recursively or no. Default is false.
+     */
+    public function walk(callable $callable, bool $recursive = false): self
+    {
+        if ($recursive) {
+            array_walk_recursive($this->items, $callable);
+        } else {
+            array_walk($this->items, $callable);
+        }
+
+        return $this;
     }
 }
