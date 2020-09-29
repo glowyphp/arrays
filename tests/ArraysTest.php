@@ -426,3 +426,10 @@ test('test merge() method', function (): void {
         Arrays::create(['color' => ['favorite' => 'red'], 5])->merge([10, 'color' => ['favorite' => 'green', 'blue']], true)->toArray()
     );
 });
+
+test('test pad() method', function (): void {
+    $this->assertEquals(
+        [12, 10, 9, 0, 0],
+        Arrays::create([12, 10, 9])->pad(5, 0)->toArray()
+    );
+});

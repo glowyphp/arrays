@@ -582,6 +582,19 @@ class Arrays
     }
 
     /**
+     * Pad the current array to the specified size with a given value.
+     *
+     * @param int   $size  Size of the result array.
+     * @param mixed $value Empty value by default.
+     */
+    public function pad(int $size, $value): self
+    {
+        $this->items = array_pad($this->items, $size, $value);
+
+        return $this;
+    }
+
+    /**
      * Shuffle the given array and return the result.
      *
      * @param  int|null $seed An arbitrary integer seed value.

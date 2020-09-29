@@ -59,6 +59,7 @@ $arrays = arrays();
 | <a href="#arrays_flip">`flip()`</a> | Exchanges all keys of current array with their associated values. |
 | <a href="#arrays_get">`get()`</a> | Get an item from an array using "dot" notation. |
 | <a href="#arrays_has">`has()`</a> | Checks if the given dot-notated key exists in the array. |
+| <a href="#arrays_pull">`pad()`</a> | Pad the current array to the specified size with a given value. |
 | <a href="#arrays_prepend">`prepend()`</a> | Push an item into the beginning of an array. |
 | <a href="#arrays_pull">`pull()`</a> | Get a value from the array, and remove it. |
 | <a href="#arrays_last">`last()`</a> | Get the last value from the current array. |
@@ -807,6 +808,42 @@ if ($arrays->has('movies.the-thin-red-line')) {
 
 ```
 The Thin Red Line
+```
+
+
+
+
+##### <a name="arrays_pad"></a> Method: `pad()`
+
+```php
+/**
+ * Pad the current array to the specified size with a given value.
+ *
+ * @param int   $size  Size of the result array.
+ * @param mixed $value Empty value by default.
+ */
+public function pad(int $size, $value): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create([12, 10, 9])->pad(5, 0);
+
+print_r($arrays->toArray());
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => 12
+    [1] => 10
+    [2] => 9
+    [3] => 0
+    [4] => 0
+)
 ```
 
 ##### <a name="arrays_prepend"></a> Method: `prepend()`
