@@ -23,6 +23,7 @@ use function array_replace;
 use function array_replace_recursive;
 use function array_reverse;
 use function array_shift;
+use function array_slice;
 use function array_unshift;
 use function array_values;
 use function array_walk_recursive;
@@ -633,6 +634,20 @@ class Arrays
     public function reverse(bool $preserveKeys = false): self
     {
         $this->items = array_reverse($this->items, $preserveKeys);
+
+        return $this;
+    }
+
+    /**
+     * Extract a slice of the current array.
+     *
+     * @param int      $offset       Slice begin index.
+     * @param int|null $length       Length of the slice. Default is null.
+     * @param bool     $preserveKeys Whether array keys are preserved or no. Default is false.
+     */
+    public function slice(int $offset, ?int $length = null, bool $preserveKeys = false): self
+    {
+        $this->items = array_slice($this->items, $offset, $length, $preserveKeys);
 
         return $this;
     }

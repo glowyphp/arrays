@@ -79,6 +79,7 @@ $arrays = arrays();
 | <a href="#arrays_toQuery">`toQuery()`</a> | Convert the current array into a query string. |
 | <a href="#arrays_toString">`toString()`</a> | Convert the current array to string recursively implodes an array with optional key inclusion. |
 | <a href="#arrays_set">`set()`</a> | Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced. |
+| <a href="#arrays_slice">`slice()`</a> | Extract a slice of the current array. |
 | <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
 | <a href="#arrays_shuffle">`shuffle()`</a> | Shuffle the given array and return the result. |
 | <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
@@ -1659,6 +1660,38 @@ public function set(string $key, $value): self
 
 ```php
 $arrays = Arrays::create()->set('movies.the-thin-red-line.title', 'The Thin Red Line');
+```
+
+##### <a name="arrays_slice"></a> Method: `slice()`
+
+```php
+/**
+ * Extract a slice of the current array.
+ *
+ * @param int      $offset       Slice begin index.
+ * @param int|null $length       Length of the slice. Default is null.
+ * @param bool     $preserveKeys Whether array keys are preserved or no. Default is false.
+ */
+public function slice(int $offset, ?int $length = null, bool $preserveKeys = false): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['a', 'b', 'c', 'd', 'e'])->slice(0, 3)->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => a
+    [1] => b
+    [2] => c
+)
 ```
 
 ##### <a name="arrays_sortBySubKey"></a> Method: `sortBySubKey()`

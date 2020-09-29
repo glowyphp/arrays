@@ -465,3 +465,20 @@ test('test reverse() method', function (): void {
         Arrays::create(['php', 8, ['green', 'red']])->reverse(true)->toArray()
     );
 });
+
+test('test slice() method', function (): void {
+    $this->assertEquals(
+        ['c', 'd', 'e'],
+        Arrays::create(['a', 'b', 'c', 'd', 'e'])->slice(2)->toArray()
+    );
+
+    $this->assertEquals(
+        ['d'],
+        Arrays::create(['a', 'b', 'c', 'd', 'e'])->slice(-2, 1)->toArray()
+    );
+
+    $this->assertEquals(
+        ['a', 'b', 'c'],
+        Arrays::create(['a', 'b', 'c', 'd', 'e'])->slice(0, 3)->toArray()
+    );
+});
