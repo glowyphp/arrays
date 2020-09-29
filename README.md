@@ -68,6 +68,7 @@ $arrays = arrays();
 | <a href="#arrays_intersectKey">`intersectKey()`</a> | Compute the current array using keys for comparison which present in the given one. |
 | <a href="#arrays_isEqual">`isEqual()`</a> | Check if the current array is equal to the given `$array` or not. |
 | <a href="#arrays_isAssoc">`isAssoc()`</a> | Determines if an array is associative. |
+| <a href="#arrays_map">`map()`</a> | Apply the given $callback function to the every element of the current array, collecting the results. |
 | <a href="#arrays_toArray">`toArray()`</a> | Get all items from stored array and convert them to array. |
 | <a href="#arrays_toJson">`toJson()`</a> | Convert the current array to JSON. |
 | <a href="#arrays_toQuery">`toQuery()`</a> | Convert the current array into a query string. |
@@ -818,6 +819,26 @@ $arrays = Arrays::create([
 if ($arrays->isAssoc()) {
     // do something...
 }
+```
+
+##### <a name="arrays_map"></a> Method: `map()`
+
+```php
+/**
+ * Apply the given $callback function to the every element of the current array,
+ * collecting the results.
+ *
+ * @param callable $callback The callback function.
+ */
+public function map(callable $callback): self
+```
+
+**Examples**
+
+```php
+$arrays = Arrays::create([1, 2, 3, 4, 5])->map(function ($n) {
+                return ($n * $n * $n);
+            })->toArray());
 ```
 
 ##### <a name="arrays_toArray"></a> Method: `toArray()`

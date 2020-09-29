@@ -4,9 +4,18 @@ declare(strict_types=1);
 
 namespace Atomastic\Arrays;
 
+use function array_chunk;
+use function array_combine;
+use function array_diff;
+use function array_filter;
+use function array_flip;
+use function array_intersect;
+use function array_intersect_assoc;
+use function array_intersect_key;
 use function array_key_first;
 use function array_key_last;
 use function array_keys;
+use function array_map;
 use function array_merge;
 use function array_reverse;
 use function array_shift;
@@ -26,8 +35,10 @@ use function json_encode;
 use function mb_strlen;
 use function mb_strtolower;
 use function mb_substr;
+use function mt_srand;
 use function natsort;
 use function preg_replace;
+use function shuffle;
 use function strpos;
 use function strtolower;
 use function strval;
@@ -450,7 +461,7 @@ class Arrays
      * @param int  $size         Size of each chunk.
      * @param bool $preserveKeys Whether array keys are preserved or no.
      */
-    public function chunk($size, $preserveKeys = false): self
+    public function chunk(int $size, bool $preserveKeys = false): self
     {
          $this->items = array_chunk($this->items, $size, $preserveKeys);
 
@@ -540,11 +551,24 @@ class Arrays
     }
 
     /**
+     * Apply the given $callback function to the every element of the current array,
+     * collecting the results.
+     *
+     * @param callable $callback The callback function.
+     */
+    public function map(callable $callback): self
+    {
+        $this->items = array_map($callback, $this->items);
+
+        return $this;
+    }
+
+    /**
      * Shuffle the given array and return the result.
      *
      * @param  int|null $seed An arbitrary integer seed value.
      */
-    public function shuffle($seed = null): self
+    public function shuffle(?int $seed = null): self
     {
         $array = $this->items;
 

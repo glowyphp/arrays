@@ -182,23 +182,23 @@ test('test sortBySubKey() method', function (): void {
     $this->assertTrue($array_equal($arrays_original, $arrays_result));
 
     $arrays_original = Arrays::create([
-                            'movies' => [
-                               'the_thin_red_line' => [
-                                   'title' => 'The Thin Red Line',
-                                   'directed_by' => 'Terrence Malick',
-                                   'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
-                                   'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
-                               ],
-                               'bad_times_at_the_el_royale' => [
-                                   'title' => 'Bad Times at the El Royale',
-                                   'directed_by' => 'Drew Goddard',
-                                   'produced_by' => 'Drew Goddard, Steve Asbell',
-                                   'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
-                               ]
-                            ]
-                        ]);
-    $movies = $arrays_original->get('movies');
-    $arrays_result = Arrays::create($movies)->sortBySubKey('title', 'DESC')->all();
+        'movies' => [
+            'the_thin_red_line' => [
+                'title' => 'The Thin Red Line',
+                'directed_by' => 'Terrence Malick',
+                'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+            ],
+            'bad_times_at_the_el_royale' => [
+                'title' => 'Bad Times at the El Royale',
+                'directed_by' => 'Drew Goddard',
+                'produced_by' => 'Drew Goddard, Steve Asbell',
+                'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.',
+            ],
+        ],
+    ]);
+    $movies          = $arrays_original->get('movies');
+    $arrays_result   = Arrays::create($movies)->sortBySubKey('title', 'DESC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -207,30 +207,29 @@ test('test sortBySubKey() method', function (): void {
     $this->assertTrue($array_equal($movies, $arrays_result));
 
     $arrays_original = Arrays::create([
-                            'movies' => [
-                               'the_thin_red_line' => [
-                                   'title' => 'The Thin Red Line',
-                                   'directed_by' => 'Terrence Malick',
-                                   'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
-                                   'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
-                               ],
-                               'bad_times_at_the_el_royale' => [
-                                   'title' => 'Bad Times at the El Royale',
-                                   'directed_by' => 'Drew Goddard',
-                                   'produced_by' => 'Drew Goddard, Steve Asbell',
-                                   'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
-                               ]
-                            ]
-                        ]);
-    $movies = $arrays_original->get('movies');
-    $arrays_result = Arrays::create($movies)->sortBySubKey('title', 'ASC')->all();
+        'movies' => [
+            'the_thin_red_line' => [
+                'title' => 'The Thin Red Line',
+                'directed_by' => 'Terrence Malick',
+                'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+            ],
+            'bad_times_at_the_el_royale' => [
+                'title' => 'Bad Times at the El Royale',
+                'directed_by' => 'Drew Goddard',
+                'produced_by' => 'Drew Goddard, Steve Asbell',
+                'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.',
+            ],
+        ],
+    ]);
+    $movies          = $arrays_original->get('movies');
+    $arrays_result   = Arrays::create($movies)->sortBySubKey('title', 'ASC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
     };
 
     $this->assertFalse($array_equal($movies, $arrays_result));
-
 });
 
 test('test count() method', function (): void {
@@ -323,58 +322,95 @@ test('test prepend() method', function (): void {
 });
 
 test('test chunk() method', function (): void {
-    $this->assertEquals([0 => [0 => 'a', 1 => 'b']],
-                        Arrays::create(['a', 'b'])->chunk(2)->toArray());
-    $this->assertEquals([0 => [0 => 'a', 1 => 'b']],
-                        Arrays::create(['a' => 'a', 'b' => 'b'])->chunk(2)->toArray());
-    $this->assertEquals([0 => ['a' => 'a', 'b' => 'b']],
-                        Arrays::create(['a' => 'a', 'b' => 'b'])->chunk(2, true)->toArray());
+    $this->assertEquals(
+        [0 => [0 => 'a', 1 => 'b']],
+        Arrays::create(['a', 'b'])->chunk(2)->toArray()
+    );
+    $this->assertEquals(
+        [0 => [0 => 'a', 1 => 'b']],
+        Arrays::create(['a' => 'a', 'b' => 'b'])->chunk(2)->toArray()
+    );
+    $this->assertEquals(
+        [0 => ['a' => 'a', 'b' => 'b']],
+        Arrays::create(['a' => 'a', 'b' => 'b'])->chunk(2, true)->toArray()
+    );
 });
 
 test('test combine() method', function (): void {
-    $this->assertEquals(['green' => 'avacado', 'red' => 'apple', 'yellow' => 'banana'],
-                        Arrays::create(['green', 'red', 'yellow'])->combine(['avacado', 'apple', 'banana'])->toArray());
+    $this->assertEquals(
+        ['green' => 'avacado', 'red' => 'apple', 'yellow' => 'banana'],
+        Arrays::create(['green', 'red', 'yellow'])->combine(['avacado', 'apple', 'banana'])->toArray()
+    );
 });
 
 test('test diff() method', function (): void {
-    $this->assertEquals([0 => 'foo', 1 => 'bar'],
-                        Arrays::create(['foo', 'bar'])->diff(['one', 'two'])->toArray());
-    $this->assertEquals([],
-                        Arrays::create(['foo', 'bar'])->diff(['foo', 'bar'])->toArray());
+    $this->assertEquals(
+        [0 => 'foo', 1 => 'bar'],
+        Arrays::create(['foo', 'bar'])->diff(['one', 'two'])->toArray()
+    );
+    $this->assertEquals(
+        [],
+        Arrays::create(['foo', 'bar'])->diff(['foo', 'bar'])->toArray()
+    );
 });
 
 test('test shuffle() method', function (): void {
-    $this->assertNotEquals(Arrays::create(range(0, 100, 10))->shuffle(),
-                           Arrays::create(range(0, 100, 10))->shuffle());
-    $this->assertNotEquals(Arrays::create(range(0, 100, 10))->shuffle(42),
-                           Arrays::create(range(0, 100, 10))->shuffle(4242));
-    $this->assertEquals(Arrays::create(range(0, 100, 10))->shuffle(42),
-                        Arrays::create(range(0, 100, 10))->shuffle(42));
+    $this->assertNotEquals(
+        Arrays::create(range(0, 100, 10))->shuffle(),
+        Arrays::create(range(0, 100, 10))->shuffle()
+    );
+    $this->assertNotEquals(
+        Arrays::create(range(0, 100, 10))->shuffle(42),
+        Arrays::create(range(0, 100, 10))->shuffle(4242)
+    );
+    $this->assertEquals(
+        Arrays::create(range(0, 100, 10))->shuffle(42),
+        Arrays::create(range(0, 100, 10))->shuffle(42)
+    );
 });
 
 test('test filter() method', function (): void {
-    $this->assertEquals([0 => 6, 2 => 8, 4 => 10, 6 => 12],
-                           Arrays::create([6, 7, 8, 9, 10, 11, 12])->filter(function($var) {
-                               return !($var & 1);
-                           })->toArray());
+    $this->assertEquals(
+        [0 => 6, 2 => 8, 4 => 10, 6 => 12],
+        Arrays::create([6, 7, 8, 9, 10, 11, 12])->filter(static function ($var) {
+                               return ! ($var & 1);
+        })->toArray()
+    );
 });
 
 test('test flip() method', function (): void {
-    $this->assertEquals(['oranges' => 0, 'apples' => 1, 'pears' => 2],
-                        Arrays::create(['oranges', 'apples', 'pears'])->flip()->toArray());
+    $this->assertEquals(
+        ['oranges' => 0, 'apples' => 1, 'pears' => 2],
+        Arrays::create(['oranges', 'apples', 'pears'])->flip()->toArray()
+    );
 });
 
 test('test intersect() method', function (): void {
-    $this->assertEquals(['a' => 'green', 0 => 'red'],
-                        Arrays::create(["a" => "green", "red", "blue"])->intersect(["b" => "green", "yellow", "red"])->toArray());
+    $this->assertEquals(
+        ['a' => 'green', 0 => 'red'],
+        Arrays::create(['a' => 'green', 'red', 'blue'])->intersect(['b' => 'green', 'yellow', 'red'])->toArray()
+    );
 });
 
 test('test intersectAssoc() method', function (): void {
-    $this->assertEquals(['a' => 'green'],
-                        Arrays::create(["a" => "green", "b" => "brown", "c" => "blue", "red"])->intersectAssoc(["a" => "green", "b" => "yellow", "blue", "red"])->toArray());
+    $this->assertEquals(
+        ['a' => 'green'],
+        Arrays::create(['a' => 'green', 'b' => 'brown', 'c' => 'blue', 'red'])->intersectAssoc(['a' => 'green', 'b' => 'yellow', 'blue', 'red'])->toArray()
+    );
 });
 
 test('test intersectKey() method', function (): void {
-    $this->assertEquals(['blue' => 1, 'green' => 3],
-                        Arrays::create(['blue'  => 1, 'red'  => 2, 'green'  => 3, 'purple' => 4])->intersectKey(['green' => 5, 'blue' => 6, 'yellow' => 7, 'cyan'   => 8])->toArray());
+    $this->assertEquals(
+        ['blue' => 1, 'green' => 3],
+        Arrays::create(['blue' => 1, 'red' => 2, 'green' => 3, 'purple' => 4])->intersectKey(['green' => 5, 'blue' => 6, 'yellow' => 7, 'cyan' => 8])->toArray()
+    );
+});
+
+test('test map() method', function (): void {
+    $this->assertEquals(
+        [0 => 1, 1 => 8, 2 => 27, 3 => 64, 4 => 125],
+        Arrays::create([1, 2, 3, 4, 5])->map(static function ($n) {
+                            return $n * $n * $n;
+        })->toArray()
+    );
 });
