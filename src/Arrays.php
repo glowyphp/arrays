@@ -506,11 +506,23 @@ class Arrays
     /**
      * Compute the current array values which present in the given one.
      *
-     * @param array $array Array for intersect
+     * @param array $array Array for intersect.
      */
     public function intersect(array $array): self
     {
         $this->items = array_intersect($this->items, $array);
+
+        return $this;
+    }
+
+    /**
+     * Compute the current array values with additional index check.
+     *
+     * @param array $array Array for intersect.
+     */
+    public function intersectAssoc(array $array): self
+    {
+        $this->items = array_intersect_assoc($this->items, $array);
 
         return $this;
     }

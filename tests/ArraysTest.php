@@ -368,3 +368,8 @@ test('test intersect() method', function (): void {
     $this->assertEquals(['a' => 'green', 0 => 'red'],
                         Arrays::create(["a" => "green", "red", "blue"])->intersect(["b" => "green", "yellow", "red"])->toArray());
 });
+
+test('test intersectAssoc() method', function (): void {
+    $this->assertEquals(['a' => 'green'],
+                        Arrays::create(["a" => "green", "b" => "brown", "c" => "blue", "red"])->intersectAssoc(["a" => "green", "b" => "yellow", "blue", "red"])->toArray());
+});

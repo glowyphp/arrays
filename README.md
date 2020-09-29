@@ -712,6 +712,23 @@ public function intersect(array $array): self
 $arrays = Arrays::create(["a" => "green", "red", "blue"])->intersect(["b" => "green", "yellow", "red"])->toArray();
 ```
 
+##### <a name="arrays_intersectAssoc"></a> Method: `intersectAssoc()`
+
+```php
+/**
+ * Compute the current array values with additional index check.
+ *
+ * @param array $array Array for intersect.
+ */
+public function intersectAssoc(array $array): self
+```
+
+**Examples**
+
+```php
+$arrays = Arrays::create(["a" => "green", "b" => "brown", "c" => "blue", "red"])->intersectAssoc(["a" => "green", "b" => "yellow", "blue", "red"])->toArray();
+```
+
 ##### <a name="arrays_isEqual"></a> Method: `isEqual()`
 
 ```php
