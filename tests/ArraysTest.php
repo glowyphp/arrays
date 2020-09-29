@@ -414,3 +414,15 @@ test('test map() method', function (): void {
         })->toArray()
     );
 });
+
+test('test merge() method', function (): void {
+    $this->assertEquals(
+        ['color' => 'green', 0 => 2, 1 => 4, 2 => 'a', 3 => 'b', 'shape' => 'trapezoid', 4 => 4],
+        Arrays::create(['color' => 'red', 2, 4])->merge(['a', 'b', 'color' => 'green', 'shape' => 'trapezoid', 4])->toArray()
+    );
+
+    $this->assertEquals(
+        ['color' => ['favorite' => [0 => 'red', 1 => 'green'], 0 => 'blue'], 0 => 5, 1 => 10],
+        Arrays::create(['color' => ['favorite' => 'red'], 5])->merge([10, 'color' => ['favorite' => 'green', 'blue']], true)->toArray()
+    );
+});

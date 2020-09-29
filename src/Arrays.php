@@ -17,6 +17,7 @@ use function array_key_last;
 use function array_keys;
 use function array_map;
 use function array_merge;
+use function array_merge_recursive;
 use function array_reverse;
 use function array_shift;
 use function array_unshift;
@@ -559,6 +560,23 @@ class Arrays
     public function map(callable $callback): self
     {
         $this->items = array_map($callback, $this->items);
+
+        return $this;
+    }
+
+    /**
+     * Merge the current array with the provided one.
+     *
+     * @param array $array       Array to merge with (overwrites).
+     * @param bool  $recursively Whether array will be merged recursively or no. Default is false.
+     */
+    public function merge(array $array, bool $recursively = false): self
+    {
+        if ($recursively) {
+            $this->items = array_merge_recursive($this->items, $array);
+        } else {
+            $this->items = array_merge($this->items, $array);
+        }
 
         return $this;
     }

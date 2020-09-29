@@ -69,6 +69,7 @@ $arrays = arrays();
 | <a href="#arrays_isEqual">`isEqual()`</a> | Check if the current array is equal to the given `$array` or not. |
 | <a href="#arrays_isAssoc">`isAssoc()`</a> | Determines if an array is associative. |
 | <a href="#arrays_map">`map()`</a> | Apply the given $callback function to the every element of the current array, collecting the results. |
+| <a href="#arrays_merge">`merge()`</a> | Merge the current array with the provided one. |
 | <a href="#arrays_toArray">`toArray()`</a> | Get all items from stored array and convert them to array. |
 | <a href="#arrays_toJson">`toJson()`</a> | Convert the current array to JSON. |
 | <a href="#arrays_toQuery">`toQuery()`</a> | Convert the current array into a query string. |
@@ -839,6 +840,26 @@ public function map(callable $callback): self
 $arrays = Arrays::create([1, 2, 3, 4, 5])->map(function ($n) {
                 return ($n * $n * $n);
             })->toArray());
+```
+
+##### <a name="arrays_merge"></a> Method: `merge()`
+
+```php
+/**
+ * Merge the current array with the provided one.
+ *
+ * @param array $array       Array to merge with (overwrites).
+ * @param bool  $recursively Whether array will be merged recursively or no. Default is false.
+ */
+public function merge(array $array, bool $recursively = false): self
+```
+
+**Examples**
+
+```php
+$arrays = Arrays::create(['color' => 'red', 2, 4])->merge(['a', 'b', 'color' => 'green', 'shape' => 'trapezoid', 4])->toArray();
+
+$arrays = Arrays::create(['color' => ['favorite' => 'red'], 5])->merge([10, 'color' => ['favorite' => 'green', 'blue']], true)->toArray();
 ```
 
 ##### <a name="arrays_toArray"></a> Method: `toArray()`
