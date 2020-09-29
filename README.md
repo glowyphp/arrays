@@ -709,7 +709,7 @@ public function intersect(array $array): self
 **Examples**
 
 ```php
-$arrays = Arrays::create(["a" => "green", "red", "blue"])->intersect(["b" => "green", "yellow", "red"])->toArray()
+$arrays = Arrays::create(["a" => "green", "red", "blue"])->intersect(["b" => "green", "yellow", "red"])->toArray();
 ```
 
 ##### <a name="arrays_isEqual"></a> Method: `isEqual()`
