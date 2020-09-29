@@ -511,7 +511,7 @@ Array
 public function delete($keys): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -545,13 +545,28 @@ $arrays->delete('movies.the-thin-red-line');
 public function filter(callable $callback): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([6, 7, 8, 9, 10, 11, 12])->filter(function($var) {
                             return !($var & 1);
                         })->toArray();
+
+print_r($arrays);
 ```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => 6
+    [2] => 8
+    [4] => 10
+    [6] => 12
+)
+```
+
 
 ##### <a name="arrays_flush"></a> Method: `flush()`
 
