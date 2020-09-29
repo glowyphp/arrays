@@ -93,7 +93,7 @@ $arrays = arrays();
 function append($value = null): self
 ```
 
-**Examples**
+##### Examples
 
 ```php
 $arrays = Arrays::create([
@@ -116,7 +116,7 @@ $arrays = Arrays::create([
 print_r($arrays->toArray());
 ```
 
-**The above example will output:**
+##### The above example will output:
 
 ```
 Array
@@ -140,7 +140,7 @@ Array
                 )
 
         )
-        
+
     [0] => Array
         (
             [0] => tv-series
