@@ -567,7 +567,6 @@ Array
 )
 ```
 
-
 ##### <a name="arrays_flush"></a> Method: `flush()`
 
 ```php
@@ -577,7 +576,7 @@ Array
 public function flush(): void
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -598,6 +597,16 @@ $arrays = Arrays::create([
                     ]);
 
 $arrays->flush();
+
+print_r($arrays->toArray());
+```
+
+##### The above example will output:
+
+```
+Array
+(
+)
 ```
 
 ##### <a name="arrays_first"></a> Method: `first()`
@@ -609,7 +618,7 @@ $arrays->flush();
 public function first()
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -628,6 +637,20 @@ $arrays = Arrays::create([
                        ]);
 
 $result = $arrays->first();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [title] => The Thin Red Line
+    [directed_by] => Terrence Malick
+    [produced_by] => Robert Michael, Geisler Grant Hill, John Roberdeau
+    [decription] => Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.
+)
 ```
 
 ##### <a name="arrays_firstKey"></a> Method: `firstKey()`
