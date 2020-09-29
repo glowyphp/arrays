@@ -947,7 +947,7 @@ Array
 public function last()
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -966,6 +966,20 @@ $arrays = Arrays::create([
                        ]);
 
 $result = $arrays->last();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [title] => Bad Times at the El Royale
+    [directed_by] => Drew Goddard
+    [produced_by] => Drew Goddard, Steve Asbell
+    [decription] => Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.
+)
 ```
 
 ##### <a name="arrays_lastKey"></a> Method: `lastKey()`
@@ -977,7 +991,7 @@ $result = $arrays->last();
 public function lastKey()
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -1009,7 +1023,7 @@ $result = $arrays->lastKey();
 public function intersect(array $array): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create(["a" => "green", "red", "blue"])->intersect(["b" => "green", "yellow", "red"])->toArray();
@@ -1026,7 +1040,7 @@ $arrays = Arrays::create(["a" => "green", "red", "blue"])->intersect(["b" => "gr
 public function intersectAssoc(array $array): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create(["a" => "green", "b" => "brown", "c" => "blue", "red"])->intersectAssoc(["a" => "green", "b" => "yellow", "blue", "red"])->toArray();
@@ -1043,7 +1057,7 @@ $arrays = Arrays::create(["a" => "green", "b" => "brown", "c" => "blue", "red"])
 public function intersectKey(array $array): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create(['blue'  => 1, 'red'  => 2, 'green'  => 3, 'purple' => 4])->intersectKey(['green' => 5, 'blue' => 6, 'yellow' => 7, 'cyan'   => 8])->toArray();
@@ -1060,7 +1074,7 @@ $arrays = Arrays::create(['blue'  => 1, 'red'  => 2, 'green'  => 3, 'purple' => 
 public function isEqual(array $array): bool
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -1096,7 +1110,7 @@ if ($arrays->isEqual($array2)) {
 public function isAssoc(): bool
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -1133,7 +1147,7 @@ if ($arrays->isAssoc()) {
 public function map(callable $callback): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([1, 2, 3, 4, 5])->map(function ($n) {
@@ -1153,7 +1167,7 @@ $arrays = Arrays::create([1, 2, 3, 4, 5])->map(function ($n) {
 public function merge(array $array, bool $recursively = false): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create(['color' => 'red', 2, 4])->merge(['a', 'b', 'color' => 'green', 'shape' => 'trapezoid', 4])->toArray();
@@ -1170,7 +1184,7 @@ $arrays = Arrays::create(['color' => ['favorite' => 'red'], 5])->merge([10, 'col
 public function toArray(): array
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -1204,7 +1218,7 @@ $result = $arrays->toArray();
 public function toJson($options = 0, int $depth = 512): string
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -1234,7 +1248,7 @@ $result = $arrays->toJson();
 public function toQuery(): string
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -1268,7 +1282,7 @@ $result = $arrays->toQuery();
 public function toString(string $glue = ',', $includeKeys = false, $trimAll = true): string
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -1303,7 +1317,7 @@ $result = $arrays->toString();
 public function set(string $key, $value): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create()->set('movies.the-thin-red-line.title', 'The Thin Red Line');
@@ -1323,7 +1337,7 @@ $arrays = Arrays::create()->set('movies.the-thin-red-line.title', 'The Thin Red 
 public function sortBySubKey(string $subKey, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -1353,7 +1367,7 @@ $arrays = Arrays::create([
 public function shuffle($seed = null): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([1, 2, 3, 4, 5])->shuffle();
@@ -1368,7 +1382,7 @@ $arrays = Arrays::create([1, 2, 3, 4, 5])->shuffle();
 public function undot(): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
