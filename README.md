@@ -264,7 +264,7 @@ print_r($total);
 public static function create(array $items = []): Arrays
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create([
@@ -297,10 +297,26 @@ $arrays = Arrays::create([
 public function chunk($size, $preserveKeys = false): self
 ```
 
-**Examples**
+##### Example
 
 ```php
 $arrays = Arrays::create(['a', 'b'])->chunk(2)->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => Array
+        (
+            [0] => a
+            [1] => b
+        )
+
+)
 ```
 
 ##### <a name="arrays_combine"></a> Method: `combine()`
