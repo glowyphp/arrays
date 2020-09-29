@@ -73,6 +73,7 @@ $arrays = arrays();
 | <a href="#arrays_merge">`merge()`</a> | Merge the current array with the provided one. |
 | <a href="#arrays_reindex">`reindex()`</a> | Create a numerically re-indexed array based on the current array. |
 | <a href="#arrays_replace">`replace()`</a> | Replace values in the current array with values in the given one that have the same key. |
+| <a href="#arrays_reverse">`reverse()`</a> | Reverse the values order of the current array. |
 | <a href="#arrays_toArray">`toArray()`</a> | Get all items from stored array and convert them to array. |
 | <a href="#arrays_toJson">`toJson()`</a> | Convert the current array to JSON. |
 | <a href="#arrays_toQuery">`toQuery()`</a> | Convert the current array into a query string. |
@@ -1345,7 +1346,6 @@ Array
 )
 ```
 
-
 ##### <a name="arrays_replace"></a> Method: `replace()`
 
 ```php
@@ -1401,6 +1401,59 @@ Array
 )
 ```
 
+##### <a name="arrays_reverse"></a> Method: `reverse()`
+
+```php
+/**
+ * Reverse the values order of the current array.
+ *
+ * @param bool $preserveKeys Whether array keys are preserved or no. Default is false.
+ */
+public function reverse(bool $preserveKeys = false): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['php', 8, ['green', 'red']])
+                ->reverse()
+                ->toArray();
+
+print_r($arrays);
+
+$arrays = Arrays::create(['php', 8, ['green', 'red']])
+                ->reverse(true)
+                ->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => Array
+        (
+            [0] => green
+            [1] => red
+        )
+
+    [1] => 8
+    [2] => php
+)
+Array
+(
+    [2] => Array
+        (
+            [0] => green
+            [1] => red
+        )
+
+    [1] => 8
+    [0] => php
+)
+```
 
 ##### <a name="arrays_toArray"></a> Method: `toArray()`
 

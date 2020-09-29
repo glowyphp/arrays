@@ -452,3 +452,16 @@ test('test replace() method', function (): void {
         Arrays::create(['citrus' => ['orange'], 'berries' => ['blackberry', 'raspberry']])->replace(['citrus' => ['pineapple'], 'berries' => ['blueberry']], true)->toArray()
     );
 });
+
+
+test('test reverse() method', function (): void {
+    $this->assertEquals(
+        [0 => [0 => 'green', 1 => 'red'], 1 => 8, 2 => 'php'],
+        Arrays::create(['php', 8, ['green', 'red']])->reverse()->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => 'php', 1 => 8, 2 => [0 => 'green', 1 => 'red']],
+        Arrays::create(['php', 8, ['green', 'red']])->reverse(true)->toArray()
+    );
+});

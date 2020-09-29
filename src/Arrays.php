@@ -18,6 +18,9 @@ use function array_keys;
 use function array_map;
 use function array_merge;
 use function array_merge_recursive;
+use function array_pad;
+use function array_replace;
+use function array_replace_recursive;
 use function array_reverse;
 use function array_shift;
 use function array_unshift;
@@ -567,7 +570,7 @@ class Arrays
     /**
      * Merge the current array with the provided one.
      *
-     * @param array $array       Array to merge with (overwrites).
+     * @param array $array     Array to merge with (overwrites).
      * @param bool  $recursive Whether array will be merged recursively or no. Default is false.
      */
     public function merge(array $array, bool $recursive = false): self
@@ -608,16 +611,28 @@ class Arrays
      * Replace values in the current array with values in the given one
      * that have the same key.
      *
-     * @param array $array       Array of replacing values.
+     * @param array $array     Array of replacing values.
      * @param bool  $recursive Whether array will be replaced recursively or no. Default is false.
      */
-    public function replace(array $array, $recursive = false): self
+    public function replace(array $array, bool $recursive = false): self
     {
         if ($recursive) {
             $this->items = array_replace_recursive($this->items, $array);
         } else {
             $this->items = array_replace($this->items, $array);
         }
+
+        return $this;
+    }
+
+    /**
+     * Reverse the values order of the current array.
+     *
+     * @param bool $preserveKeys Whether array keys are preserved or no. Default is false.
+     */
+    public function reverse(bool $preserveKeys = false): self
+    {
+        $this->items = array_reverse($this->items, $preserveKeys);
 
         return $this;
     }
