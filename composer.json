@@ -1,6 +1,6 @@
 {
     "name": "atomastic/arrays",
-    "description": "Arrays Component contains methods that can be useful when working with arrays.",
+    "description": "Arrays Component provide a fluent, object-oriented interface for working with arrays, allowing you to chain multiple arrays operations together using a more readable syntax compared to traditional PHP arrays functions.",
     "license": "MIT",
     "keywords": [
         "Arrays", "arrays", "php-arrays", "php", "atomastic"
