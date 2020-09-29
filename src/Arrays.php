@@ -528,6 +528,18 @@ class Arrays
     }
 
     /**
+     * Compute the current array using keys for comparison which present in the given one.
+     *
+     * @param array $array Array for intersect.
+     */
+    public function intersectKey(array $array): self
+    {
+        $this->items = array_intersect_key($this->items, $array);
+
+        return $this;
+    }
+
+    /**
      * Shuffle the given array and return the result.
      *
      * @param  int|null $seed An arbitrary integer seed value.

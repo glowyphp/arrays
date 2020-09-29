@@ -64,6 +64,8 @@ $arrays = arrays();
 | <a href="#arrays_last">`last()`</a> | Get the last value from the current array. |
 | <a href="#arrays_lastKey">`lastKey()`</a> | Get the last key from the current array. |
 | <a href="#arrays_intersect">`intersect()`</a> | Compute the current array values which present in the given one. |
+| <a href="#arrays_intersectAssoc">`intersectAssoc()`</a> | Compute the current array values with additional index check. |
+| <a href="#arrays_intersectKey">`intersectKey()`</a> | Compute the current array using keys for comparison which present in the given one. |
 | <a href="#arrays_isEqual">`isEqual()`</a> | Check if the current array is equal to the given `$array` or not. |
 | <a href="#arrays_isAssoc">`isAssoc()`</a> | Determines if an array is associative. |
 | <a href="#arrays_toArray">`toArray()`</a> | Get all items from stored array and convert them to array. |
@@ -727,6 +729,23 @@ public function intersectAssoc(array $array): self
 
 ```php
 $arrays = Arrays::create(["a" => "green", "b" => "brown", "c" => "blue", "red"])->intersectAssoc(["a" => "green", "b" => "yellow", "blue", "red"])->toArray();
+```
+
+##### <a name="arrays_intersectKey"></a> Method: `intersectKey()`
+
+```php
+/**
+ * Compute the current array using keys for comparison which present in the given one.
+ *
+ * @param array $array Array for intersect.
+ */
+public function intersectKey(array $array): self
+```
+
+**Examples**
+
+```php
+$arrays = Arrays::create(['blue'  => 1, 'red'  => 2, 'green'  => 3, 'purple' => 4])->intersectKey(['green' => 5, 'blue' => 6, 'yellow' => 7, 'cyan'   => 8])->toArray();
 ```
 
 ##### <a name="arrays_isEqual"></a> Method: `isEqual()`
