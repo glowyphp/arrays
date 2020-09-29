@@ -595,6 +595,16 @@ class Arrays
     }
 
     /**
+     * Create a numerically re-indexed array based on the current array.
+     */
+    public function reindex(): self
+    {
+        $this->items = array_values($this->items);
+
+        return $this;
+    }
+
+    /**
      * Shuffle the given array and return the result.
      *
      * @param  int|null $seed An arbitrary integer seed value.

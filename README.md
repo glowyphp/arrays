@@ -71,6 +71,7 @@ $arrays = arrays();
 | <a href="#arrays_isAssoc">`isAssoc()`</a> | Determines if an array is associative. |
 | <a href="#arrays_map">`map()`</a> | Apply the given $callback function to the every element of the current array, collecting the results. |
 | <a href="#arrays_merge">`merge()`</a> | Merge the current array with the provided one. |
+| <a href="#arrays_reindex">`reindex()`</a> | Create a numerically re-indexed array based on the current array. |
 | <a href="#arrays_toArray">`toArray()`</a> | Get all items from stored array and convert them to array. |
 | <a href="#arrays_toJson">`toJson()`</a> | Convert the current array to JSON. |
 | <a href="#arrays_toQuery">`toQuery()`</a> | Convert the current array into a query string. |
@@ -1313,6 +1314,33 @@ Array
 
     [0] => 5
     [1] => 10
+)
+```
+
+##### <a name="arrays_reindex"></a> Method: `reindex()`
+
+```php
+/**
+ * Create a numerically re-indexed array based on the current array.
+ */
+public function reindex(): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create([10 => 'foo', 111 => 'bar'])->reindex()->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => foo
+    [1] => bar
 )
 ```
 
