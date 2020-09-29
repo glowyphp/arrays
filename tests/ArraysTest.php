@@ -358,3 +358,8 @@ test('test filter() method', function (): void {
                                return !($var & 1);
                            })->toArray());
 });
+
+test('test flip() method', function (): void {
+    $this->assertEquals(['oranges' => 0, 'apples' => 1, 'pears' => 2],
+                        Arrays::create(['oranges', 'apples', 'pears'])->flip()->toArray());
+});

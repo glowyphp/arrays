@@ -494,6 +494,16 @@ class Arrays
     }
 
     /**
+     * Exchanges all keys of current array with their associated values.
+     */
+    public function flip(): self
+    {
+        $this->items = array_flip($this->items);
+
+        return $this;
+    }
+
+    /**
      * Shuffle the given array and return the result.
      *
      * @param  int|null $seed An arbitrary integer seed value.

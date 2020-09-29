@@ -55,7 +55,8 @@ $arrays = arrays();
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 | <a href="#arrays_first">`first()`</a> | Get the first value from the current array. |
 | <a href="#arrays_firstKey">`firstKey()`</a> | Get the first key from the current array. |
-| <a href="#arrays_filter">`filter()`</a> | Filter the current array for elements satisfying the predicate $callback function. |
+| <a href="#arrays_filter">`filter()`</a> | Filter the current array for elements satisfying the predicate `$callback` function. |
+| <a href="#arrays_flip">`flip()`</a> | Exchanges all keys of current array with their associated values. |
 | <a href="#arrays_get">`get()`</a> | Get an item from an array using "dot" notation. |
 | <a href="#arrays_has">`has()`</a> | Checks if the given dot-notated key exists in the array. |
 | <a href="#arrays_prepend">`prepend()`</a> | Push an item into the beginning of an array. |
@@ -475,6 +476,21 @@ $arrays = Arrays::create([
                        ]);
 
 $result = $arrays->firstKey();
+```
+
+##### <a name="arrays_flip"></a> Method: `flip()`
+
+```php
+/**
+ * Exchanges all keys of current array with their associated values.
+ */
+public function flip(): self
+```
+
+**Examples**
+
+```php
+$arrays = Arrays::create(['oranges', 'apples', 'pears'])->flip()->toArray();
 ```
 
 ##### <a name="arrays_get"></a> Method: `get()`
