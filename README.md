@@ -47,6 +47,7 @@ $arrays = arrays();
 | <a href="#arrays_chunk">`chunk()`</a> | Create a chunked version of current array. |
 | <a href="#arrays_combine">`combine()`</a> | Create an array using the current array as keys and the other array as values. |
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
+| <a href="#arrays_diff">`diff()`</a> | Compute the current array values which not present in the given one. |
 | <a href="#arrays_dot">`dot()`</a> | Flatten a multi-dimensional associative array with dots. |
 | <a href="#arrays_delete">`delete()`</a> | Deletes an array value using "dot notation".|
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
@@ -64,8 +65,9 @@ $arrays = arrays();
 | <a href="#arrays_toJson">`toJson()`</a> | Convert the current array to JSON. |
 | <a href="#arrays_toQuery">`toQuery()`</a> | Convert the current array into a query string. |
 | <a href="#arrays_toString">`toString()`</a> | Convert the current array to string recursively implodes an array with optional key inclusion. |
-| <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
 | <a href="#arrays_set">`set()`</a> | Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced. |
+| <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
+| <a href="#arrays_shuffle">`shuffle()`</a> | Shuffle the given array and return the result. |
 | <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
 
 
@@ -242,7 +244,6 @@ public function combine(array $array): self
 $arrays = Arrays::create(['green', 'red', 'yellow'])->combine(['avacado', 'apple', 'banana'])->toArray();
 ```
 
-
 ##### <a name="arrays_divide"></a> Method: `divide()`
 
 ```php
@@ -276,6 +277,22 @@ $arrays = Arrays::create([
 $result = $arrays->divide();
 ```
 
+##### <a name="arrays_diff"></a> Method: `diff()`
+
+```php
+/**
+ * Compute the current array values which not present in the given one.
+ *
+ * @param array $array Array for diff
+ */
+public function diff(array $array): self
+```
+
+**Examples**
+
+```php
+Arrays::create(['foo', 'bar'])->diff(['foo', 'bar'])->toArray());
+```
 
 ##### <a name="arrays_dot"></a> Method: `dot()`
 
@@ -893,6 +910,23 @@ $arrays = Arrays::create([
                                'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
                            ]
                     ])->sortBySubKey('title', 'DESC');
+```
+
+##### <a name="arrays_shuffle"></a> Method: `shuffle()`
+
+```php
+/**
+ * Shuffle the given array and return the result.
+ *
+ * @param  int|null $seed An arbitrary integer seed value.
+ */
+public function shuffle($seed = null): self
+```
+
+**Examples**
+
+```php
+$arrays = Arrays::create([1, 2, 3, 4, 5])->shuffle();
 ```
 
 ##### <a name="arrays_undot"></a> Method: `undot()`

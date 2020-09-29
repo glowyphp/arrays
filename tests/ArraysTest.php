@@ -335,3 +335,19 @@ test('test combine() method', function (): void {
     $this->assertEquals(['green' => 'avacado', 'red' => 'apple', 'yellow' => 'banana'],
                         Arrays::create(['green', 'red', 'yellow'])->combine(['avacado', 'apple', 'banana'])->toArray());
 });
+
+test('test diff() method', function (): void {
+    $this->assertEquals([0 => 'foo', 1 => 'bar'],
+                        Arrays::create(['foo', 'bar'])->diff(['one', 'two'])->toArray());
+    $this->assertEquals([],
+                        Arrays::create(['foo', 'bar'])->diff(['foo', 'bar'])->toArray());
+});
+
+test('test shuffle() method', function (): void {
+    $this->assertNotEquals(Arrays::create(range(0, 100, 10))->shuffle(),
+                           Arrays::create(range(0, 100, 10))->shuffle());
+    $this->assertNotEquals(Arrays::create(range(0, 100, 10))->shuffle(42),
+                           Arrays::create(range(0, 100, 10))->shuffle(4242));
+    $this->assertEquals(Arrays::create(range(0, 100, 10))->shuffle(42),
+                        Arrays::create(range(0, 100, 10))->shuffle(42));
+});

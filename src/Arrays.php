@@ -470,6 +470,40 @@ class Arrays
     }
 
     /**
+     * Compute the current array values which not present in the given one.
+     *
+     * @param array $array Array for diff
+     */
+    public function diff(array $array): self
+    {
+        $this->items = array_diff($this->items, $array);
+
+        return $this;
+    }
+
+    /**
+     * Shuffle the given array and return the result.
+     *
+     * @param  int|null $seed An arbitrary integer seed value.
+     */
+    public function shuffle($seed = null): self
+    {
+        $array = $this->items;
+
+        if (is_null($seed)) {
+            shuffle($array);
+        } else {
+            mt_srand($seed);
+            shuffle($array);
+            mt_srand();
+        }
+
+        $this->items = $array;
+
+        return $this;
+    }
+
+    /**
      * Convert the current array into a query string.
      */
     public function toQuery(): string
