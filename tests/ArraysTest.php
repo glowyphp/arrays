@@ -363,3 +363,8 @@ test('test flip() method', function (): void {
     $this->assertEquals(['oranges' => 0, 'apples' => 1, 'pears' => 2],
                         Arrays::create(['oranges', 'apples', 'pears'])->flip()->toArray());
 });
+
+test('test intersect() method', function (): void {
+    $this->assertEquals(['a' => 'green', 0 => 'red'],
+                        Arrays::create(["a" => "green", "red", "blue"])->intersect(["b" => "green", "yellow", "red"])->toArray());
+});

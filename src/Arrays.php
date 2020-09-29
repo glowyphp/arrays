@@ -504,6 +504,18 @@ class Arrays
     }
 
     /**
+     * Compute the current array values which present in the given one.
+     *
+     * @param array $array Array for intersect
+     */
+    public function intersect(array $array): self
+    {
+        $this->items = array_intersect($this->items, $array);
+
+        return $this;
+    }
+
+    /**
      * Shuffle the given array and return the result.
      *
      * @param  int|null $seed An arbitrary integer seed value.

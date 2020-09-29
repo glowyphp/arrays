@@ -63,6 +63,7 @@ $arrays = arrays();
 | <a href="#arrays_pull">`pull()`</a> | Get a value from the array, and remove it. |
 | <a href="#arrays_last">`last()`</a> | Get the last value from the current array. |
 | <a href="#arrays_lastKey">`lastKey()`</a> | Get the last key from the current array. |
+| <a href="#arrays_intersect">`intersect()`</a> | Compute the current array values which present in the given one. |
 | <a href="#arrays_isEqual">`isEqual()`</a> | Check if the current array is equal to the given `$array` or not. |
 | <a href="#arrays_isAssoc">`isAssoc()`</a> | Determines if an array is associative. |
 | <a href="#arrays_toArray">`toArray()`</a> | Get all items from stored array and convert them to array. |
@@ -694,6 +695,22 @@ $arrays = Arrays::create([
 $result = $arrays->lastKey();
 ```
 
+##### <a name="arrays_intersect"></a> Method: `intersect()`
+
+```php
+/**
+ * Compute the current array values which present in the given one.
+ *
+ * @param array $array Array for intersect
+ */
+public function intersect(array $array): self
+```
+
+**Examples**
+
+```php
+$arrays = Arrays::create(["a" => "green", "red", "blue"])->intersect(["b" => "green", "yellow", "red"])->toArray()
+```
 
 ##### <a name="arrays_isEqual"></a> Method: `isEqual()`
 
