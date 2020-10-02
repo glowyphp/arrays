@@ -184,6 +184,14 @@ class Arrays
     }
 
     /**
+     * Return an array of all values stored array.
+     */
+    public function getValues()
+    {
+        return array_values($this->items);
+    }
+
+    /**
      * Alias of search() method. Search for a given item and return
      * the index of its first occurrence.
      *

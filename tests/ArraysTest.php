@@ -598,3 +598,10 @@ test('test only() method', function (): void {
         Arrays::create(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5])->only(['b', 'e'])->toArray()
     );
 });
+
+test('test getValues() method', function (): void {
+    $this->assertEquals(
+        [1, 2, 3, 4, 5],
+        Arrays::create([1, 2, 3, 4, 5])->getValues()
+    );
+});

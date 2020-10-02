@@ -61,6 +61,7 @@ $arrays = arrays();
 | <a href="#arrays_filter">`filter()`</a> | Filter the current array for elements satisfying the predicate `$callback` function. |
 | <a href="#arrays_flip">`flip()`</a> | Exchanges all keys of current array with their associated values. |
 | <a href="#arrays_get">`get()`</a> | Get an item from an array using "dot" notation. |
+| <a href="#arrays_getValues">`getValues()`</a> | Return an array of all values stored array. |
 | <a href="#arrays_has">`has()`</a> | Checks if the given dot-notated key exists in the array. |
 | <a href="#arrays_pull">`pad()`</a> | Pad the current array to the specified size with a given value. |
 | <a href="#arrays_prepend">`prepend()`</a> | Push an item into the beginning of an array. |
@@ -832,6 +833,36 @@ print_r($title);
 
 ```
 The Thin Red Line
+```
+
+##### <a name="arrays_getValues"></a> Method: `getValues()`
+
+```php
+/**
+ * Return an array of all values stored array.
+ */
+public function getValues()
+```
+
+##### Example
+
+```php
+$result = Arrays::create([1, 2, 3, 4, 5])->getValues();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => 3
+    [3] => 4
+    [4] => 5
+)
 ```
 
 ##### <a name="arrays_has"></a> Method: `has()`
