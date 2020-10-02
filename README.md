@@ -46,6 +46,9 @@ $arrays = arrays();
 | <a href="#arrays_all">`all()`</a> | Get all items from stored array. |
 | <a href="#arrays_count">`count()`</a> | Return the number of items in a given key. |
 | <a href="#arrays_create">`create()`</a> | Create a new arrayable object from the given elements. Initializes a Arrays object and assigns $items the supplied values. |
+| <a href="#arrays_createFromJson">`createFromJson()`</a> | Create a new arrayable object from the given JSON string. |
+| <a href="#arrays_createFromString">`createFromString()`</a> | Create a new arrayable object from the given string. |
+| <a href="#arrays_createWithRange">`createWithRange()`</a> | Create a new arrayable object with a range of elements. |
 | <a href="#arrays_chunk">`chunk()`</a> | Create a chunked version of current array. |
 | <a href="#arrays_combine">`combine()`</a> | Create an array using the current array as keys and the other array as values. |
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
@@ -290,6 +293,65 @@ $arrays = Arrays::create([
                         ]
                     ]);
 ```
+
+##### <a name="arrays_createFromJson"></a> Method: `createFromJson()`
+
+```php
+/**
+ * Create a new arrayable object from the given JSON string.
+ *
+ * @param string $input A string containing JSON.
+ * @param bool   $assoc Decode assoc. When TRUE, returned objects will be converted into associative arrays.
+ * @param int    $depth Decode Depth. Set the maximum depth. Must be greater than zero.
+ * @param int    $flags Bitmask consisting of decode options
+ */
+public static function createFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): Arrays
+```
+
+##### Example
+
+```php
+$arrays = Arrays::createFromJson('{"foo": "bar"}');
+```
+
+##### <a name="arrays_createFromString"></a> Method: `createFromString()`
+
+```php
+/**
+ * Create a new arrayable object from the given string.
+ *
+ * @param string $string    Input string.
+ * @param string $separator Elements separator.
+ */
+public static function createFromString($string, $separator): Arrays
+```
+
+##### Example
+
+```php
+$arrays = Arrays::createFromString('foo,bar', ',');
+```
+
+##### <a name="arrays_createWithRange"></a> Method: `createWithRange()`
+
+```php
+/**
+ * Create a new arrayable object with a range of elements.
+ *
+ * @param mixed $low  First value of the sequence.
+ * @param mixed $high The sequence is ended upon reaching the end value.
+ * @param int   $step If a step value is given, it will be used as the increment between elements in the sequence.
+ *                    step should be given as a positive number. If not specified, step will default to 1.
+ */
+public static function createWithRange($low, $high, int $step = 1): Arrays
+```
+
+##### Example
+
+```php
+$arrays = Arrays::createWithRange(1, 5);
+```
+
 
 ##### <a name="arrays_chunk"></a> Method: `chunk()`
 

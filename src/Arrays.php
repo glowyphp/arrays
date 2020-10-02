@@ -93,6 +93,43 @@ class Arrays
     }
 
     /**
+     * Create a new arrayable object from the given JSON string.
+     *
+     * @param string $input A string containing JSON.
+     * @param bool   $assoc Decode assoc. When TRUE, returned objects will be converted into associative arrays.
+     * @param int    $depth Decode Depth. Set the maximum depth. Must be greater than zero.
+     * @param int    $flags Bitmask consisting of decode options
+     */
+    public static function createFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): Arrays
+    {
+        return new Arrays(json_decode($input, $assoc, $depth, $flags));
+    }
+
+    /**
+     * Create a new arrayable object from the given string.
+     *
+     * @param string $string    Input string.
+     * @param string $separator Elements separator.
+     */
+    public static function createFromString($string, $separator): Arrays
+    {
+        return new Arrays(explode($separator, $string));
+    }
+
+    /**
+     * Create a new arrayable object with a range of elements.
+     *
+     * @param mixed $low  First value of the sequence.
+     * @param mixed $high The sequence is ended upon reaching the end value.
+     * @param int   $step If a step value is given, it will be used as the increment between elements in the sequence.
+     *                    step should be given as a positive number. If not specified, step will default to 1.
+     */
+    public static function createWithRange($low, $high, int $step = 1): Arrays
+    {
+        return new Arrays(range($low, $high, $step));
+    }
+
+    /**
      * Set an array item to a given value using "dot" notation.
      *
      * If no key is given to the method, the entire array will be replaced.

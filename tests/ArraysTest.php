@@ -4,12 +4,38 @@ declare(strict_types=1);
 
 use Atomastic\Arrays\Arrays;
 
+test('test arrays() helper', function (): void {
+    $this->assertEquals(Arrays::create(), arrays());
+});
+
 test('test create() method', function (): void {
     $this->assertEquals(new Arrays(), Arrays::create());
 });
 
-test('test arrays() helper', function (): void {
-    $this->assertEquals(Arrays::create(), arrays());
+test('test createFromJson() method', function (): void {
+    $arrays = Arrays::createFromJson('{"foo": "bar"}');
+    $arrays = $arrays->all();
+
+    $this->assertEquals(['foo' => 'bar'], $arrays);
+});
+
+test('test createFromString() method', function (): void {
+    $arrays = Arrays::createFromString('foo,bar', ',');
+    $arrays = $arrays->all();
+
+    $this->assertEquals([0 => 'foo', 1 => 'bar'], $arrays);
+});
+
+test('test createWithRange() method', function (): void {
+    $arrays = Arrays::createWithRange(1, 5);
+    $arrays = $arrays->all();
+
+    $this->assertEquals([1, 2, 3, 4, 5], $arrays);
+
+    $arrays = Arrays::createWithRange(1, 5, 2);
+    $arrays = $arrays->all();
+
+    $this->assertEquals([1, 3, 5], $arrays);
 });
 
 test('test all() method', function (): void {
