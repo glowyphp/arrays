@@ -74,6 +74,7 @@ $arrays = arrays();
 | <a href="#arrays_isAssoc">`isAssoc()`</a> | Determines if an array is associative. |
 | <a href="#arrays_map">`map()`</a> | Apply the given $callback function to the every element of the current array, collecting the results. |
 | <a href="#arrays_merge">`merge()`</a> | Merge the current array with the provided one. |
+| <a href="#arrays_only">`only()`</a> | Return slice of an array with just a given keys. |
 | <a href="#arrays_reindex">`reindex()`</a> | Create a numerically re-indexed array based on the current array. |
 | <a href="#arrays_replace">`replace()`</a> | Replace values in the current array with values in the given one that have the same key. |
 | <a href="#arrays_reverse">`reverse()`</a> | Reverse the values order of the current array. |
@@ -1382,6 +1383,35 @@ Array
 
     [0] => 5
     [1] => 10
+)
+```
+
+##### <a name="arrays_only"></a> Method: `only()`
+
+```php
+/**
+ * Return slice of an array with just a given keys.
+ *
+ * @param array $keys List of keys to return.
+ */
+public function only(array $keys): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5])->only(['b', 'e'])->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [b] => 2
+    [e] => 5
 )
 ```
 

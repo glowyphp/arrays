@@ -837,4 +837,16 @@ class Arrays
 
         return $this;
     }
+
+    /**
+     * Return slice of an array with just a given keys.
+     *
+     * @param array $keys List of keys to return.
+     */
+    public function only(array $keys): self
+    {
+        $this->items = array_intersect_key($this->items, array_flip($keys));
+
+        return $this;
+    }
 }

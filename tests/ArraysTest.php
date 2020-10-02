@@ -584,3 +584,10 @@ test('test reduce() method', function (): void {
         })
     );
 });
+
+test('test only() method', function (): void {
+    $this->assertEquals(
+        ['b' => 2, 'e' => 5],
+        Arrays::create(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5])->only(['b', 'e'])->toArray()
+    );
+});
