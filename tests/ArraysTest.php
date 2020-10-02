@@ -19,8 +19,22 @@ test('test createFromJson() method', function (): void {
     $this->assertEquals(['foo' => 'bar'], $arrays);
 });
 
+test('test arraysFromJson() helper', function (): void {
+    $arrays = arraysFromJson('{"foo": "bar"}');
+    $arrays = $arrays->all();
+
+    $this->assertEquals(['foo' => 'bar'], $arrays);
+});
+
 test('test createFromString() method', function (): void {
     $arrays = Arrays::createFromString('foo,bar', ',');
+    $arrays = $arrays->all();
+
+    $this->assertEquals([0 => 'foo', 1 => 'bar'], $arrays);
+});
+
+test('test arraysFromString() helper', function (): void {
+    $arrays = arraysFromString('foo,bar', ',');
     $arrays = $arrays->all();
 
     $this->assertEquals([0 => 'foo', 1 => 'bar'], $arrays);
@@ -33,6 +47,18 @@ test('test createWithRange() method', function (): void {
     $this->assertEquals([1, 2, 3, 4, 5], $arrays);
 
     $arrays = Arrays::createWithRange(1, 5, 2);
+    $arrays = $arrays->all();
+
+    $this->assertEquals([1, 3, 5], $arrays);
+});
+
+test('test arraysWithRange() helper', function (): void {
+    $arrays = arraysWithRange(1, 5);
+    $arrays = $arrays->all();
+
+    $this->assertEquals([1, 2, 3, 4, 5], $arrays);
+
+    $arrays = arraysWithRange(1, 5, 2);
     $arrays = $arrays->all();
 
     $this->assertEquals([1, 3, 5], $arrays);
