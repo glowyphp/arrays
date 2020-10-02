@@ -84,6 +84,7 @@ $arrays = arrays();
 | <a href="#arrays_set">`set()`</a> | Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced. |
 | <a href="#arrays_slice">`slice()`</a> | Extract a slice of the current array. |
 | <a href="#arrays_search">`search()`</a> | Searches the array for a given value and returns the first corresponding key if successful. |
+| <a href="#arrays_reduce">`reduce()`</a> | Reduce the array to a single value iteratively combining all values using `$callback.` |
 | <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
 | <a href="#arrays_shuffle">`shuffle()`</a> | Shuffle the given array and return the result. |
 | <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
@@ -1770,6 +1771,38 @@ print_r($result);
 
 ```
 2
+```
+
+##### <a name="arrays_reduce"></a> Method: `reduce()`
+
+```php
+/**
+ * Reduce the array to a single value iteratively combining all values using $callback.
+ *
+ * @param callable   $callback Callback with ($carry, $item)
+ * @param mixed|null $initial  If the optional initial is available,
+ *                             it will be used at the beginning of the process,
+ *                             or as a final result in case the array is empty.
+ */
+public function reduce(callable $callback, $initial = null)
+```
+
+##### Example
+
+```php
+$result = Arrays::create([2, 2])
+                ->reduce(function ($carry, $item) {
+                    $carry += $item;
+                    return $carry;
+                });
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+4
 ```
 
 ##### <a name="arrays_sortBySubKey"></a> Method: `sortBySubKey()`

@@ -130,6 +130,19 @@ class Arrays
     }
 
     /**
+     * Reduce the array to a single value iteratively combining all values using $callback.
+     *
+     * @param callable   $callback Callback with ($carry, $item)
+     * @param mixed|null $initial  If the optional initial is available,
+     *                             it will be used at the beginning of the process,
+     *                             or as a final result in case the array is empty.
+     */
+    public function reduce(callable $callback, $initial = null)
+    {
+        return array_reduce($this->items, $callback, $initial);
+    }
+
+    /**
      * Set an array item to a given value using "dot" notation.
      *
      * If no key is given to the method, the entire array will be replaced.

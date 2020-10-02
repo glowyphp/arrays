@@ -573,3 +573,13 @@ test('test search() method', function (): void {
         Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->search('green')
     );
 });
+
+test('test reduce() method', function (): void {
+    $this->assertEquals(
+        4,
+        Arrays::create([2, 2])->reduce(function ($carry, $item) {
+            $carry += $item;
+            return $carry;
+        })
+    );
+});
