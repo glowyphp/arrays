@@ -538,20 +538,20 @@ test('test slice() method', function (): void {
 test('test unique() method', function (): void {
     $this->assertEquals(
         ['a' => 'green', 0 => 'red', 1 => 'blue'],
-        Arrays::create(["a" => "green", "red", "b" => "green", "blue", "red"])->unique()->toArray()
+        Arrays::create(['a' => 'green', 'red', 'b' => 'green', 'blue', 'red'])->unique()->toArray()
     );
 
     $this->assertEquals(
         [0 => 4, 2 => '3'],
-        Arrays::create([4, "4", "3", 4, 3, "3"])->unique()->toArray()
+        Arrays::create([4, '4', '3', 4, 3, '3'])->unique()->toArray()
     );
 });
 
 test('test walk() method', function (): void {
     $this->assertEquals(
         ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-        Arrays::create(["a" => "lemon", "b" => "orange", "c" => "banana"])
-                ->walk(function(&$value, $key) {
+        Arrays::create(['a' => 'lemon', 'b' => 'orange', 'c' => 'banana'])
+                ->walk(static function (&$value, $key): void {
                     $value = $key;
                 })
                 ->toArray()
@@ -559,8 +559,8 @@ test('test walk() method', function (): void {
 
     $this->assertEquals(
         ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-        Arrays::create(["a" => "lemon", "b" => "orange", "c" => "banana"])
-                ->walk(function(&$value, $key) {
+        Arrays::create(['a' => 'lemon', 'b' => 'orange', 'c' => 'banana'])
+                ->walk(static function (&$value, $key): void {
                     $value = $key;
                 }, true)
                 ->toArray()
@@ -577,8 +577,9 @@ test('test search() method', function (): void {
 test('test reduce() method', function (): void {
     $this->assertEquals(
         4,
-        Arrays::create([2, 2])->reduce(function ($carry, $item) {
+        Arrays::create([2, 2])->reduce(static function ($carry, $item) {
             $carry += $item;
+
             return $carry;
         })
     );

@@ -19,9 +19,11 @@ use function array_map;
 use function array_merge;
 use function array_merge_recursive;
 use function array_pad;
+use function array_reduce;
 use function array_replace;
 use function array_replace_recursive;
 use function array_reverse;
+use function array_search;
 use function array_shift;
 use function array_slice;
 use function array_unique;
@@ -38,6 +40,7 @@ use function function_exists;
 use function http_build_query;
 use function is_array;
 use function is_null;
+use function json_decode;
 use function json_encode;
 use function mb_strlen;
 use function mb_strtolower;
@@ -45,6 +48,7 @@ use function mb_substr;
 use function mt_srand;
 use function natsort;
 use function preg_replace;
+use function range;
 use function shuffle;
 use function strpos;
 use function strtolower;
@@ -111,7 +115,7 @@ class Arrays
      * @param string $string    Input string.
      * @param string $separator Elements separator.
      */
-    public static function createFromString($string, $separator): Arrays
+    public static function createFromString(string $string, string $separator): Arrays
     {
         return new Arrays(explode($separator, $string));
     }
@@ -444,7 +448,7 @@ class Arrays
     /**
      * Return the number of items in a given key.
      *
-     * @param  int|string|null $key
+     * @param  int|string|null $key Key
      */
     public function count($key = null): int
     {
@@ -454,7 +458,7 @@ class Arrays
     /**
      * Check if the current array is equal to the given $array or not.
      *
-     * @param array $array Array
+     * @param array $array Array to check.
      */
     public function isEqual(array $array): bool
     {

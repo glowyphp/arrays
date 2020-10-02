@@ -40,7 +40,7 @@ if (! function_exists('arraysFromString')) {
      * @param string $string    Input string.
      * @param string $separator Elements separator.
      */
-    function arraysFromString($string, $separator): Arrays
+    function arraysFromString(string $string, string $separator): Arrays
     {
         return Arrays::createFromString($string, $separator);
     }
