@@ -203,6 +203,14 @@ class Arrays
     }
 
     /**
+     * Check whether the array is empty or not.
+     */
+    public function isEmpty(): bool
+    {
+        return count($this->items) === 0;
+    }
+
+    /**
      * Searches the array for a given value and returns the first corresponding key if successful.
      *
      * @param mixed $needle The searched value.

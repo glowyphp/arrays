@@ -605,3 +605,10 @@ test('test getValues() method', function (): void {
         Arrays::create([1, 2, 3, 4, 5])->getValues()
     );
 });
+
+
+test('test isEmpty() method', function (): void {
+    $this->assertFalse(Arrays::create([1, 2, 3, 4, 5])->isEmpty());
+    $this->assertTrue(Arrays::create()->isEmpty());
+    $this->assertTrue(Arrays::create([])->isEmpty());
+});

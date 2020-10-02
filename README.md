@@ -69,6 +69,7 @@ $arrays = arrays();
 | <a href="#arrays_last">`last()`</a> | Get the last value from the current array. |
 | <a href="#arrays_lastKey">`lastKey()`</a> | Get the last key from the current array. |
 | <a href="#arrays_indexOf">`indexOf()`</a> | Alias of search() method. Search for a given item and return the index of its first occurrence. |
+| <a href="#arrays_isEmpty">`isEmpty()`</a> | Check whether the array is empty or not. |
 | <a href="#arrays_intersect">`intersect()`</a> | Compute the current array values which present in the given one. |
 | <a href="#arrays_intersectAssoc">`intersectAssoc()`</a> | Compute the current array values with additional index check. |
 | <a href="#arrays_intersectKey">`intersectKey()`</a> | Compute the current array using keys for comparison which present in the given one. |
@@ -1183,6 +1184,26 @@ print_r($result);
 
 ```
 2
+```
+
+##### <a name="arrays_isEmpty"></a> Method: `isEmpty()`
+
+```php
+/**
+ * Check whether the array is empty or not.
+ */
+public function isEmpty(): bool
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red']);
+
+if ($arrays->isEmpty()) {
+    // do something...
+}
+
 ```
 
 ##### <a name="arrays_intersect"></a> Method: `intersect()`
