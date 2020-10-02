@@ -67,6 +67,7 @@ $arrays = arrays();
 | <a href="#arrays_pull">`pull()`</a> | Get a value from the array, and remove it. |
 | <a href="#arrays_last">`last()`</a> | Get the last value from the current array. |
 | <a href="#arrays_lastKey">`lastKey()`</a> | Get the last key from the current array. |
+| <a href="#arrays_indexOf">`indexOf()`</a> | Alias of search() method. Search for a given item and return the index of its first occurrence. |
 | <a href="#arrays_intersect">`intersect()`</a> | Compute the current array values which present in the given one. |
 | <a href="#arrays_intersectAssoc">`intersectAssoc()`</a> | Compute the current array values with additional index check. |
 | <a href="#arrays_intersectKey">`intersectKey()`</a> | Compute the current array using keys for comparison which present in the given one. |
@@ -1125,6 +1126,32 @@ print_r($result);
 
 ```
 bad_times_at_the_el_royale
+```
+
+##### <a name="arrays_indexOf"></a> Method: `indexOf()`
+
+```php
+/**
+ * Alias of search() method. Search for a given item and return
+ * the index of its first occurrence.
+ *
+ * @param mixed $needle The searched value.
+ */
+public function indexOf($needle)
+```
+
+##### Example
+
+```php
+$result = Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->indexOf('green');
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+2
 ```
 
 ##### <a name="arrays_intersect"></a> Method: `intersect()`

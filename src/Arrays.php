@@ -184,6 +184,17 @@ class Arrays
     }
 
     /**
+     * Alias of search() method. Search for a given item and return
+     * the index of its first occurrence.
+     *
+     * @param mixed $needle The searched value.
+     */
+    public function indexOf($needle)
+    {
+        return $this->search($needle);
+    }
+
+    /**
      * Searches the array for a given value and returns the first corresponding key if successful.
      *
      * @param mixed $needle The searched value.

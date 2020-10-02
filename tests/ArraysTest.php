@@ -574,6 +574,13 @@ test('test search() method', function (): void {
     );
 });
 
+test('test indexOf() method', function (): void {
+    $this->assertEquals(
+        2,
+        Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->indexOf('green')
+    );
+});
+
 test('test reduce() method', function (): void {
     $this->assertEquals(
         4,
