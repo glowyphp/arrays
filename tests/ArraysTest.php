@@ -566,3 +566,10 @@ test('test walk() method', function (): void {
                 ->toArray()
     );
 });
+
+test('test search() method', function (): void {
+    $this->assertEquals(
+        2,
+        Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->search('green')
+    );
+});

@@ -167,6 +167,16 @@ class Arrays
     }
 
     /**
+     * Searches the array for a given value and returns the first corresponding key if successful.
+     *
+     * @param mixed $needle The searched value.
+     */
+    public function search($needle)
+    {
+        return array_search($needle, $this->items, true);
+    }
+
+    /**
      * Checks if the given dot-notated key exists in the array.
      *
      * @param  string|array $keys Keys

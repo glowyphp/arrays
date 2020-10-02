@@ -83,6 +83,7 @@ $arrays = arrays();
 | <a href="#arrays_toString">`toString()`</a> | Convert the current array to string recursively implodes an array with optional key inclusion. |
 | <a href="#arrays_set">`set()`</a> | Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced. |
 | <a href="#arrays_slice">`slice()`</a> | Extract a slice of the current array. |
+| <a href="#arrays_search">`search()`</a> | Searches the array for a given value and returns the first corresponding key if successful. |
 | <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
 | <a href="#arrays_shuffle">`shuffle()`</a> | Shuffle the given array and return the result. |
 | <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
@@ -1746,15 +1747,29 @@ $arrays = Arrays::create(['a', 'b', 'c', 'd', 'e'])->slice(0, 3)->toArray();
 print_r($arrays);
 ```
 
+##### <a name="arrays_search"></a> Method: `search()`
+
+```php
+/**
+ * Searches the array for a given value and returns the first corresponding key if successful.
+ *
+ * @param mixed $needle The searched value.
+ */
+public function search($needle)
+```
+
+##### Example
+
+```php
+$result = Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->search('green');
+
+print_r($result);
+```
+
 ##### The above example will output:
 
 ```
-Array
-(
-    [0] => a
-    [1] => b
-    [2] => c
-)
+2
 ```
 
 ##### <a name="arrays_sortBySubKey"></a> Method: `sortBySubKey()`
