@@ -34,7 +34,7 @@ $arrays = new Arrays();
 // Using public static method create()
 $arrays = Arrays::create();
 
-// Using global helper function arrays() analog to Arrays::create()
+// Using global helper function arrays() alias to Arrays::create()
 $arrays = arrays();
 ```
 
