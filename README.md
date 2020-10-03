@@ -89,6 +89,7 @@ $arrays = arrays();
 | <a href="#arrays_slice">`slice()`</a> | Extract a slice of the current array. |
 | <a href="#arrays_search">`search()`</a> | Searches the array for a given value and returns the first corresponding key if successful. |
 | <a href="#arrays_sort">`sort()`</a> | Sorts array by values. |
+| <a href="#arrays_sortKeys">`sortKeys()`</a> | Sorts array by keys. |
 | <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
 | <a href="#arrays_shuffle">`shuffle()`</a> | Shuffle the given array and return the result. |
 | <a href="#arrays_random">`random()`</a> | Returns one or a specified number of items randomly from the array. |
@@ -1915,6 +1916,39 @@ Array
     [1] => green
     [2] => red
     [3] => red
+)
+```
+
+
+##### <a name="arrays_sortKeys"></a> Method: `sortKeys()`
+
+```php
+/**
+ * Sorts array by keys.
+ *
+ * @param  string $direction    Order type DESC (descending) or ASC (ascending)
+ * @param  int    $sortFlags    A PHP sort method flags.
+ *                              https://www.php.net/manual/ru/function.sort.php
+ */
+public function sortKeys(string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['a' => 'blue', 'b' => 'red', 'c' => 'green'])->sortKeys()->toArray()
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [a] => blue
+    [b] => red
+    [c] => green
 )
 ```
 

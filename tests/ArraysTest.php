@@ -650,3 +650,25 @@ test('test sort() method', function (): void {
         Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->sort('DESC')->toArray()
     );
 });
+
+test('test sortKeys() method', function (): void {
+    $this->assertEquals(
+        [0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'],
+        Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->sortKeys()->toArray()
+    );
+
+    $this->assertEquals(
+        ['a' => 'blue', 'b' => 'red', 'c' => 'green'],
+        Arrays::create(['a' => 'blue', 'b' => 'red', 'c' => 'green'])->sortKeys()->toArray()
+    );
+
+    $this->assertEquals(
+        ['a' => 'blue', 'b' => 'red', 'c' => 'green'],
+        Arrays::create(['a' => 'blue', 'b' => 'red', 'c' => 'green'])->sortKeys('ASC')->toArray()
+    );
+
+    $this->assertEquals(
+        ['a' => 'blue', 'b' => 'red', 'c' => 'green'],
+        Arrays::create(['a' => 'blue', 'b' => 'red', 'c' => 'green'])->sortKeys('DESC')->toArray()
+    );
+});
