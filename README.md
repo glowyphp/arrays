@@ -51,6 +51,8 @@ $arrays = arrays();
 | <a href="#arrays_createWithRange">`createWithRange()`</a> | Create a new arrayable object with a range of elements. |
 | <a href="#arrays_chunk">`chunk()`</a> | Create a chunked version of current array. |
 | <a href="#arrays_combine">`combine()`</a> | Create an array using the current array as keys and the other array as values. |
+| <a href="#arrays_customSortKeys">`customSortKeys()`</a> | Sorts array by keys. |
+| <a href="#arrays_customSortValues">`customSortValues()`</a> | Sorts array by values. |
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 | <a href="#arrays_diff">`diff()`</a> | Compute the current array values which not present in the given one. |
 | <a href="#arrays_dot">`dot()`</a> | Flatten a multi-dimensional associative array with dots. |
@@ -423,6 +425,79 @@ Array
     [green] => avacado
     [red] => apple
     [yellow] => banana
+)
+```
+
+##### <a name="arrays_customSortKeys"></a> Method: `customSortKeys()`
+
+```php
+/**
+ * Sorts the array keys with a user-defined comparison function and maintain index association.
+ *
+ * @param callable $callback
+ */
+public function customSortKeys(callable $callback): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['b', 'a', 'c'])
+              ->customSortKeys(static function ($a, $b) {
+                if ($a === $b) {
+                    return 0;
+                }
+
+                  return $a < $b ? -1 : 1;
+              })->toArray();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => b
+    [1] => a
+    [2] => c
+)
+```
+
+##### <a name="arrays_customSortValues"></a> Method: `customSortValues()`
+
+```php
+/**
+ * Sorts the array values with a user-defined comparison function and maintain index association.
+ *
+ * @param callable $callback
+ */
+public function customSortValues(callable $callback): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['b', 'a', 'c'])
+              ->customSortValues(static function ($a, $b) {
+                    if ($a === $b) {
+                        return 0;
+                    }
+                    return $a < $b ? -1 : 1;
+              })->toArray()
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => a
+    [1] => b
+    [2] => c
 )
 ```
 

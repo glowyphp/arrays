@@ -672,3 +672,43 @@ test('test sortKeys() method', function (): void {
         Arrays::create(['a' => 'blue', 'b' => 'red', 'c' => 'green'])->sortKeys('DESC')->toArray()
     );
 });
+
+test('test customSortValues() method', function (): void {
+    $this->assertEquals(
+        ['a', 'b', 'c'],
+        Arrays::create(['b', 'a', 'c'])
+              ->customSortValues(static function ($a, $b) {
+                if ($a === $b) {
+                    return 0;
+                }
+
+                  return $a < $b ? -1 : 1;
+              })->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => 'a', 1 => 'b', 2 => 'c'],
+        Arrays::create([0 => 'b', 1 => 'c', 2 => 'a'])
+              ->customSortValues(static function ($a, $b) {
+                if ($a === $b) {
+                    return 0;
+                }
+
+                  return $a < $b ? -1 : 1;
+              })->toArray()
+    );
+});
+
+test('test customSortKeys() method', function (): void {
+    $this->assertEquals(
+        [0 => 'b', 1 => 'a', 2 => 'c'],
+        Arrays::create(['b', 'a', 'c'])
+              ->customSortKeys(static function ($a, $b) {
+                if ($a === $b) {
+                    return 0;
+                }
+
+                  return $a < $b ? -1 : 1;
+              })->toArray()
+    );
+});

@@ -43,6 +43,8 @@ use function is_array;
 use function is_null;
 use function json_decode;
 use function json_encode;
+use function krsort;
+use function ksort;
 use function mb_strlen;
 use function mb_strtolower;
 use function mb_substr;
@@ -56,6 +58,8 @@ use function sort;
 use function strpos;
 use function strtolower;
 use function strval;
+use function uksort;
+use function usort;
 
 use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;
@@ -893,12 +897,12 @@ class Arrays
      *
      * @param bool $recursively Whether array will be walked recursively or no. Default is false.
      */
-    public function walk(callable $callable, bool $recursive = false): self
+    public function walk(callable $callback, bool $recursive = false): self
     {
         if ($recursive) {
-            array_walk_recursive($this->items, $callable);
+            array_walk_recursive($this->items, $callback);
         } else {
-            array_walk($this->items, $callable);
+            array_walk($this->items, $callback);
         }
 
         return $this;
@@ -922,7 +926,7 @@ class Arrays
      * @param  string $direction    Order type DESC (descending) or ASC (ascending)
      * @param  int    $sortFlags    A PHP sort method flags.
      *                              https://www.php.net/manual/ru/function.sort.php
-     * @param bool   $preserveKeys Maintain index association
+     * @param bool    $preserveKeys Maintain index association
      */
     public function sort(string $direction = 'ASC', int $sortFlags = SORT_REGULAR, bool $preserveKeys = false): self
     {
@@ -951,9 +955,9 @@ class Arrays
     /**
      * Sorts array by keys.
      *
-     * @param  string $direction    Order type DESC (descending) or ASC (ascending)
-     * @param  int    $sortFlags    A PHP sort method flags.
-     *                              https://www.php.net/manual/ru/function.sort.php
+     * @param  string $direction Order type DESC (descending) or ASC (ascending)
+     * @param  int    $sortFlags A PHP sort method flags.
+     *                           https://www.php.net/manual/ru/function.sort.php
      */
     public function sortKeys(string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
     {
@@ -966,6 +970,30 @@ class Arrays
             default:
                 ksort($this->items, $sortFlags);
         }
+
+        return $this;
+    }
+
+    /**
+     * Sorts the array values with a user-defined comparison function and maintain index association.
+     *
+     * @param callable $callback
+     */
+    public function customSortValues(callable $callback): self
+    {
+        usort($this->items, $callback);
+
+        return $this;
+    }
+
+    /**
+     * Sorts the array keys with a user-defined comparison function and maintain index association.
+     *
+     * @param callable $callback
+     */
+    public function customSortKeys(callable $callback): self
+    {
+        uksort($this->items, $callback);
 
         return $this;
     }
