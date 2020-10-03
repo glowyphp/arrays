@@ -612,3 +612,24 @@ test('test isEmpty() method', function (): void {
     $this->assertTrue(Arrays::create()->isEmpty());
     $this->assertTrue(Arrays::create([])->isEmpty());
 });
+
+
+test('test random() method', function (): void {
+    $random = Arrays::create(['foo', 'bar', 'baz'])->random();
+    $this->assertContains($random, ['foo', 'bar', 'baz']);
+
+    $random = Arrays::create(['foo', 'bar', 'baz'])->random(0);
+    $this->assertIsArray($random);
+    $this->assertCount(0, $random);
+
+    $random = Arrays::create(['foo', 'bar', 'baz'])->random(1);
+    $this->assertIsArray($random);
+    $this->assertCount(1, $random);
+    $this->assertContains(Arrays::create($random)->first(), ['foo', 'bar', 'baz']);
+
+    $random = Arrays::create(['foo', 'bar', 'baz'])->random(2);
+    $this->assertIsArray($random);
+    $this->assertCount(2, $random);
+    $this->assertContains(Arrays::create($random)->first(), ['foo', 'bar', 'baz']);
+    $this->assertContains(Arrays::create($random)->last(), ['foo', 'bar', 'baz']);
+});

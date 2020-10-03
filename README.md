@@ -90,6 +90,7 @@ $arrays = arrays();
 | <a href="#arrays_search">`search()`</a> | Searches the array for a given value and returns the first corresponding key if successful. |
 | <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
 | <a href="#arrays_shuffle">`shuffle()`</a> | Shuffle the given array and return the result. |
+| <a href="#arrays_random">`random()`</a> | Returns one or a specified number of items randomly from the array. |
 | <a href="#arrays_reduce">`reduce()`</a> | Reduce the array to a single value iteratively combining all values using `$callback.` |
 | <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
 | <a href="#arrays_unique">`unique()`</a> | Remove duplicate values from the current array. |
@@ -1973,6 +1974,22 @@ Array
 )
 ```
 
+##### <a name="arrays_random"></a> Method: `random()`
+
+```php
+/**
+ * Returns one or a specified number of items randomly from the array.
+ *
+ * @param int|null $number Number of items to return.
+ */
+public function random(?int $number = null)
+```
+
+##### Example
+
+```php
+$result = Arrays::create(['foo', 'bar', 'baz'])->random();
+```
 
 ##### <a name="arrays_reduce"></a> Method: `reduce()`
 

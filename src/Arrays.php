@@ -693,6 +693,42 @@ class Arrays
     }
 
     /**
+     * Returns one or a specified number of items randomly from the array.
+     *
+     * @param int|null $number Number of items to return.
+     */
+    public function random(?int $number = null)
+    {
+        $array = $this->toArray();
+
+        $requested = is_null($number) ? 1 : $number;
+
+        $count = count($array);
+
+        if ($requested > $count) {
+            $number = $count;
+        }
+
+        if (is_null($number)) {
+            return $array[array_rand($array)];
+        }
+
+        if ((int) $number === 0) {
+            return [];
+        }
+
+        $keys = array_rand($array, $number);
+
+        $results = [];
+
+        foreach ((array) $keys as $key) {
+            $results[$key] = $array[$key];
+        }
+
+        return $results;
+    }
+
+    /**
      * Create a numerically re-indexed array based on the current array.
      */
     public function reindex(): self
