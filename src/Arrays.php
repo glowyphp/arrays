@@ -926,7 +926,7 @@ class Arrays
      * @param  string $direction    Order type DESC (descending) or ASC (ascending)
      * @param  int    $sortFlags    A PHP sort method flags.
      *                              https://www.php.net/manual/ru/function.sort.php
-     * @param bool    $preserveKeys Maintain index association
+     * @param bool   $preserveKeys Maintain index association
      */
     public function sort(string $direction = 'ASC', int $sortFlags = SORT_REGULAR, bool $preserveKeys = false): self
     {
@@ -976,8 +976,6 @@ class Arrays
 
     /**
      * Sorts the array values with a user-defined comparison function and maintain index association.
-     *
-     * @param callable $callback
      */
     public function customSortValues(callable $callback): self
     {
@@ -988,8 +986,6 @@ class Arrays
 
     /**
      * Sorts the array keys with a user-defined comparison function and maintain index association.
-     *
-     * @param callable $callback
      */
     public function customSortKeys(callable $callback): self
     {
