@@ -19,6 +19,7 @@ use function array_map;
 use function array_merge;
 use function array_merge_recursive;
 use function array_pad;
+use function array_rand;
 use function array_reduce;
 use function array_replace;
 use function array_replace_recursive;
@@ -49,7 +50,9 @@ use function mt_srand;
 use function natsort;
 use function preg_replace;
 use function range;
+use function rsort;
 use function shuffle;
+use function sort;
 use function strpos;
 use function strtolower;
 use function strval;
@@ -909,6 +912,38 @@ class Arrays
     public function only(array $keys): self
     {
         $this->items = array_intersect_key($this->items, array_flip($keys));
+
+        return $this;
+    }
+
+    /**
+     * Sorts array by values.
+     *
+     * @param  string $direction    Order type DESC (descending) or ASC (ascending)
+     * @param  int    $sortFlags    A PHP sort method flags.
+     *                              https://www.php.net/manual/ru/function.sort.php
+     * @param bool   $preserveKeys Maintain index association
+     */
+    public function sort(string $direction = 'ASC', int $sortFlags = SORT_REGULAR, bool $preserveKeys = false): self
+    {
+        switch ($direction) {
+            case 'DESC':
+                if ($preserveKeys) {
+                    arsort($this->items, $sortFlags);
+                } else {
+                    rsort($this->items, $sortFlags);
+                }
+
+                break;
+
+            case 'ASC':
+            default:
+                if ($preserveKeys) {
+                    asort($this->items, $sortFlags);
+                } else {
+                    sort($this->items, $sortFlags);
+                }
+        }
 
         return $this;
     }

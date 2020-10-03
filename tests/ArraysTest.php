@@ -633,3 +633,20 @@ test('test random() method', function (): void {
     $this->assertContains(Arrays::create($random)->first(), ['foo', 'bar', 'baz']);
     $this->assertContains(Arrays::create($random)->last(), ['foo', 'bar', 'baz']);
 });
+
+test('test sort() method', function (): void {
+    $this->assertEquals(
+        [0 => 'blue', 1 => 'green', 2 => 'red', 3 => 'red'],
+        Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->sort()->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => 'blue', 1 => 'green', 2 => 'red', 3 => 'red'],
+        Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->sort('ASC')->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => 'red', 1 => 'red', 2 => 'green', 3 => 'blue'],
+        Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->sort('DESC')->toArray()
+    );
+});

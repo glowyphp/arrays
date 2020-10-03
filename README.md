@@ -88,6 +88,7 @@ $arrays = arrays();
 | <a href="#arrays_set">`set()`</a> | Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced. |
 | <a href="#arrays_slice">`slice()`</a> | Extract a slice of the current array. |
 | <a href="#arrays_search">`search()`</a> | Searches the array for a given value and returns the first corresponding key if successful. |
+| <a href="#arrays_sort">`sort()`</a> | Sorts array by values. |
 | <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
 | <a href="#arrays_shuffle">`shuffle()`</a> | Shuffle the given array and return the result. |
 | <a href="#arrays_random">`random()`</a> | Returns one or a specified number of items randomly from the array. |
@@ -1881,6 +1882,40 @@ print_r($result);
 
 ```
 2
+```
+
+##### <a name="arrays_sort"></a> Method: `sort()`
+
+```php
+/**
+ * Sorts a associative array by a certain sub key.
+ *
+ * @param  string $direction    Order type DESC (descending) or ASC (ascending)
+ * @param  int    $sortFlags    A PHP sort method flags.
+ *                              https://www.php.net/manual/ru/function.sort.php
+ * @param bool    $preserveKeys Maintain index association
+ */
+public function sort(string $direction = 'ASC', int $sortFlags = SORT_REGULAR, bool $preserveKeys = false): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->sort()->toArray()
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => blue
+    [1] => green
+    [2] => red
+    [3] => red
+)
 ```
 
 ##### <a name="arrays_sortBySubKey"></a> Method: `sortBySubKey()`
