@@ -70,6 +70,7 @@ $arrays = arrays();
 | <a href="#arrays_pull">`pull()`</a> | Get a value from the array, and remove it. |
 | <a href="#arrays_last">`last()`</a> | Get the last value from the current array. |
 | <a href="#arrays_lastKey">`lastKey()`</a> | Get the last key from the current array. |
+| <a href="#arrays_groupBy">`groupBy()`</a> | Groups the array items by a given key. |
 | <a href="#arrays_indexOf">`indexOf()`</a> | Alias of search() method. Search for a given item and return the index of its first occurrence. |
 | <a href="#arrays_intersect">`intersect()`</a> | Compute the current array values which present in the given one. |
 | <a href="#arrays_intersectAssoc">`intersectAssoc()`</a> | Compute the current array values with additional index check. |
@@ -1237,6 +1238,101 @@ print_r($result);
 ```
 bad_times_at_the_el_royale
 ```
+
+
+
+##### <a name="arrays_groupBy"></a> Method: `groupBy()`
+
+```php
+/**
+ * Groups the array items by a given key.
+ *
+ * @param  string $key Key
+ */
+public function groupBy(string $key): self
+```
+
+##### Example
+
+```php
+$result = Arrays::create([
+    [
+        'id' => 1,
+        'name' => 'Bruce Wayne',
+        'city' => 'Gotham',
+        'gender' => 'Male',
+    ],
+    [
+        'id' => 2,
+        'name' => 'Thomas Wayne',
+        'city' => 'Gotham',
+        'gender' => 'Male',
+    ],
+    [
+        'id' => 3,
+        'name' => 'Diana Prince',
+        'city' => 'New Mexico',
+        'gender' => 'Female',
+    ],
+    [
+        'id' => 4,
+        'name' => 'Speedy Gonzales',
+        'city' => 'New Mexico',
+        'gender' => 'Male',
+    ],
+])->groupBy('gender')->toArray();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [Male] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 1
+                    [name] => Bruce Wayne
+                    [city] => Gotham
+                    [gender] => Male
+                )
+
+            [1] => Array
+                (
+                    [id] => 2
+                    [name] => Thomas Wayne
+                    [city] => Gotham
+                    [gender] => Male
+                )
+
+            [2] => Array
+                (
+                    [id] => 4
+                    [name] => Speedy Gonzales
+                    [city] => New Mexico
+                    [gender] => Male
+                )
+
+        )
+
+    [Female] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 3
+                    [name] => Diana Prince
+                    [city] => New Mexico
+                    [gender] => Female
+                )
+
+        )
+
+)
+```
+
 
 ##### <a name="arrays_indexOf"></a> Method: `indexOf()`
 

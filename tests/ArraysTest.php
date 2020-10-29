@@ -651,6 +651,67 @@ test('test sort() method', function (): void {
     );
 });
 
+test('test groupBy() method', function (): void {
+    $this->assertEquals(
+        [
+            'Male' => [
+                0 => [
+                    'id' => 1,
+                    'name' => 'Bruce Wayne',
+                    'city' => 'Gotham',
+                    'gender' => 'Male',
+                ],
+                1 => [
+                    'id' => 2,
+                    'name' => 'Thomas Wayne',
+                    'city' => 'Gotham',
+                    'gender' => 'Male',
+                ],
+                2 => [
+                    'id' => 4,
+                    'name' => 'Speedy Gonzales',
+                    'city' => 'New Mexico',
+                    'gender' => 'Male',
+                ],
+            ],
+            'Female' => [
+                0 => [
+                    'id' => 3,
+                    'name' => 'Diana Prince',
+                    'city' => 'New Mexico',
+                    'gender' => 'Female',
+                ],
+            ],
+        ],
+        Arrays::create([
+            [
+                'id' => 1,
+                'name' => 'Bruce Wayne',
+                'city' => 'Gotham',
+                'gender' => 'Male',
+            ],
+            [
+                'id' => 2,
+                'name' => 'Thomas Wayne',
+                'city' => 'Gotham',
+                'gender' => 'Male',
+            ],
+            [
+                'id' => 3,
+                'name' => 'Diana Prince',
+                'city' => 'New Mexico',
+                'gender' => 'Female',
+            ],
+            [
+                'id' => 4,
+                'name' => 'Speedy Gonzales',
+                'city' => 'New Mexico',
+                'gender' => 'Male',
+            ],
+        ])->groupBy('gender')->toArray()
+    );
+});
+
 test('test sortKeys() method', function (): void {
     $this->assertEquals(
         [0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'],

@@ -418,6 +418,24 @@ class Arrays
     }
 
     /**
+     * Groups the array items by a given key.
+     *
+     * @param  string $key Key
+     */
+    public function groupBy(string $key): self
+    {
+        $result = [];
+
+        foreach ($this->items as $value) {
+            $result[$value[$key]][] = $value;
+        }
+
+        $this->items = $result;
+
+        return $this;
+    }
+
+    /**
      * Sorts a associative array by a certain sub key.
      *
      * @param  string $subKey    The name of the sub key.
