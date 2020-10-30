@@ -651,6 +651,27 @@ test('test sort() method', function (): void {
     );
 });
 
+test('test next() method', function (): void {
+    $this->assertEquals(
+        'red',
+        Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->next()
+    );
+});
+
+test('test prev() method', function (): void {
+    $this->assertEquals(
+        false,
+        Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->prev()
+    );
+});
+
+test('test current() method', function (): void {
+    $this->assertEquals(
+        'blue',
+        Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->current()
+    );
+});
+
 test('test groupBy() method', function (): void {
     $this->assertEquals(
         [

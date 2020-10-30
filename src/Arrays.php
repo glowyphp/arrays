@@ -536,6 +536,30 @@ class Arrays
     }
 
     /**
+     * Moves the internal iterator position to the next element and returns this element.
+     */
+    public function next()
+    {
+        return next($this->items);
+    }
+
+    /**
+     * Rewind the internal iterator position and returns this element.
+     */
+    public function prev()
+    {
+        return prev($this->items);
+    }
+
+    /**
+     * Gets the element of the array at the current internal iterator position.
+     */
+    public function current()
+    {
+        return current($this->items);
+    }
+
+    /**
      * Get the first value from the current array.
      */
     public function first()

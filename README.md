@@ -51,6 +51,7 @@ $arrays = arrays();
 | <a href="#arrays_createWithRange">`createWithRange()`</a> | Create a new arrayable object with a range of elements. |
 | <a href="#arrays_chunk">`chunk()`</a> | Create a chunked version of current array. |
 | <a href="#arrays_combine">`combine()`</a> | Create an array using the current array as keys and the other array as values. |
+| <a href="#arrays_current">`current()`</a> | Gets the element of the array at the current internal iterator position. |
 | <a href="#arrays_customSortKeys">`customSortKeys()`</a> | Sorts array by keys. |
 | <a href="#arrays_customSortValues">`customSortValues()`</a> | Sorts array by values. |
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
@@ -80,6 +81,8 @@ $arrays = arrays();
 | <a href="#arrays_isAssoc">`isAssoc()`</a> | Determines if an array is associative. |
 | <a href="#arrays_map">`map()`</a> | Apply the given $callback function to the every element of the current array, collecting the results. |
 | <a href="#arrays_merge">`merge()`</a> | Merge the current array with the provided one. |
+| <a href="#arrays_next">`next()`</a> | Moves the internal iterator position to the next element and returns this element. |
+| <a href="#arrays_prev">`prev()`</a> | Rewind the internal iterator position and returns this element. |
 | <a href="#arrays_only">`only()`</a> | Return slice of an array with just a given keys. |
 | <a href="#arrays_reindex">`reindex()`</a> | Create a numerically re-indexed array based on the current array. |
 | <a href="#arrays_replace">`replace()`</a> | Replace values in the current array with values in the given one that have the same key. |
@@ -427,6 +430,29 @@ Array
     [red] => apple
     [yellow] => banana
 )
+```
+
+##### <a name="arrays_current"></a> Method: `current()`
+
+```php
+/**
+ * Gets the element of the array at the current internal iterator position.
+ */
+public function current()
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->current();
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+blue
 ```
 
 ##### <a name="arrays_customSortKeys"></a> Method: `customSortKeys()`
@@ -1637,6 +1663,52 @@ Array
     [0] => 5
     [1] => 10
 )
+```
+
+##### <a name="arrays_next"></a> Method: `next()`
+
+```php
+/**
+ * Moves the internal iterator position to the next element and returns this element.
+ */
+public function next()
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->next()
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+red
+```
+
+##### <a name="arrays_prev"></a> Method: `prev()`
+
+```php
+/**
+ * Rewind the internal iterator position and returns this element.
+ */
+public function prev()
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->prev()
+
+print_r($arrays);
+```
+
+##### The above example will output:
+
+```
+false
 ```
 
 ##### <a name="arrays_only"></a> Method: `only()`
