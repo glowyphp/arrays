@@ -832,6 +832,32 @@ class Arrays
     }
 
     /**
+     * Extract a slice of the current array with specific offset.
+     *
+     * @param int      $offset       Slice begin index.
+     * @param bool     $preserveKeys Whether array keys are preserved or no. Default is false.
+     */
+    public function offset(int $offset, bool $preserveKeys = false): self
+    {
+        $this->items = array_slice($this->items, $offset, null, $preserveKeys);
+
+        return $this;
+    }
+
+    /**
+     * Extract a slice of the current array with offset 0 and specific length.
+     *
+     * @param int|null $length       Length of the slice. Default is null.
+     * @param bool     $preserveKeys Whether array keys are preserved or no. Default is false.
+     */
+    public function limit(?int $length = null, bool $preserveKeys = false): self
+    {
+        $this->items = array_slice($this->items, 0, $length, $preserveKeys);
+
+        return $this;
+    }
+
+    /**
      * Shuffle the given array and return the result.
      *
      * @param  int|null $seed An arbitrary integer seed value.

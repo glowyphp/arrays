@@ -535,6 +535,28 @@ test('test slice() method', function (): void {
     );
 });
 
+
+test('test offset() method', function (): void {
+    $this->assertEquals(
+        ['c', 'd', 'e'],
+        Arrays::create(['a', 'b', 'c', 'd', 'e'])->offset(2)->toArray()
+    );
+});
+
+test('test limit() method', function (): void {
+    $this->assertEquals(
+        ['a', 'b', 'c'],
+        Arrays::create(['a', 'b', 'c', 'd', 'e'])->limit(3)->toArray()
+    );
+});
+
+test('test offset() and limit() method', function (): void {
+    $this->assertEquals(
+        ['c'],
+        Arrays::create(['a', 'b', 'c', 'd', 'e'])->offset(2)->limit(1)->toArray()
+    );
+});
+
 test('test unique() method', function (): void {
     $this->assertEquals(
         ['a' => 'green', 0 => 'red', 1 => 'blue'],

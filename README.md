@@ -71,6 +71,7 @@ $arrays = arrays();
 | <a href="#arrays_pull">`pull()`</a> | Get a value from the array, and remove it. |
 | <a href="#arrays_last">`last()`</a> | Get the last value from the current array. |
 | <a href="#arrays_lastKey">`lastKey()`</a> | Get the last key from the current array. |
+| <a href="#arrays_limit">`limit()`</a> | Extract a slice of the current array with offset 0 and specific length. |
 | <a href="#arrays_groupBy">`groupBy()`</a> | Groups the array items by a given key. |
 | <a href="#arrays_indexOf">`indexOf()`</a> | Alias of search() method. Search for a given item and return the index of its first occurrence. |
 | <a href="#arrays_intersect">`intersect()`</a> | Compute the current array values which present in the given one. |
@@ -84,6 +85,7 @@ $arrays = arrays();
 | <a href="#arrays_next">`next()`</a> | Moves the internal iterator position to the next element and returns this element. |
 | <a href="#arrays_prev">`prev()`</a> | Rewind the internal iterator position and returns this element. |
 | <a href="#arrays_only">`only()`</a> | Return slice of an array with just a given keys. |
+| <a href="#arrays_offset">`offset()`</a> | Extract a slice of the current array with specific offset. |
 | <a href="#arrays_reindex">`reindex()`</a> | Create a numerically re-indexed array based on the current array. |
 | <a href="#arrays_replace">`replace()`</a> | Replace values in the current array with values in the given one that have the same key. |
 | <a href="#arrays_reverse">`reverse()`</a> | Reverse the values order of the current array. |
@@ -1265,7 +1267,38 @@ print_r($result);
 bad_times_at_the_el_royale
 ```
 
+##### <a name="arrays_limit"></a> Method: `limit()`
 
+```php
+/**
+ * Extract a slice of the current array with offset 0 and specific length.
+ *
+ * @param int|null $length       Length of the slice. Default is null.
+ * @param bool     $preserveKeys Whether array keys are preserved or no. Default is false.
+ */
+public function limit(?int $length = null, bool $preserveKeys = false): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['a', 'b', 'c', 'd', 'e'])->limit(3);
+
+$result = $arrays->toArray();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => a
+    [1] => b
+    [2] => c
+)
+```
 
 ##### <a name="arrays_groupBy"></a> Method: `groupBy()`
 
@@ -1737,6 +1770,38 @@ Array
 (
     [b] => 2
     [e] => 5
+)
+```
+
+##### <a name="arrays_offset"></a> Method: `offset()`
+
+```php
+/**
+ * Extract a slice of the current array with specific offset.
+ *
+ * @param int      $offset       Slice begin index.
+ * @param bool     $preserveKeys Whether array keys are preserved or no. Default is false.
+ */
+public function offset(int $offset, bool $preserveKeys = false): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['a', 'b', 'c', 'd', 'e'])->offset(3);
+
+$result = $arrays->toArray();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => d
+    [1] => e
 )
 ```
 
