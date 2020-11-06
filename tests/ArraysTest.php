@@ -428,6 +428,14 @@ test('test filter() method', function (): void {
                                return ! ($var & 1);
         })->toArray()
     );
+
+    $this->assertEquals(
+        [2 => 10],
+        Arrays::create([2 => 10, 6 => 20, 13 => 23, 30 => 50])
+              ->filter(static function ($value, $key) {
+                  return $key < 10 && $value < 20;
+                })->toArray()
+    );
 });
 
 test('test flip() method', function (): void {

@@ -722,8 +722,13 @@ $arrays->delete('movies.the-thin-red-line');
  * Filter the current array for elements satisfying the predicate $callback function.
  *
  * @param callable $callback The callback function.
+ * @param int      $flag     Determining what arguments are sent to callback:
+ *                             ARRAY_FILTER_USE_KEY - pass key as the only argument
+ *                                                    to callback instead of the value.
+ *                             ARRAY_FILTER_USE_BOTH - pass both value and key as arguments
+ *                                                     to callback instead of the value.
  */
-public function filter(callable $callback): self
+public function filter(callable $callback, $flag = ARRAY_FILTER_USE_BOTH): self
 ```
 
 ##### Example
