@@ -629,6 +629,13 @@ test('test only() method', function (): void {
     );
 });
 
+test('test except() method', function (): void {
+    $this->assertEquals(
+        ['a' => 1, 'c' => 3, 'd' => 4],
+        Arrays::create(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5])->except(['b', 'e'])->toArray()
+    );
+});
+
 test('test copy() method', function (): void {
     $foo = Arrays::create(['foo', 'bar']);
     $bar = $foo->copy();

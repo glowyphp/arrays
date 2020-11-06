@@ -44,6 +44,7 @@ $arrays = arrays();
 |---|---|
 | <a href="#arrays_append">`append()`</a> | Push an item into the end of an array. |
 | <a href="#arrays_all">`all()`</a> | Get all items from stored array. |
+| <a href="#arrays_copy">`copy()`</a> | Creates a new Arrays object with the same items. |
 | <a href="#arrays_count">`count()`</a> | Return the number of items in a given key. |
 | <a href="#arrays_create">`create()`</a> | Create a new arrayable object from the given elements. Initializes a Arrays object and assigns $items the supplied values. |
 | <a href="#arrays_createFromJson">`createFromJson()`</a> | Create a new arrayable object from the given JSON string. |
@@ -57,7 +58,8 @@ $arrays = arrays();
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 | <a href="#arrays_diff">`diff()`</a> | Compute the current array values which not present in the given one. |
 | <a href="#arrays_dot">`dot()`</a> | Flatten a multi-dimensional associative array with dots. |
-| <a href="#arrays_delete">`delete()`</a> | Deletes an array value using "dot notation".|
+| <a href="#arrays_delete">`delete()`</a> | Deletes an array value using "dot notation". |
+| <a href="#arrays_except">`except()`</a> | Return slice of an array with just a given keys. |
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 | <a href="#arrays_first">`first()`</a> | Get the first value from the current array. |
 | <a href="#arrays_firstKey">`firstKey()`</a> | Get the first key from the current array. |
@@ -233,6 +235,22 @@ Array
         )
 
 )
+```
+
+##### <a name="arrays_copy"></a> Method: `copy()`
+
+```php
+/**
+ * Creates a new Arrays object with the same items.
+ */
+public function copy(): self
+```
+
+##### Example
+
+```php
+$foo = Arrays::create(['foo', 'bar']);
+$bar = $foo->copy();
 ```
 
 ##### <a name="arrays_count"></a> Method: `count()`
@@ -713,6 +731,39 @@ $arrays = Arrays::create([
                     ]);
 
 $arrays->delete('movies.the-thin-red-line');
+```
+
+##### <a name="arrays_except"></a> Method: `except()`
+
+```php
+/**
+ * Return slice of an array with just a given keys.
+ *
+ * @param array $keys List of keys to return.
+ */
+public function except(array $keys): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5])
+                    ->except(['b', 'e']);
+
+$result = $arrays->toArray();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [a] => 1
+    [c] => 3
+    [d] => 4
+)
 ```
 
 ##### <a name="arrays_filter"></a> Method: `filter()`

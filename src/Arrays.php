@@ -1000,6 +1000,16 @@ class Arrays
     }
 
     /**
+     * Return slice of an array with just a given keys.
+     *
+     * @param array $keys List of keys to return.
+     */
+    public function except(array $keys): self
+    {
+        return $this->copy()->delete($keys);
+    }
+
+    /**
      * Creates a new Arrays object with the same items.
      */
     public function copy(): self
