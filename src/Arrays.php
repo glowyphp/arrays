@@ -35,6 +35,7 @@ use function array_walk_recursive;
 use function arsort;
 use function asort;
 use function count;
+use function current;
 use function defined;
 use function explode;
 use function function_exists;
@@ -50,7 +51,9 @@ use function mb_strtolower;
 use function mb_substr;
 use function mt_srand;
 use function natsort;
+use function next;
 use function preg_replace;
+use function prev;
 use function range;
 use function rsort;
 use function shuffle;
@@ -61,6 +64,7 @@ use function strval;
 use function uksort;
 use function usort;
 
+use const ARRAY_FILTER_USE_BOTH;
 use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;
 use const JSON_UNESCAPED_SLASHES;
@@ -650,7 +654,7 @@ class Arrays
      *                             ARRAY_FILTER_USE_BOTH - pass both value and key as arguments
      *                                                     to callback instead of the value.
      */
-    public function filter(callable $callback, $flag = ARRAY_FILTER_USE_BOTH): self
+    public function filter(callable $callback, int $flag = ARRAY_FILTER_USE_BOTH): self
     {
         $this->items = array_filter($this->items, $callback, $flag);
 
@@ -839,8 +843,8 @@ class Arrays
     /**
      * Extract a slice of the current array with specific offset.
      *
-     * @param int      $offset       Slice begin index.
-     * @param bool     $preserveKeys Whether array keys are preserved or no. Default is false.
+     * @param int  $offset       Slice begin index.
+     * @param bool $preserveKeys Whether array keys are preserved or no. Default is false.
      */
     public function offset(int $offset, bool $preserveKeys = false): self
     {
