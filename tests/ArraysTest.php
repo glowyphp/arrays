@@ -629,6 +629,15 @@ test('test only() method', function (): void {
     );
 });
 
+test('test copy() method', function (): void {
+    $foo = Arrays::create(['foo', 'bar']);
+    $bar = $foo->copy();
+
+    $this->assertInstanceOf(Arrays::class, $foo->flush());
+    $this->assertInstanceOf(Arrays::class, $bar);
+    $this->assertCount(2, $bar->toArray());
+});
+
 test('test getValues() method', function (): void {
     $this->assertEquals(
         [1, 2, 3, 4, 5],
