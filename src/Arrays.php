@@ -416,9 +416,11 @@ class Arrays
     /**
      * Flush all values from the array.
      */
-    public function flush(): void
+    public function flush(): self
     {
         $this->items = [];
+
+        return $this;
     }
 
     /**
@@ -995,6 +997,14 @@ class Arrays
         $this->items = array_intersect_key($this->items, array_flip($keys));
 
         return $this;
+    }
+
+    /**
+     * Creates a new Arrays object with the same items.
+     */
+    public function copy(): self
+    {
+        return clone $this;
     }
 
     /**
