@@ -4,6 +4,7 @@
 * add limit() method.
 * add copy() method.
 * add except() method.
+* add nth() method.
 * improve flush() method - return self instead of void
 * improve filter() method - add ability to set $flag, default is ARRAY_FILTER_USE_BOTH
 

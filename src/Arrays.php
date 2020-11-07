@@ -1018,6 +1018,28 @@ class Arrays
     }
 
     /**
+     * Extract array items with every nth item from the array.
+     *
+     * @param int $step   Step width.
+     * @param int $offset Number of items to start from. Default is 0.
+     */
+    public function nth(int $step, int $offset = 0): self
+    {
+        $pos = 0;
+        $result = [];
+
+        foreach ($this->items as $key => $item) {
+            if ($pos++ % $step === $offset) {
+                $result[$key] = $item;
+            }
+        }
+
+        $this->items = $result;
+
+        return $this;
+    }
+
+    /**
      * Sorts array by values.
      *
      * @param  string $direction    Order type DESC (descending) or ASC (ascending)

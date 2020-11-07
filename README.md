@@ -85,6 +85,7 @@ $arrays = arrays();
 | <a href="#arrays_map">`map()`</a> | Apply the given $callback function to the every element of the current array, collecting the results. |
 | <a href="#arrays_merge">`merge()`</a> | Merge the current array with the provided one. |
 | <a href="#arrays_next">`next()`</a> | Moves the internal iterator position to the next element and returns this element. |
+| <a href="#arrays_nth">`nth()`</a> | Extract array items with every nth item from the array. |
 | <a href="#arrays_prev">`prev()`</a> | Rewind the internal iterator position and returns this element. |
 | <a href="#arrays_only">`only()`</a> | Return slice of an array with just a given keys. |
 | <a href="#arrays_offset">`offset()`</a> | Extract a slice of the current array with specific offset. |
@@ -1775,6 +1776,47 @@ print_r($arrays);
 
 ```
 red
+```
+
+##### <a name="arrays_nth"></a> Method: `nth()`
+
+```php
+/**
+ * Extract array items with every nth item from the array.
+ *
+ * @param int $step   Step width.
+ * @param int $offset Number of items to start from. Default is 0.
+ */
+public function nth(int $step, int $offset = 0): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create([1, 2, 3, 4, 5])->nth(2);
+
+print_r($arrays->toArray());
+
+$arrays = Arrays::create([1, 2, 3, 4, 5])->nth(2, 1);
+
+print_r($arrays->toArray());
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => 1
+    [2] => 3
+    [4] => 5
+)
+
+Array
+(
+    [1] => 2
+    [3] => 4
+)
 ```
 
 ##### <a name="arrays_prev"></a> Method: `prev()`

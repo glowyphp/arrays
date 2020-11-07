@@ -645,6 +645,19 @@ test('test copy() method', function (): void {
     $this->assertCount(2, $bar->toArray());
 });
 
+
+test('test nth() method', function (): void {
+    $this->assertEquals(
+        [0 => 1, 2 => 3, 4 => 5],
+        Arrays::create([1, 2, 3, 4, 5])->nth(2)->toArray()
+    );
+
+    $this->assertEquals(
+        [1 => 2, 3 => 4],
+        Arrays::create([1, 2, 3, 4, 5])->nth(2, 1)->toArray()
+    );
+});
+
 test('test getValues() method', function (): void {
     $this->assertEquals(
         [1, 2, 3, 4, 5],
