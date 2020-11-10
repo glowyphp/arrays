@@ -10,9 +10,10 @@ if (! function_exists('arrays')) {
      *
      * Initializes a Arrays object and assigns $items the supplied values.
      *
-     * @param mixed $items Elements
+     * @param  mixed $items Items
+     * @return Atomastic\Arrays\Arrays<Arrays>
      */
-    function arrays(array $items = []): Arrays
+    function arrays($items = []): Arrays
     {
         return Arrays::create($items);
     }
@@ -26,6 +27,7 @@ if (! function_exists('arraysFromJson')) {
      * @param bool   $assoc Decode assoc. When TRUE, returned objects will be converted into associative arrays.
      * @param int    $depth Decode Depth. Set the maximum depth. Must be greater than zero.
      * @param int    $flags Bitmask consisting of decode options
+     * @return Atomastic\Arrays\Arrays<Arrays>
      */
     function arraysFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): Arrays
     {
@@ -39,6 +41,7 @@ if (! function_exists('arraysFromString')) {
      *
      * @param string $string    Input string.
      * @param string $separator Elements separator.
+     * @return Atomastic\Arrays\Arrays<Arrays>
      */
     function arraysFromString(string $string, string $separator): Arrays
     {
@@ -54,6 +57,7 @@ if (! function_exists('arraysWithRange')) {
      * @param mixed $high The sequence is ended upon reaching the end value.
      * @param int   $step If a step value is given, it will be used as the increment between elements in the sequence.
      *                    step should be given as a positive number. If not specified, step will default to 1.
+     * @return Atomastic\Arrays\Arrays<Arrays>
      */
     function arraysWithRange($low, $high, int $step = 1): Arrays
     {
