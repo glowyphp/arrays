@@ -108,6 +108,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Initializes a Arrays object and assigns $items the supplied values.
      *
      * @param mixed $items Items
+     * @return Atomastic\Arrays\Arrays<Arrays>
      */
     public static function create($items = []): self
     {
@@ -125,8 +126,9 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param bool   $assoc Decode assoc. When TRUE, returned objects will be converted into associative arrays.
      * @param int    $depth Decode Depth. Set the maximum depth. Must be greater than zero.
      * @param int    $flags Bitmask consisting of decode options
+     * @return Atomastic\Arrays\Arrays<Arrays>
      */
-    public static function createFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): Arrays
+    public static function createFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): self
     {
         return new static(json_decode($input, $assoc, $depth, $flags));
     }
@@ -136,8 +138,9 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param string $string    Input string.
      * @param string $separator Elements separator.
+     * @return Atomastic\Arrays\Arrays<Arrays>
      */
-    public static function createFromString(string $string, string $separator): Arrays
+    public static function createFromString(string $string, string $separator): self
     {
         return new static(explode($separator, $string));
     }
@@ -149,8 +152,9 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param mixed $high The sequence is ended upon reaching the end value.
      * @param int   $step If a step value is given, it will be used as the increment between elements in the sequence.
      *                    step should be given as a positive number. If not specified, step will default to 1.
+     * @return Atomastic\Arrays\Arrays<Arrays>
      */
-    public static function createWithRange($low, $high, int $step = 1): Arrays
+    public static function createWithRange($low, $high, int $step = 1): self
     {
         return new static(range($low, $high, $step));
     }
@@ -327,7 +331,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         $keys = (array) $keys;
 
         if (count($keys) === 0) {
-            return self;
+            return $this;
         }
 
         foreach ($keys as $key) {
@@ -463,6 +467,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     public function sortBySubKey(string $subKey, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
     {
         $array = $this->items;
+        $result = [];
 
         if (count($array) <= 0) {
             return $this;
