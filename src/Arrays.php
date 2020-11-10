@@ -1186,7 +1186,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Returns array of the given items.
      *
-     * @param $items List of items or single item value.
+     * @param mixed $items Items
      */
     protected function getArray($items): array
     {
