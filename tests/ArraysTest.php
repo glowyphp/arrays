@@ -873,9 +873,12 @@ test('test offsetGet() method', function (): void {
 });
 
 test('test offsetSet() method', function (): void {
-    $this->assertInstanceOf(
-        Arrays::class,
-        Arrays::create()->offsetSet('foo', 'Foo')
+    $arrays = Arrays::create();
+    $arrays->offsetSet('foo', 'Foo');
+
+    $this->assertEquals(
+        'Foo',
+        $arrays['foo']
     );
 
     $arrays = Arrays::create();
