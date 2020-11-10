@@ -181,10 +181,10 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * If no key is given to the method, the entire array will be replaced.
      *
-     * @param  string $key   Key
-     * @param  mixed  $value Value
+     * @param  string|null $key   Key
+     * @param  mixed       $value Value
      */
-    public function set(string $key, $value): self
+    public function set($key, $value): self
     {
         $array = &$this->items;
 
