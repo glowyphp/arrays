@@ -170,6 +170,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param mixed|null $initial  If the optional initial is available,
      *                             it will be used at the beginning of the process,
      *                             or as a final result in case the array is empty.
+     *
+     * @return mixed               Returns the resulting value.
      */
     public function reduce(callable $callback, $initial = null)
     {
@@ -184,7 +186,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param  string|null $key   Key
      * @param  mixed       $value Value
      */
-    public function set($key, $value): self
+    public function set(?string $key, $value): self
     {
         $array = &$this->items;
 
@@ -215,6 +217,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Return an array of all values stored array.
+     *
+     * @return mixed Returns the resulting value.
      */
     public function getValues()
     {
@@ -1162,7 +1166,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param mixed $offset The offset to assign the value to.
      * @param mixed $value  The value to set.
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->set($offset, $value);
     }
