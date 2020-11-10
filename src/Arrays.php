@@ -230,6 +230,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * the index of its first occurrence.
      *
      * @param mixed $needle The searched value.
+     * @return mixed Returns the key for needle if it is found in the array, FALSE otherwise.
      */
     public function indexOf($needle)
     {
@@ -247,7 +248,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Searches the array for a given value and returns the first corresponding key if successful.
      *
-     * @param mixed $needle The searched value.
+     * @param  mixed $needle The searched value.
+     * @return mixed Returns the key for needle if it is found in the array, FALSE otherwise.
      */
     public function search($needle)
     {
@@ -258,6 +260,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Checks if the given dot-notated key exists in the array.
      *
      * @param  string|array $keys Keys
+     * @return bool Return TRUE key exists in the array, FALSE otherwise.
      */
     public function has($keys): bool
     {
@@ -293,6 +296,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param  string|int|null $key     Key
      * @param  mixed           $default Default value
+     * @return mixed Item from an array.
      */
     public function get($key, $default = null)
     {
