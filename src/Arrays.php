@@ -314,7 +314,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
             return $array[$key];
         }
 
-        if (strpos($key, '.') === false) {
+        if (strpos((string) $key, '.') === false) {
             return $array[$key] ?? $default;
         }
 
