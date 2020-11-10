@@ -990,7 +990,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Apply the given function to the every element of the current array,
      * discarding the results.
      *
-     * @param bool $recursively Whether array will be walked recursively or no. Default is false.
+     * @param callable $callback  The callback function.
+     * @param bool     $recursive Whether array will be walked recursively or no. Default is false.
      */
     public function walk(callable $callback, bool $recursive = false): self
     {
