@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Atomastic\Arrays;
 
+use ArrayAccess;
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
+
 use function array_chunk;
 use function array_combine;
 use function array_diff;
@@ -41,7 +46,9 @@ use function explode;
 use function function_exists;
 use function http_build_query;
 use function is_array;
+use function is_iterable;
 use function is_null;
+use function iterator_to_array;
 use function json_decode;
 use function json_encode;
 use function krsort;
@@ -74,7 +81,7 @@ use const SORT_NATURAL;
 use const SORT_REGULAR;
 use const SORT_STRING;
 
-class Arrays
+class Arrays implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * The underlying array items.
@@ -88,11 +95,11 @@ class Arrays
      *
      * Initializes a Arrays object and assigns $items the supplied values.
      *
-     * @param mixed $items Elements
+     * @param mixed $items Items
      */
-    public function __construct(array $items = [])
+    public function __construct($items = [])
     {
-        $this->items = (array) $items;
+        $this->items = $this->getArray($items);
     }
 
     /**
@@ -100,11 +107,15 @@ class Arrays
      *
      * Initializes a Arrays object and assigns $items the supplied values.
      *
-     * @param mixed $items Elements
+     * @param mixed $items Items
      */
-    public static function create(array $items = []): Arrays
+    public static function create($items = []): self
     {
-        return new Arrays($items);
+        if ($items instanceof self) {
+            return $items;
+        }
+
+        return new static($items);
     }
 
     /**
@@ -117,7 +128,7 @@ class Arrays
      */
     public static function createFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): Arrays
     {
-        return new Arrays(json_decode($input, $assoc, $depth, $flags));
+        return new static(json_decode($input, $assoc, $depth, $flags));
     }
 
     /**
@@ -128,7 +139,7 @@ class Arrays
      */
     public static function createFromString(string $string, string $separator): Arrays
     {
-        return new Arrays(explode($separator, $string));
+        return new static(explode($separator, $string));
     }
 
     /**
@@ -141,7 +152,7 @@ class Arrays
      */
     public static function createWithRange($low, $high, int $step = 1): Arrays
     {
-        return new Arrays(range($low, $high, $step));
+        return new static(range($low, $high, $step));
     }
 
     /**
@@ -895,7 +906,7 @@ class Arrays
      */
     public function toQuery(): string
     {
-        return http_build_query($this->items, '', '&', PHP_QUERY_RFC3986);
+        return http_build_query($this->toArray(), '', '&', PHP_QUERY_RFC3986);
     }
 
     /**
@@ -1025,13 +1036,15 @@ class Arrays
      */
     public function nth(int $step, int $offset = 0): self
     {
-        $pos = 0;
+        $pos    = 0;
         $result = [];
 
         foreach ($this->items as $key => $item) {
-            if ($pos++ % $step === $offset) {
-                $result[$key] = $item;
+            if ($pos++ % $step !== $offset) {
+                continue;
             }
+
+            $result[$key] = $item;
         }
 
         $this->items = $result;
@@ -1111,5 +1124,78 @@ class Arrays
         uksort($this->items, $callback);
 
         return $this;
+    }
+
+    /**
+     * Whether an offset exists.
+     *
+     * @param mixed $offset An offset to check for.
+     */
+    public function offsetExists($offset): bool
+    {
+        return $this->has($offset);
+    }
+
+    /**
+     * Offset to retrieve.
+     *
+     * @param mixed $offset The offset to retrieve.
+     */
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
+
+    /**
+     * Assign a value to the specified offset.
+     *
+     * @param mixed $offset The offset to assign the value to.
+     * @param mixed $value  The value to set.
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->set($offset, $value);
+
+        return $this;
+    }
+
+    /**
+     * Unset an offset.
+     *
+     * @param mixed $offset The offset to unset.
+     */
+    public function offsetUnset($offset): void
+    {
+        $this->delete($offset);
+    }
+
+    /**
+     * Create a new iterator from an ArrayObject instance
+     */
+    public function getIterator(): ArrayIterator
+    {
+        return new ArrayIterator($this->items);
+    }
+
+    /**
+     * Returns array of the given items.
+     *
+     * @param $items List of items or single item value.
+     */
+    protected function getArray($items): array
+    {
+        if (is_array($items)) {
+            return $items;
+        }
+
+        if ($items instanceof self) {
+            return $items->toArray();
+        }
+
+        if (is_iterable($items)) {
+            return iterator_to_array($items);
+        }
+
+        return $items !== null ? [$items] : [];
     }
 }

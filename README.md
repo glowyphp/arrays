@@ -75,6 +75,7 @@ $arrays = arrays();
 | <a href="#arrays_lastKey">`lastKey()`</a> | Get the last key from the current array. |
 | <a href="#arrays_limit">`limit()`</a> | Extract a slice of the current array with offset 0 and specific length. |
 | <a href="#arrays_groupBy">`groupBy()`</a> | Groups the array items by a given key. |
+| <a href="#arrays_getIterator">`getIterator()`</a> | Create a new iterator from an ArrayObject instance. |
 | <a href="#arrays_indexOf">`indexOf()`</a> | Alias of search() method. Search for a given item and return the index of its first occurrence. |
 | <a href="#arrays_intersect">`intersect()`</a> | Compute the current array values which present in the given one. |
 | <a href="#arrays_intersectAssoc">`intersectAssoc()`</a> | Compute the current array values with additional index check. |
@@ -89,6 +90,10 @@ $arrays = arrays();
 | <a href="#arrays_prev">`prev()`</a> | Rewind the internal iterator position and returns this element. |
 | <a href="#arrays_only">`only()`</a> | Return slice of an array with just a given keys. |
 | <a href="#arrays_offset">`offset()`</a> | Extract a slice of the current array with specific offset. |
+| <a href="#arrays_offsetGet">`offsetGet()`</a> | Offset to retrieve. |
+| <a href="#arrays_offsetSet">`offsetSet()`</a> | Assign a value to the specified offset. |
+| <a href="#arrays_offsetUnset">`offsetUnset()`</a> | Unset an offset. |
+| <a href="#arrays_offsetExists">`offsetExists()`</a> | Whether an offset exists. |
 | <a href="#arrays_reindex">`reindex()`</a> | Create a numerically re-indexed array based on the current array. |
 | <a href="#arrays_replace">`replace()`</a> | Replace values in the current array with values in the given one that have the same key. |
 | <a href="#arrays_reverse">`reverse()`</a> | Reverse the values order of the current array. |
@@ -1449,6 +1454,21 @@ Array
 )
 ```
 
+##### <a name="arrays_getIterator"></a> Method: `getIterator()`
+
+```php
+/**
+ * Create a new iterator from an ArrayObject instance
+ */
+public function getIterator(): ArrayIterator
+```
+
+##### Example
+
+```php
+$iterator = Arrays::create()->getIterator();
+```
+
 
 ##### <a name="arrays_indexOf"></a> Method: `indexOf()`
 
@@ -1901,6 +1921,99 @@ Array
     [0] => d
     [1] => e
 )
+```
+
+##### <a name="arrays_offsetGet"></a> Method: `offsetGet()`
+
+```php
+/**
+ * Offset to retrieve.
+ *
+ * @param mixed $offset The offset to retrieve.
+ */
+public function offsetGet($offset)
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['items' => ['foo' => 'Foo', 'bar' => 'Bar']]);
+
+print_r($arrays->offsetGet('items.foo'));
+print_r($arrays['items.bar']);
+```
+
+##### The above example will output:
+
+```
+Foo
+Bar
+```
+
+##### <a name="arrays_offsetSet"></a> Method: `offsetSet()`
+
+```php
+/**
+ * Assign a value to the specified offset.
+ *
+ * @param mixed $offset The offset to assign the value to.
+ * @param mixed $value  The value to set.
+ */
+public function offsetSet($offset, $value)
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create();
+
+$arrays->offsetSet('items.foo', 'Foo');
+$arrays['items.bar'] = 'Bar';
+```
+
+##### <a name="arrays_offsetUnset"></a> Method: `offsetUnset()`
+
+```php
+/**
+ * Unset an offset.
+ *
+ * @param mixed $offset The offset to unset.
+ */
+public function offsetUnset($offset): void
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['items' => ['foo' => 'Foo', 'bar' => 'Bar']]);
+
+$arrays->offsetUnset('items.foo');
+unset($arrays['items.bar']);
+```
+
+##### <a name="arrays_offsetExists"></a> Method: `offsetExists()`
+
+```php
+/**
+ * Whether an offset exists.
+ *
+ * @param mixed $offset An offset to check for.
+ */
+public function offsetExists($offset): bool
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['items' => ['foo' => 'Foo', 'bar' => 'Bar']]);
+
+if ($arrays->offsetExists('items.foo')) {
+    // do something...
+}
+
+if (isset($arrays['items.bar'])) {
+    // do something...
+}
 ```
 
 ##### <a name="arrays_reindex"></a> Method: `reindex()`
