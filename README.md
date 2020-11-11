@@ -44,6 +44,7 @@ $arrays = arrays();
 |---|---|
 | <a href="#arrays_append">`append()`</a> | Push an item into the end of an array. |
 | <a href="#arrays_all">`all()`</a> | Get all items from stored array. |
+| <a href="#arrays_copy">`copy()`</a> | Creates a new Arrays object with the same items. |
 | <a href="#arrays_count">`count()`</a> | Return the number of items in a given key. |
 | <a href="#arrays_create">`create()`</a> | Create a new arrayable object from the given elements. Initializes a Arrays object and assigns $items the supplied values. |
 | <a href="#arrays_createFromJson">`createFromJson()`</a> | Create a new arrayable object from the given JSON string. |
@@ -57,7 +58,8 @@ $arrays = arrays();
 | <a href="#arrays_divide">`divide()`</a> | Divide an array into two arrays. One with keys and the other with values. |
 | <a href="#arrays_diff">`diff()`</a> | Compute the current array values which not present in the given one. |
 | <a href="#arrays_dot">`dot()`</a> | Flatten a multi-dimensional associative array with dots. |
-| <a href="#arrays_delete">`delete()`</a> | Deletes an array value using "dot notation".|
+| <a href="#arrays_delete">`delete()`</a> | Deletes an array value using "dot notation". |
+| <a href="#arrays_except">`except()`</a> | Return slice of an array with just a given keys. |
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 | <a href="#arrays_first">`first()`</a> | Get the first value from the current array. |
 | <a href="#arrays_firstKey">`firstKey()`</a> | Get the first key from the current array. |
@@ -71,7 +73,9 @@ $arrays = arrays();
 | <a href="#arrays_pull">`pull()`</a> | Get a value from the array, and remove it. |
 | <a href="#arrays_last">`last()`</a> | Get the last value from the current array. |
 | <a href="#arrays_lastKey">`lastKey()`</a> | Get the last key from the current array. |
+| <a href="#arrays_limit">`limit()`</a> | Extract a slice of the current array with offset 0 and specific length. |
 | <a href="#arrays_groupBy">`groupBy()`</a> | Groups the array items by a given key. |
+| <a href="#arrays_getIterator">`getIterator()`</a> | Create a new iterator from an ArrayObject instance. |
 | <a href="#arrays_indexOf">`indexOf()`</a> | Alias of search() method. Search for a given item and return the index of its first occurrence. |
 | <a href="#arrays_intersect">`intersect()`</a> | Compute the current array values which present in the given one. |
 | <a href="#arrays_intersectAssoc">`intersectAssoc()`</a> | Compute the current array values with additional index check. |
@@ -82,8 +86,14 @@ $arrays = arrays();
 | <a href="#arrays_map">`map()`</a> | Apply the given $callback function to the every element of the current array, collecting the results. |
 | <a href="#arrays_merge">`merge()`</a> | Merge the current array with the provided one. |
 | <a href="#arrays_next">`next()`</a> | Moves the internal iterator position to the next element and returns this element. |
+| <a href="#arrays_nth">`nth()`</a> | Extract array items with every nth item from the array. |
 | <a href="#arrays_prev">`prev()`</a> | Rewind the internal iterator position and returns this element. |
 | <a href="#arrays_only">`only()`</a> | Return slice of an array with just a given keys. |
+| <a href="#arrays_offset">`offset()`</a> | Extract a slice of the current array with specific offset. |
+| <a href="#arrays_offsetGet">`offsetGet()`</a> | Offset to retrieve. |
+| <a href="#arrays_offsetSet">`offsetSet()`</a> | Assign a value to the specified offset. |
+| <a href="#arrays_offsetUnset">`offsetUnset()`</a> | Unset an offset. |
+| <a href="#arrays_offsetExists">`offsetExists()`</a> | Whether an offset exists. |
 | <a href="#arrays_reindex">`reindex()`</a> | Create a numerically re-indexed array based on the current array. |
 | <a href="#arrays_replace">`replace()`</a> | Replace values in the current array with values in the given one that have the same key. |
 | <a href="#arrays_reverse">`reverse()`</a> | Reverse the values order of the current array. |
@@ -113,6 +123,8 @@ $arrays = arrays();
  * Push an item into the end of an array.
  *
  * @param mixed $value The new item to append
+ *
+ * @return self Returns instance of The Arrays class.
  */
 function append($value = null): self
 ```
@@ -178,6 +190,8 @@ Array
 ```php
 /**
  *  Get all items from stored array.
+ *
+ * @return array Returns all items from stored array.
  */
 public function all(): array
 ```
@@ -233,13 +247,33 @@ Array
 )
 ```
 
+##### <a name="arrays_copy"></a> Method: `copy()`
+
+```php
+/**
+ * Creates a new Arrays object with the same items.
+ *
+ * @return self Returns instance of The Arrays class.
+ */
+public function copy(): self
+```
+
+##### Example
+
+```php
+$foo = Arrays::create(['foo', 'bar']);
+$bar = $foo->copy();
+```
+
 ##### <a name="arrays_count"></a> Method: `count()`
 
 ```php
 /**
  * Return the number of items in a given key.
  *
- * @param  int|string|null $key
+ * @param  int|string|null $key Key
+ *
+ * @return int Returns count of items.
  */
 public function count($key = null): int
 ```
@@ -283,9 +317,11 @@ print_r($total);
  *
  * Initializes a Arrays object and assigns $items the supplied values.
  *
- * @param mixed $items Elements
+ * @param mixed $items Items
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public static function create(array $items = []): Arrays
+public static function create($items = []): self
 ```
 
 ##### Example
@@ -319,8 +355,10 @@ $arrays = Arrays::create([
  * @param bool   $assoc Decode assoc. When TRUE, returned objects will be converted into associative arrays.
  * @param int    $depth Decode Depth. Set the maximum depth. Must be greater than zero.
  * @param int    $flags Bitmask consisting of decode options
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public static function createFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): Arrays
+public static function createFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): self
 ```
 
 ##### Example
@@ -337,8 +375,10 @@ $arrays = Arrays::createFromJson('{"foo": "bar"}');
  *
  * @param string $string    Input string.
  * @param string $separator Elements separator.
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public static function createFromString($string, $separator): Arrays
+public static function createFromString(string $string, string $separator): self
 ```
 
 ##### Example
@@ -357,8 +397,10 @@ $arrays = Arrays::createFromString('foo,bar', ',');
  * @param mixed $high The sequence is ended upon reaching the end value.
  * @param int   $step If a step value is given, it will be used as the increment between elements in the sequence.
  *                    step should be given as a positive number. If not specified, step will default to 1.
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public static function createWithRange($low, $high, int $step = 1): Arrays
+public static function createWithRange($low, $high, int $step = 1): self
 ```
 
 ##### Example
@@ -376,8 +418,10 @@ $arrays = Arrays::createWithRange(1, 5);
  *
  * @param int  $size         Size of each chunk.
  * @param bool $preserveKeys Whether array keys are preserved or no.
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public function chunk($size, $preserveKeys = false): self
+public function chunk(int $size, bool $preserveKeys = false): self
 ```
 
 ##### Example
@@ -409,6 +453,8 @@ Array
  * Create an array using the current array as keys and the other array as values.
  *
  * @param array $array Values array
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function combine(array $array): self
 ```
@@ -437,6 +483,11 @@ Array
 ```php
 /**
  * Gets the element of the array at the current internal iterator position.
+ *
+ * @return mixed Returns the value of the array element that's currently
+ *               being pointed to by the internal pointer. It does not move
+ *               the pointer in any way. If the internal pointer points beyond
+ *               the end of the elements list or the array is empty, returns FALSE.
  */
 public function current()
 ```
@@ -461,7 +512,7 @@ blue
 /**
  * Sorts the array keys with a user-defined comparison function and maintain index association.
  *
- * @param callable $callback
+ * @return self Returns instance of The Arrays class.
  */
 public function customSortKeys(callable $callback): self
 ```
@@ -498,7 +549,7 @@ Array
 /**
  * Sorts the array values with a user-defined comparison function and maintain index association.
  *
- * @param callable $callback
+ * @return self Returns instance of The Arrays class.
  */
 public function customSortValues(callable $callback): self
 ```
@@ -534,6 +585,8 @@ Array
 /**
  * Divide an array into two arrays.
  * One with keys and the other with values.
+ *
+ * @return array Returns result array.
  */
 public function divide(): array
 ```
@@ -606,7 +659,9 @@ Array
 /**
  * Compute the current array values which not present in the given one.
  *
- * @param array $array Array for diff
+ * @param array $array Array for diff.
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function diff(array $array): self
 ```
@@ -634,6 +689,8 @@ Array
  * Flatten a multi-dimensional associative array with dots.
  *
  * @param  string $prepend Prepend string
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function dot(string $prepend = ''): self
 ```
@@ -686,6 +743,8 @@ Array
  * Deletes an array value using "dot notation".
  *
  * @param  array|string $keys Keys
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function delete($keys): self
 ```
@@ -713,6 +772,41 @@ $arrays = Arrays::create([
 $arrays->delete('movies.the-thin-red-line');
 ```
 
+##### <a name="arrays_except"></a> Method: `except()`
+
+```php
+/**
+ * Return slice of an array with just a given keys.
+ *
+ * @param array $keys List of keys to return.
+ *
+ * @return self Returns instance of The Arrays class.
+ */
+public function except(array $keys): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5])
+                    ->except(['b', 'e']);
+
+$result = $arrays->toArray();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [a] => 1
+    [c] => 3
+    [d] => 4
+)
+```
+
 ##### <a name="arrays_filter"></a> Method: `filter()`
 
 ```php
@@ -720,8 +814,15 @@ $arrays->delete('movies.the-thin-red-line');
  * Filter the current array for elements satisfying the predicate $callback function.
  *
  * @param callable $callback The callback function.
+ * @param int      $flag     Determining what arguments are sent to callback:
+ *                             ARRAY_FILTER_USE_KEY - pass key as the only argument
+ *                                                    to callback instead of the value.
+ *                             ARRAY_FILTER_USE_BOTH - pass both value and key as arguments
+ *                                                     to callback instead of the value.
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public function filter(callable $callback): self
+public function filter(callable $callback, int $flag = ARRAY_FILTER_USE_BOTH): self
 ```
 
 ##### Example
@@ -751,8 +852,10 @@ Array
 ```php
 /**
  * Flush all values from the array.
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public function flush(): void
+public function flush(): self
 ```
 
 ##### Example
@@ -793,6 +896,8 @@ Array
 ```php
 /**
  * Get the first value from the current array.
+ *
+ * @return mixed Returns the value of the array.
  */
 public function first()
 ```
@@ -837,6 +942,8 @@ Array
 ```php
 /**
  * Get the first key from the current array.
+ *
+ * @return mixed Returns the first key of array if the array is not empty; NULL otherwise.
  */
 public function firstKey()
 ```
@@ -875,6 +982,8 @@ the_thin_red_line
 ```php
 /**
  * Exchanges all keys of current array with their associated values.
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function flip(): self
 ```
@@ -905,7 +1014,9 @@ Array
  * Get an item from an array using "dot" notation.
  *
  * @param  string|int|null $key     Key
- * @param  mixed           $default Default
+ * @param  mixed           $default Default value
+ *
+ * @return mixed Item from an array.
  */
 public function get($key, $default = null)
 ```
@@ -946,8 +1057,10 @@ The Thin Red Line
 ```php
 /**
  * Return an array of all values stored array.
+ *
+ * @return array Returns an indexed array of values.
  */
-public function getValues()
+public function getValues(): array
 ```
 
 ##### Example
@@ -978,6 +1091,8 @@ Array
  * Checks if the given dot-notated key exists in the array.
  *
  * @param  string|array $keys Keys
+ *
+ * @return bool Return TRUE key exists in the array, FALSE otherwise.
  */
 public function has($keys): bool
 ```
@@ -1018,9 +1133,6 @@ if ($arrays->has('movies.the-thin-red-line')) {
 The Thin Red Line
 ```
 
-
-
-
 ##### <a name="arrays_pad"></a> Method: `pad()`
 
 ```php
@@ -1029,6 +1141,8 @@ The Thin Red Line
  *
  * @param int   $size  Size of the result array.
  * @param mixed $value Empty value by default.
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function pad(int $size, $value): self
 ```
@@ -1061,6 +1175,8 @@ Array
  * Push an item into the beginning of an array.
  *
  * @param mixed $value The new item to append
+ *
+ * @return self Returns instance of The Arrays class.
  */
 function prepend($value = null): self
 ```
@@ -1265,7 +1381,38 @@ print_r($result);
 bad_times_at_the_el_royale
 ```
 
+##### <a name="arrays_limit"></a> Method: `limit()`
 
+```php
+/**
+ * Extract a slice of the current array with offset 0 and specific length.
+ *
+ * @param int|null $length       Length of the slice. Default is null.
+ * @param bool     $preserveKeys Whether array keys are preserved or no. Default is false.
+ */
+public function limit(?int $length = null, bool $preserveKeys = false): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['a', 'b', 'c', 'd', 'e'])->limit(3);
+
+$result = $arrays->toArray();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => a
+    [1] => b
+    [2] => c
+)
+```
 
 ##### <a name="arrays_groupBy"></a> Method: `groupBy()`
 
@@ -1357,6 +1504,21 @@ Array
         )
 
 )
+```
+
+##### <a name="arrays_getIterator"></a> Method: `getIterator()`
+
+```php
+/**
+ * Create a new iterator from an ArrayObject instance
+ */
+public function getIterator(): ArrayIterator
+```
+
+##### Example
+
+```php
+$iterator = Arrays::create()->getIterator();
 ```
 
 
@@ -1688,6 +1850,47 @@ print_r($arrays);
 red
 ```
 
+##### <a name="arrays_nth"></a> Method: `nth()`
+
+```php
+/**
+ * Extract array items with every nth item from the array.
+ *
+ * @param int $step   Step width.
+ * @param int $offset Number of items to start from. Default is 0.
+ */
+public function nth(int $step, int $offset = 0): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create([1, 2, 3, 4, 5])->nth(2);
+
+print_r($arrays->toArray());
+
+$arrays = Arrays::create([1, 2, 3, 4, 5])->nth(2, 1);
+
+print_r($arrays->toArray());
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => 1
+    [2] => 3
+    [4] => 5
+)
+
+Array
+(
+    [1] => 2
+    [3] => 4
+)
+```
+
 ##### <a name="arrays_prev"></a> Method: `prev()`
 
 ```php
@@ -1738,6 +1941,131 @@ Array
     [b] => 2
     [e] => 5
 )
+```
+
+##### <a name="arrays_offset"></a> Method: `offset()`
+
+```php
+/**
+ * Extract a slice of the current array with specific offset.
+ *
+ * @param int      $offset       Slice begin index.
+ * @param bool     $preserveKeys Whether array keys are preserved or no. Default is false.
+ */
+public function offset(int $offset, bool $preserveKeys = false): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['a', 'b', 'c', 'd', 'e'])->offset(3);
+
+$result = $arrays->toArray();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => d
+    [1] => e
+)
+```
+
+##### <a name="arrays_offsetGet"></a> Method: `offsetGet()`
+
+```php
+/**
+ * Offset to retrieve.
+ *
+ * @param mixed $offset The offset to retrieve.
+ */
+public function offsetGet($offset)
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['items' => ['foo' => 'Foo', 'bar' => 'Bar']]);
+
+print_r($arrays->offsetGet('items.foo'));
+print_r($arrays['items.bar']);
+```
+
+##### The above example will output:
+
+```
+Foo
+Bar
+```
+
+##### <a name="arrays_offsetSet"></a> Method: `offsetSet()`
+
+```php
+/**
+ * Assign a value to the specified offset.
+ *
+ * @param mixed $offset The offset to assign the value to.
+ * @param mixed $value  The value to set.
+ */
+public function offsetSet($offset, $value)
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create();
+
+$arrays->offsetSet('items.foo', 'Foo');
+$arrays['items.bar'] = 'Bar';
+```
+
+##### <a name="arrays_offsetUnset"></a> Method: `offsetUnset()`
+
+```php
+/**
+ * Unset an offset.
+ *
+ * @param mixed $offset The offset to unset.
+ */
+public function offsetUnset($offset): void
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['items' => ['foo' => 'Foo', 'bar' => 'Bar']]);
+
+$arrays->offsetUnset('items.foo');
+unset($arrays['items.bar']);
+```
+
+##### <a name="arrays_offsetExists"></a> Method: `offsetExists()`
+
+```php
+/**
+ * Whether an offset exists.
+ *
+ * @param mixed $offset An offset to check for.
+ */
+public function offsetExists($offset): bool
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['items' => ['foo' => 'Foo', 'bar' => 'Bar']]);
+
+if ($arrays->offsetExists('items.foo')) {
+    // do something...
+}
+
+if (isset($arrays['items.bar'])) {
+    // do something...
+}
 ```
 
 ##### <a name="arrays_reindex"></a> Method: `reindex()`
@@ -2340,6 +2668,8 @@ print_r($result);
 ```php
 /**
  * Expands a dot notation array into a full multi-dimensional array.
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function undot(): self
 ```
@@ -2382,6 +2712,8 @@ Array
  * @param int $sortFlags Sort flags used to modify the sorting behavior.
  *                       Sorting type flags:
  *                       https://www.php.net/manual/en/function.array-unique
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function unique(int $sortFlags = SORT_STRING): self
 ```
@@ -2413,9 +2745,12 @@ Array
  * Apply the given function to the every element of the current array,
  * discarding the results.
  *
- * @param bool $recursively Whether array will be walked recursively or no. Default is false.
+ * @param callable $callback  The callback function.
+ * @param bool     $recursive Whether array will be walked recursively or no. Default is false.
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public function walk(callable $callable, bool $recursive = false): self
+public function walk(callable $callback, bool $recursive = false): self
 ```
 
 ##### Example

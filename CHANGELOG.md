@@ -1,3 +1,29 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/atomastic/arrays) (2020-11-11)
+* add offset() method.
+* add limit() method.
+* add copy() method.
+* add except() method.
+* add nth() method.
+* add offsetGet() method.
+* add offsetSet() method.
+* add offsetExists() method.
+* add offsetUnset() method.
+* add getIterator() method.
+* add protected getArray() method.
+* add phpstan.neon config file.
+* implement ArrayAccess, ArrayIntegrator, Countable, IneratrorAggregate, Traversable.
+* improve create() method, add ability to path not only arrays inside.
+* improve flush() method - return self instead of void
+* improve filter() method - add ability to set $flag, default is ARRAY_FILTER_USE_BOTH
+* improve set() method. add ability to set $key as null.
+* fix issue for get() method in cace if $key type is int provided.
+* fix php doc sesction for all methods.
+* fix return result for delete() method if count($keys) === 0
+* fix combine() method error with not accept array|false.
+* fix toString() method when result $string is null we should return empty string instead of null.
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/atomastic/arrays) (2020-10-30)
 * add next() method.

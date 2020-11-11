@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Atomastic\Arrays;
 
+use ArrayAccess;
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
+use Traversable;
+
 use function array_chunk;
 use function array_combine;
 use function array_diff;
@@ -35,12 +41,14 @@ use function array_walk_recursive;
 use function arsort;
 use function asort;
 use function count;
+use function current;
 use function defined;
 use function explode;
 use function function_exists;
 use function http_build_query;
 use function is_array;
 use function is_null;
+use function iterator_to_array;
 use function json_decode;
 use function json_encode;
 use function krsort;
@@ -50,7 +58,9 @@ use function mb_strtolower;
 use function mb_substr;
 use function mt_srand;
 use function natsort;
+use function next;
 use function preg_replace;
+use function prev;
 use function range;
 use function rsort;
 use function shuffle;
@@ -61,6 +71,7 @@ use function strval;
 use function uksort;
 use function usort;
 
+use const ARRAY_FILTER_USE_BOTH;
 use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;
 use const JSON_UNESCAPED_SLASHES;
@@ -70,7 +81,7 @@ use const SORT_NATURAL;
 use const SORT_REGULAR;
 use const SORT_STRING;
 
-class Arrays
+class Arrays implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * The underlying array items.
@@ -84,11 +95,11 @@ class Arrays
      *
      * Initializes a Arrays object and assigns $items the supplied values.
      *
-     * @param mixed $items Elements
+     * @param mixed $items Items
      */
-    public function __construct(array $items = [])
+    public function __construct($items = [])
     {
-        $this->items = (array) $items;
+        $this->items = $this->getArray($items);
     }
 
     /**
@@ -96,11 +107,17 @@ class Arrays
      *
      * Initializes a Arrays object and assigns $items the supplied values.
      *
-     * @param mixed $items Elements
+     * @param mixed $items Items
+     *
+     * @return self Returns instance of The Arrays class.
      */
-    public static function create(array $items = []): Arrays
+    public static function create($items = []): self
     {
-        return new Arrays($items);
+        if ($items instanceof self) {
+            return $items;
+        }
+
+        return new static($items);
     }
 
     /**
@@ -110,10 +127,12 @@ class Arrays
      * @param bool   $assoc Decode assoc. When TRUE, returned objects will be converted into associative arrays.
      * @param int    $depth Decode Depth. Set the maximum depth. Must be greater than zero.
      * @param int    $flags Bitmask consisting of decode options
+     *
+     * @return self Returns instance of The Arrays class.
      */
-    public static function createFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): Arrays
+    public static function createFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): self
     {
-        return new Arrays(json_decode($input, $assoc, $depth, $flags));
+        return new static(json_decode($input, $assoc, $depth, $flags));
     }
 
     /**
@@ -121,10 +140,12 @@ class Arrays
      *
      * @param string $string    Input string.
      * @param string $separator Elements separator.
+     *
+     * @return self Returns instance of The Arrays class.
      */
-    public static function createFromString(string $string, string $separator): Arrays
+    public static function createFromString(string $string, string $separator): self
     {
-        return new Arrays(explode($separator, $string));
+        return new static(explode($separator, $string));
     }
 
     /**
@@ -134,10 +155,12 @@ class Arrays
      * @param mixed $high The sequence is ended upon reaching the end value.
      * @param int   $step If a step value is given, it will be used as the increment between elements in the sequence.
      *                    step should be given as a positive number. If not specified, step will default to 1.
+     *
+     * @return self Returns instance of The Arrays class.
      */
-    public static function createWithRange($low, $high, int $step = 1): Arrays
+    public static function createWithRange($low, $high, int $step = 1): self
     {
-        return new Arrays(range($low, $high, $step));
+        return new static(range($low, $high, $step));
     }
 
     /**
@@ -147,6 +170,8 @@ class Arrays
      * @param mixed|null $initial  If the optional initial is available,
      *                             it will be used at the beginning of the process,
      *                             or as a final result in case the array is empty.
+     *
+     * @return mixed Returns the resulting value.
      */
     public function reduce(callable $callback, $initial = null)
     {
@@ -158,10 +183,12 @@ class Arrays
      *
      * If no key is given to the method, the entire array will be replaced.
      *
-     * @param  string $key   Key
-     * @param  mixed  $value Value
+     * @param  string|null $key   Key
+     * @param  mixed       $value Value
+     *
+     * @return self Returns instance of The Arrays class.
      */
-    public function set(string $key, $value): self
+    public function set(?string $key, $value): self
     {
         $array = &$this->items;
 
@@ -192,8 +219,10 @@ class Arrays
 
     /**
      * Return an array of all values stored array.
+     *
+     * @return array Returns an indexed array of values.
      */
-    public function getValues()
+    public function getValues(): array
     {
         return array_values($this->items);
     }
@@ -203,6 +232,8 @@ class Arrays
      * the index of its first occurrence.
      *
      * @param mixed $needle The searched value.
+     *
+     * @return mixed Returns the key for needle if it is found in the array, FALSE otherwise.
      */
     public function indexOf($needle)
     {
@@ -211,6 +242,8 @@ class Arrays
 
     /**
      * Check whether the array is empty or not.
+     *
+     * @return bool Returns TRUE whether the array is empty. FALSE otherwise.
      */
     public function isEmpty(): bool
     {
@@ -220,7 +253,9 @@ class Arrays
     /**
      * Searches the array for a given value and returns the first corresponding key if successful.
      *
-     * @param mixed $needle The searched value.
+     * @param  mixed $needle The searched value.
+     *
+     * @return mixed Returns the key for needle if it is found in the array, FALSE otherwise.
      */
     public function search($needle)
     {
@@ -231,6 +266,8 @@ class Arrays
      * Checks if the given dot-notated key exists in the array.
      *
      * @param  string|array $keys Keys
+     *
+     * @return bool Return TRUE key exists in the array, FALSE otherwise.
      */
     public function has($keys): bool
     {
@@ -266,6 +303,8 @@ class Arrays
      *
      * @param  string|int|null $key     Key
      * @param  mixed           $default Default value
+     *
+     * @return mixed Item from an array.
      */
     public function get($key, $default = null)
     {
@@ -283,11 +322,11 @@ class Arrays
             return $array[$key];
         }
 
-        if (strpos($key, '.') === false) {
+        if (strpos((string) $key, '.') === false) {
             return $array[$key] ?? $default;
         }
 
-        foreach (explode('.', $key) as $segment) {
+        foreach (explode('.', (string) $key) as $segment) {
             if (! is_array($array) || ! isset($array[$segment])) {
                 return $default;
             }
@@ -302,6 +341,8 @@ class Arrays
      * Deletes an array value using "dot notation".
      *
      * @param  array|string $keys Keys
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function delete($keys): self
     {
@@ -312,7 +353,7 @@ class Arrays
         $keys = (array) $keys;
 
         if (count($keys) === 0) {
-            return self;
+            return $this;
         }
 
         foreach ($keys as $key) {
@@ -347,6 +388,8 @@ class Arrays
      * Push an item into the end of an array.
      *
      * @param mixed $value The new item to append
+     *
+     * @return self Returns instance of The Arrays class.
      */
     function append($value = null): self
     {
@@ -359,6 +402,8 @@ class Arrays
      * Push an item into the beginning of an array.
      *
      * @param mixed $value The new item to append
+     *
+     * @return self Returns instance of The Arrays class.
      */
     function prepend($value = null): self
     {
@@ -369,6 +414,8 @@ class Arrays
 
     /**
      * Expands a dot notation array into a full multi-dimensional array.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function undot(): self
     {
@@ -387,6 +434,8 @@ class Arrays
      * Flatten a multi-dimensional associative array with dots.
      *
      * @param  string $prepend Prepend string
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function dot(string $prepend = ''): self
     {
@@ -411,16 +460,22 @@ class Arrays
 
     /**
      * Flush all values from the array.
+     *
+     * @return self Returns instance of The Arrays class.
      */
-    public function flush(): void
+    public function flush(): self
     {
         $this->items = [];
+
+        return $this;
     }
 
     /**
      * Groups the array items by a given key.
      *
      * @param  string $key Key
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function groupBy(string $key): self
     {
@@ -442,10 +497,13 @@ class Arrays
      * @param  string $direction Order type DESC (descending) or ASC (ascending)
      * @param  int    $sortFlags A PHP sort method flags.
      *                           https://www.php.net/manual/ru/function.sort.php
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function sortBySubKey(string $subKey, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
     {
-        $array = $this->items;
+        $array  = $this->items;
+        $result = [];
 
         if (count($array) <= 0) {
             return $this;
@@ -478,6 +536,8 @@ class Arrays
      *
      * @param  string $key     Key
      * @param  mixed  $default Default value
+     *
+     * @return mixed Value from the array.
      */
     public function pull(string $key, $default = null)
     {
@@ -491,6 +551,8 @@ class Arrays
     /**
      * Divide an array into two arrays.
      * One with keys and the other with values.
+     *
+     * @return array Returns result array.
      */
     public function divide(): array
     {
@@ -501,6 +563,8 @@ class Arrays
      * Return the number of items in a given key.
      *
      * @param  int|string|null $key Key
+     *
+     * @return int Returns count of items.
      */
     public function count($key = null): int
     {
@@ -511,6 +575,8 @@ class Arrays
      * Check if the current array is equal to the given $array or not.
      *
      * @param array $array Array to check.
+     *
+     * @return bool Returns TRUE if current array is equal to the given $array. FALSE otherwise.
      */
     public function isEqual(array $array): bool
     {
@@ -519,6 +585,8 @@ class Arrays
 
     /**
      * Determines if an array is associative.
+     *
+     * @return bool Returns TRUE if an array is associative. FALSE otherwise.
      */
     public function isAssoc(): bool
     {
@@ -529,6 +597,8 @@ class Arrays
 
     /**
      *  Get all items from stored array.
+     *
+     * @return array Returns all items from stored array.
      */
     public function all(): array
     {
@@ -537,6 +607,9 @@ class Arrays
 
     /**
      * Moves the internal iterator position to the next element and returns this element.
+     *
+     * @return mixed Returns the array value in the next place that's pointed
+     *               to by the internal array pointer, or FALSE if there are no more elements.
      */
     public function next()
     {
@@ -545,6 +618,9 @@ class Arrays
 
     /**
      * Rewind the internal iterator position and returns this element.
+     *
+     * @return mixed Returns the array value in the previous place that's pointed
+     *               to by the internal array pointer, or FALSE if there are no more elements.
      */
     public function prev()
     {
@@ -553,6 +629,11 @@ class Arrays
 
     /**
      * Gets the element of the array at the current internal iterator position.
+     *
+     * @return mixed Returns the value of the array element that's currently
+     *               being pointed to by the internal pointer. It does not move
+     *               the pointer in any way. If the internal pointer points beyond
+     *               the end of the elements list or the array is empty, returns FALSE.
      */
     public function current()
     {
@@ -561,6 +642,8 @@ class Arrays
 
     /**
      * Get the first value from the current array.
+     *
+     * @return mixed Returns the value of the array.
      */
     public function first()
     {
@@ -575,6 +658,8 @@ class Arrays
 
     /**
      * Get the first key from the current array.
+     *
+     * @return mixed Returns the first key of array if the array is not empty; NULL otherwise.
      */
     public function firstKey()
     {
@@ -583,6 +668,8 @@ class Arrays
 
     /**
      * Get the last value from the current array.
+     *
+     * @return mixed Returns the value of the array.
      */
     public function last()
     {
@@ -597,6 +684,8 @@ class Arrays
 
     /**
      * Get the last key from the current array.
+     *
+     * @return mixed Returns the last key of array if the array is not empty; NULL otherwise.
      */
     public function lastKey()
     {
@@ -608,10 +697,12 @@ class Arrays
      *
      * @param int  $size         Size of each chunk.
      * @param bool $preserveKeys Whether array keys are preserved or no.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function chunk(int $size, bool $preserveKeys = false): self
     {
-         $this->items = array_chunk($this->items, $size, $preserveKeys);
+        $this->items = array_chunk($this->items, $size, $preserveKeys);
 
         return $this;
     }
@@ -620,10 +711,18 @@ class Arrays
      * Create an array using the current array as keys and the other array as values.
      *
      * @param array $array Values array
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function combine(array $array): self
     {
-        $this->items = array_combine($this->items, $array);
+        $data = array_combine($this->items, $array);
+
+        if ($data === false) {
+            $data = [];
+        }
+
+        $this->items = $data;
 
         return $this;
     }
@@ -632,6 +731,8 @@ class Arrays
      * Compute the current array values which not present in the given one.
      *
      * @param array $array Array for diff.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function diff(array $array): self
     {
@@ -644,16 +745,25 @@ class Arrays
      * Filter the current array for elements satisfying the predicate $callback function.
      *
      * @param callable $callback The callback function.
+     * @param int      $flag     Determining what arguments are sent to callback:
+     *                             ARRAY_FILTER_USE_KEY - pass key as the only argument
+     *                                                    to callback instead of the value.
+     *                             ARRAY_FILTER_USE_BOTH - pass both value and key as arguments
+     *                                                     to callback instead of the value.
+     *
+     * @return self Returns instance of The Arrays class.
      */
-    public function filter(callable $callback): self
+    public function filter(callable $callback, int $flag = ARRAY_FILTER_USE_BOTH): self
     {
-        $this->items = array_filter($this->items, $callback);
+        $this->items = array_filter($this->items, $callback, $flag);
 
         return $this;
     }
 
     /**
      * Exchanges all keys of current array with their associated values.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function flip(): self
     {
@@ -666,6 +776,8 @@ class Arrays
      * Compute the current array values which present in the given one.
      *
      * @param array $array Array for intersect.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function intersect(array $array): self
     {
@@ -678,6 +790,8 @@ class Arrays
      * Compute the current array values with additional index check.
      *
      * @param array $array Array for intersect.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function intersectAssoc(array $array): self
     {
@@ -690,6 +804,8 @@ class Arrays
      * Compute the current array using keys for comparison which present in the given one.
      *
      * @param array $array Array for intersect.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function intersectKey(array $array): self
     {
@@ -703,6 +819,8 @@ class Arrays
      * collecting the results.
      *
      * @param callable $callback The callback function.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function map(callable $callback): self
     {
@@ -716,6 +834,8 @@ class Arrays
      *
      * @param array $array     Array to merge with (overwrites).
      * @param bool  $recursive Whether array will be merged recursively or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function merge(array $array, bool $recursive = false): self
     {
@@ -733,6 +853,8 @@ class Arrays
      *
      * @param int   $size  Size of the result array.
      * @param mixed $value Empty value by default.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function pad(int $size, $value): self
     {
@@ -745,6 +867,8 @@ class Arrays
      * Returns one or a specified number of items randomly from the array.
      *
      * @param int|null $number Number of items to return.
+     *
+     * @return mixed Returns the value of the array.
      */
     public function random(?int $number = null)
     {
@@ -779,6 +903,8 @@ class Arrays
 
     /**
      * Create a numerically re-indexed array based on the current array.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function reindex(): self
     {
@@ -793,6 +919,8 @@ class Arrays
      *
      * @param array $array     Array of replacing values.
      * @param bool  $recursive Whether array will be replaced recursively or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function replace(array $array, bool $recursive = false): self
     {
@@ -809,6 +937,8 @@ class Arrays
      * Reverse the values order of the current array.
      *
      * @param bool $preserveKeys Whether array keys are preserved or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function reverse(bool $preserveKeys = false): self
     {
@@ -823,6 +953,8 @@ class Arrays
      * @param int      $offset       Slice begin index.
      * @param int|null $length       Length of the slice. Default is null.
      * @param bool     $preserveKeys Whether array keys are preserved or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function slice(int $offset, ?int $length = null, bool $preserveKeys = false): self
     {
@@ -832,9 +964,41 @@ class Arrays
     }
 
     /**
+     * Extract a slice of the current array with specific offset.
+     *
+     * @param int  $offset       Slice begin index.
+     * @param bool $preserveKeys Whether array keys are preserved or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function offset(int $offset, bool $preserveKeys = false): self
+    {
+        $this->items = array_slice($this->items, $offset, null, $preserveKeys);
+
+        return $this;
+    }
+
+    /**
+     * Extract a slice of the current array with offset 0 and specific length.
+     *
+     * @param int|null $length       Length of the slice. Default is null.
+     * @param bool     $preserveKeys Whether array keys are preserved or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function limit(?int $length = null, bool $preserveKeys = false): self
+    {
+        $this->items = array_slice($this->items, 0, $length, $preserveKeys);
+
+        return $this;
+    }
+
+    /**
      * Shuffle the given array and return the result.
      *
      * @param  int|null $seed An arbitrary integer seed value.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function shuffle(?int $seed = null): self
     {
@@ -855,14 +1019,18 @@ class Arrays
 
     /**
      * Convert the current array into a query string.
+     *
+     * @return string Returns query string.
      */
     public function toQuery(): string
     {
-        return http_build_query($this->items, '', '&', PHP_QUERY_RFC3986);
+        return http_build_query($this->toArray(), '', '&', PHP_QUERY_RFC3986);
     }
 
     /**
      * Get all items from stored array and convert them to array.
+     *
+     * @return array Returns array.
      */
     public function toArray(): array
     {
@@ -874,6 +1042,8 @@ class Arrays
      *
      * @param int $options Bitmask consisting of encode options
      * @param int $depth   Encode Depth. Set the maximum depth. Must be greater than zero.
+     *
+     * @return string Returns current array as json.
      */
     public function toJson(int $options = 0, int $depth = 512): string
     {
@@ -897,6 +1067,8 @@ class Arrays
      * @param string $glue        Value that glues elements together.
      * @param bool   $includeKeys Include keys before their values.
      * @param bool   $trimAll     Trim ALL whitespace from string.
+     *
+     * @return string Returns current array as string.
      */
     public function toString(string $glue = ',', bool $includeKeys = false, bool $trimAll = true): string
     {
@@ -916,6 +1088,10 @@ class Arrays
         // Trim ALL whitespace
         $trimAll and $string = preg_replace('/(\s)/ixsm', '', $string);
 
+        if (is_null($string)) {
+            $string = '';
+        }
+
         return $string;
     }
 
@@ -925,6 +1101,8 @@ class Arrays
      * @param int $sortFlags Sort flags used to modify the sorting behavior.
      *                       Sorting type flags:
      *                       https://www.php.net/manual/en/function.array-unique
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function unique(int $sortFlags = SORT_STRING): self
     {
@@ -937,7 +1115,10 @@ class Arrays
      * Apply the given function to the every element of the current array,
      * discarding the results.
      *
-     * @param bool $recursively Whether array will be walked recursively or no. Default is false.
+     * @param callable $callback  The callback function.
+     * @param bool     $recursive Whether array will be walked recursively or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function walk(callable $callback, bool $recursive = false): self
     {
@@ -954,10 +1135,60 @@ class Arrays
      * Return slice of an array with just a given keys.
      *
      * @param array $keys List of keys to return.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function only(array $keys): self
     {
         $this->items = array_intersect_key($this->items, array_flip($keys));
+
+        return $this;
+    }
+
+    /**
+     * Return slice of an array with just a given keys.
+     *
+     * @param array $keys List of keys to return.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function except(array $keys): self
+    {
+        return $this->copy()->delete($keys);
+    }
+
+    /**
+     * Creates a new Arrays object with the same items.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function copy(): self
+    {
+        return clone $this;
+    }
+
+    /**
+     * Extract array items with every nth item from the array.
+     *
+     * @param int $step   Step width.
+     * @param int $offset Number of items to start from. Default is 0.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function nth(int $step, int $offset = 0): self
+    {
+        $pos    = 0;
+        $result = [];
+
+        foreach ($this->items as $key => $item) {
+            if ($pos++ % $step !== $offset) {
+                continue;
+            }
+
+            $result[$key] = $item;
+        }
+
+        $this->items = $result;
 
         return $this;
     }
@@ -969,6 +1200,8 @@ class Arrays
      * @param  int    $sortFlags    A PHP sort method flags.
      *                              https://www.php.net/manual/ru/function.sort.php
      * @param bool   $preserveKeys Maintain index association
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function sort(string $direction = 'ASC', int $sortFlags = SORT_REGULAR, bool $preserveKeys = false): self
     {
@@ -1000,6 +1233,8 @@ class Arrays
      * @param  string $direction Order type DESC (descending) or ASC (ascending)
      * @param  int    $sortFlags A PHP sort method flags.
      *                           https://www.php.net/manual/ru/function.sort.php
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function sortKeys(string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
     {
@@ -1018,6 +1253,8 @@ class Arrays
 
     /**
      * Sorts the array values with a user-defined comparison function and maintain index association.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function customSortValues(callable $callback): self
     {
@@ -1028,11 +1265,96 @@ class Arrays
 
     /**
      * Sorts the array keys with a user-defined comparison function and maintain index association.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function customSortKeys(callable $callback): self
     {
         uksort($this->items, $callback);
 
         return $this;
+    }
+
+    /**
+     * Whether an offset exists.
+     *
+     * @param mixed $offset An offset to check for.
+     *
+     * @return bool Return TRUE key exists in the array, FALSE otherwise.
+     */
+    public function offsetExists($offset): bool
+    {
+        return $this->has($offset);
+    }
+
+    /**
+     * Offset to retrieve.
+     *
+     * @param mixed $offset The offset to retrieve.
+     *
+     * @return mixed Returns the value of the array.
+     */
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
+
+    /**
+     * Assign a value to the specified offset.
+     *
+     * @param mixed $offset The offset to assign the value to.
+     * @param mixed $value  The value to set.
+     *
+     * @return void Return void.
+     */
+    public function offsetSet($offset, $value): void
+    {
+        $this->set($offset, $value);
+    }
+
+    /**
+     * Unset an offset.
+     *
+     * @param mixed $offset The offset to unset.
+     *
+     * @return void Return void.
+     */
+    public function offsetUnset($offset): void
+    {
+        $this->delete($offset);
+    }
+
+    /**
+     * Create a new iterator from an ArrayObject instance
+     *
+     * @return ArrayIterator Returns instance of The ArrayIterator class.
+     */
+    public function getIterator(): ArrayIterator
+    {
+        return new ArrayIterator($this->items);
+    }
+
+    /**
+     * Returns array of the given items.
+     *
+     * @param mixed $items Items
+     *
+     * @return array Returns array of the given items.
+     */
+    protected function getArray($items): array
+    {
+        if (is_array($items)) {
+            return $items;
+        }
+
+        if ($items instanceof self) {
+            return $items->toArray();
+        }
+
+        if ($items instanceof Traversable) {
+            return iterator_to_array($items);
+        }
+
+        return $items !== null ? [$items] : [];
     }
 }

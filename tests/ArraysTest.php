@@ -9,7 +9,13 @@ test('test arrays() helper', function (): void {
 });
 
 test('test create() method', function (): void {
-    $this->assertEquals(new Arrays(), Arrays::create());
+    $this->assertInstanceOf(Arrays::class, Arrays::create());
+    $this->assertInstanceOf(Arrays::class, Arrays::create([]));
+    $this->assertInstanceOf(Arrays::class, Arrays::create(new Arrays()));
+    $this->assertEquals(['foo'], Arrays::create(new Arrays(['foo']))->toArray());
+    $this->assertEquals(['foo', 'bar'], Arrays::create(new Arrays(['foo']))->append('bar')->toArray());
+    $this->assertEquals(['foo'], (new Arrays(new Arrays(['foo'])))->toArray());
+    $this->assertEquals(['foo', 'bar'], (new Arrays(new Arrays(['foo'])))->append('bar')->toArray());
 });
 
 test('test createFromJson() method', function (): void {
@@ -428,6 +434,14 @@ test('test filter() method', function (): void {
                                return ! ($var & 1);
         })->toArray()
     );
+
+    $this->assertEquals(
+        [2 => 10],
+        Arrays::create([2 => 10, 6 => 20, 13 => 23, 30 => 50])
+              ->filter(static function ($value, $key) {
+                  return $key < 10 && $value < 20;
+              })->toArray()
+    );
 });
 
 test('test flip() method', function (): void {
@@ -535,6 +549,28 @@ test('test slice() method', function (): void {
     );
 });
 
+
+test('test offset() method', function (): void {
+    $this->assertEquals(
+        ['c', 'd', 'e'],
+        Arrays::create(['a', 'b', 'c', 'd', 'e'])->offset(2)->toArray()
+    );
+});
+
+test('test limit() method', function (): void {
+    $this->assertEquals(
+        ['a', 'b', 'c'],
+        Arrays::create(['a', 'b', 'c', 'd', 'e'])->limit(3)->toArray()
+    );
+});
+
+test('test offset() and limit() method', function (): void {
+    $this->assertEquals(
+        ['c'],
+        Arrays::create(['a', 'b', 'c', 'd', 'e'])->offset(2)->limit(1)->toArray()
+    );
+});
+
 test('test unique() method', function (): void {
     $this->assertEquals(
         ['a' => 'green', 0 => 'red', 1 => 'blue'],
@@ -596,6 +632,35 @@ test('test only() method', function (): void {
     $this->assertEquals(
         ['b' => 2, 'e' => 5],
         Arrays::create(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5])->only(['b', 'e'])->toArray()
+    );
+});
+
+test('test except() method', function (): void {
+    $this->assertEquals(
+        ['a' => 1, 'c' => 3, 'd' => 4],
+        Arrays::create(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4, 'e' => 5])->except(['b', 'e'])->toArray()
+    );
+});
+
+test('test copy() method', function (): void {
+    $foo = Arrays::create(['foo', 'bar']);
+    $bar = $foo->copy();
+
+    $this->assertInstanceOf(Arrays::class, $foo->flush());
+    $this->assertInstanceOf(Arrays::class, $bar);
+    $this->assertCount(2, $bar->toArray());
+});
+
+
+test('test nth() method', function (): void {
+    $this->assertEquals(
+        [0 => 1, 2 => 3, 4 => 5],
+        Arrays::create([1, 2, 3, 4, 5])->nth(2)->toArray()
+    );
+
+    $this->assertEquals(
+        [1 => 2, 3 => 4],
+        Arrays::create([1, 2, 3, 4, 5])->nth(2, 1)->toArray()
     );
 });
 
@@ -792,5 +857,122 @@ test('test customSortKeys() method', function (): void {
 
                   return $a < $b ? -1 : 1;
               })->toArray()
+    );
+});
+
+test('test offsetGet() method', function (): void {
+    $this->assertEquals(
+        'Foo',
+        Arrays::create(['foo' => 'Foo', 'bar' => 'Bar'])->offsetGet('foo')
+    );
+
+    $this->assertEquals(
+        'Foo',
+        Arrays::create(['foo' => 'Foo', 'bar' => 'Bar'])['foo']
+    );
+});
+
+test('test offsetSet() method', function (): void {
+    $arrays = Arrays::create();
+    $arrays->offsetSet('foo', 'Foo');
+
+    $this->assertEquals(
+        'Foo',
+        $arrays['foo']
+    );
+
+    $arrays = Arrays::create();
+    $arrays['foo'] = 'Foo';
+    $arrays['bar'] = 'Bar';
+
+    $this->assertEquals(
+        'Foo',
+        $arrays['foo']
+    );
+
+    $this->assertEquals(
+        'Bar',
+        $arrays['bar']
+    );
+
+    $arrays = Arrays::create();
+    $arrays['items.foo'] = 'Foo';
+    $arrays['items.bar'] = 'Bar';
+
+    $this->assertEquals(
+        'Foo',
+        $arrays['items.foo']
+    );
+
+    $this->assertEquals(
+        'Bar',
+        $arrays['items.bar']
+    );
+});
+
+test('test offsetUnset() method', function (): void {
+    $arrays = Arrays::create();
+    $arrays['items.foo'] = 'Foo';
+    $arrays['items.bar'] = 'Bar';
+
+    $this->assertEquals(
+        'Foo',
+        $arrays['items.foo']
+    );
+
+    $this->assertEquals(
+        'Bar',
+        $arrays['items.bar']
+    );
+
+    $arrays->offsetUnset('items.foo');
+
+    $this->assertFalse(
+        isset($arrays['items.foo'])
+    );
+
+    unset($arrays['items.bar']);
+
+    $this->assertFalse(
+        isset($arrays['items.bar'])
+    );
+});
+
+test('test offsetExists() method', function (): void {
+    $arrays = Arrays::create();
+    $arrays['items.foo'] = 'Foo';
+    $arrays['items.bar'] = 'Bar';
+
+    $this->assertEquals(
+        'Foo',
+        $arrays['items.foo']
+    );
+
+    $this->assertEquals(
+        'Bar',
+        $arrays['items.bar']
+    );
+
+    $this->assertTrue(
+        isset($arrays['items.foo'])
+    );
+
+    $this->assertTrue(
+        isset($arrays['items.bar'])
+    );
+
+    $this->assertTrue(
+        $arrays->offsetExists(['items.foo'])
+    );
+
+    $this->assertTrue(
+        $arrays->offsetExists(['items.bar'])
+    );
+});
+
+test('test getIterator() method', function (): void {
+    $this->assertInstanceOf(
+        ArrayIterator::class,
+        Arrays::create()->getIterator()
     );
 });
