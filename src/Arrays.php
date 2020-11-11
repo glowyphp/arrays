@@ -318,7 +318,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
             return $array[$key] ?? $default;
         }
 
-        foreach (explode('.', $key) as $segment) {
+        foreach (explode('.', (string) $key) as $segment) {
             if (! is_array($array) || ! isset($array[$segment])) {
                 return $default;
             }
