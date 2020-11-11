@@ -109,7 +109,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param mixed $items Items
      *
-     * @return self Return Arrays object.
+     * @return self Returns instance of The Arrays class.
      */
     public static function create($items = []): self
     {
@@ -128,7 +128,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param int    $depth Decode Depth. Set the maximum depth. Must be greater than zero.
      * @param int    $flags Bitmask consisting of decode options
      *
-     * @return static       Return Arrays object.
+     * @return self Returns instance of The Arrays class.
      */
     public static function createFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): self
     {
@@ -141,7 +141,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param string $string    Input string.
      * @param string $separator Elements separator.
      *
-     * @return static           Return Arrays object.
+     * @return self Returns instance of The Arrays class.
      */
     public static function createFromString(string $string, string $separator): self
     {
@@ -156,7 +156,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param int   $step If a step value is given, it will be used as the increment between elements in the sequence.
      *                    step should be given as a positive number. If not specified, step will default to 1.
      *
-     * @return static     Return Arrays object.
+     * @return self Returns instance of The Arrays class.
      */
     public static function createWithRange($low, $high, int $step = 1): self
     {
@@ -171,7 +171,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *                             it will be used at the beginning of the process,
      *                             or as a final result in case the array is empty.
      *
-     * @return mixed               Returns the resulting value.
+     * @return mixed Returns the resulting value.
      */
     public function reduce(callable $callback, $initial = null)
     {
@@ -185,6 +185,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param  string|null $key   Key
      * @param  mixed       $value Value
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function set(?string $key, $value): self
     {
@@ -218,9 +220,9 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Return an array of all values stored array.
      *
-     * @return mixed Returns the resulting value.
+     * @return array Returns an indexed array of values.
      */
-    public function getValues()
+    public function getValues(): array
     {
         return array_values($this->items);
     }
@@ -240,6 +242,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Check whether the array is empty or not.
+     *
+     * @return bool Returns TRUE whether the array is empty. FALSE otherwise.
      */
     public function isEmpty(): bool
     {
@@ -337,6 +341,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Deletes an array value using "dot notation".
      *
      * @param  array|string $keys Keys
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function delete($keys): self
     {
@@ -382,6 +388,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Push an item into the end of an array.
      *
      * @param mixed $value The new item to append
+     *
+     * @return self Returns instance of The Arrays class.
      */
     function append($value = null): self
     {
@@ -394,6 +402,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Push an item into the beginning of an array.
      *
      * @param mixed $value The new item to append
+     *
+     * @return self Returns instance of The Arrays class.
      */
     function prepend($value = null): self
     {
@@ -404,6 +414,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Expands a dot notation array into a full multi-dimensional array.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function undot(): self
     {
@@ -422,6 +434,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Flatten a multi-dimensional associative array with dots.
      *
      * @param  string $prepend Prepend string
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function dot(string $prepend = ''): self
     {
@@ -446,6 +460,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Flush all values from the array.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function flush(): self
     {
@@ -458,6 +474,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Groups the array items by a given key.
      *
      * @param  string $key Key
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function groupBy(string $key): self
     {
@@ -479,6 +497,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param  string $direction Order type DESC (descending) or ASC (ascending)
      * @param  int    $sortFlags A PHP sort method flags.
      *                           https://www.php.net/manual/ru/function.sort.php
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function sortBySubKey(string $subKey, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
     {
@@ -531,6 +551,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Divide an array into two arrays.
      * One with keys and the other with values.
+     *
+     * @return array Returns result array.
      */
     public function divide(): array
     {
@@ -541,6 +563,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Return the number of items in a given key.
      *
      * @param  int|string|null $key Key
+     *
+     * @return int Returns count of items.
      */
     public function count($key = null): int
     {
@@ -551,6 +575,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Check if the current array is equal to the given $array or not.
      *
      * @param array $array Array to check.
+     *
+     * @return bool Returns TRUE if current array is equal to the given $array. FALSE otherwise.
      */
     public function isEqual(array $array): bool
     {
@@ -559,6 +585,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Determines if an array is associative.
+     *
+     * @return bool Returns TRUE if an array is associative. FALSE otherwise.
      */
     public function isAssoc(): bool
     {
@@ -569,6 +597,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      *  Get all items from stored array.
+     *
+     * @return array Returns all items from stored array.
      */
     public function all(): array
     {
@@ -667,6 +697,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param int  $size         Size of each chunk.
      * @param bool $preserveKeys Whether array keys are preserved or no.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function chunk(int $size, bool $preserveKeys = false): self
     {
@@ -679,6 +711,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Create an array using the current array as keys and the other array as values.
      *
      * @param array $array Values array
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function combine(array $array): self
     {
@@ -697,6 +731,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Compute the current array values which not present in the given one.
      *
      * @param array $array Array for diff.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function diff(array $array): self
     {
@@ -714,6 +750,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *                                                    to callback instead of the value.
      *                             ARRAY_FILTER_USE_BOTH - pass both value and key as arguments
      *                                                     to callback instead of the value.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function filter(callable $callback, int $flag = ARRAY_FILTER_USE_BOTH): self
     {
@@ -724,6 +762,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Exchanges all keys of current array with their associated values.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function flip(): self
     {
@@ -736,6 +776,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Compute the current array values which present in the given one.
      *
      * @param array $array Array for intersect.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function intersect(array $array): self
     {
@@ -748,6 +790,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Compute the current array values with additional index check.
      *
      * @param array $array Array for intersect.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function intersectAssoc(array $array): self
     {
@@ -760,6 +804,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Compute the current array using keys for comparison which present in the given one.
      *
      * @param array $array Array for intersect.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function intersectKey(array $array): self
     {
@@ -773,6 +819,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * collecting the results.
      *
      * @param callable $callback The callback function.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function map(callable $callback): self
     {
@@ -786,6 +834,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param array $array     Array to merge with (overwrites).
      * @param bool  $recursive Whether array will be merged recursively or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function merge(array $array, bool $recursive = false): self
     {
@@ -803,6 +853,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param int   $size  Size of the result array.
      * @param mixed $value Empty value by default.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function pad(int $size, $value): self
     {
@@ -851,6 +903,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Create a numerically re-indexed array based on the current array.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function reindex(): self
     {
@@ -865,6 +919,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param array $array     Array of replacing values.
      * @param bool  $recursive Whether array will be replaced recursively or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function replace(array $array, bool $recursive = false): self
     {
@@ -881,6 +937,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Reverse the values order of the current array.
      *
      * @param bool $preserveKeys Whether array keys are preserved or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function reverse(bool $preserveKeys = false): self
     {
@@ -895,6 +953,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param int      $offset       Slice begin index.
      * @param int|null $length       Length of the slice. Default is null.
      * @param bool     $preserveKeys Whether array keys are preserved or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function slice(int $offset, ?int $length = null, bool $preserveKeys = false): self
     {
@@ -908,6 +968,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param int  $offset       Slice begin index.
      * @param bool $preserveKeys Whether array keys are preserved or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function offset(int $offset, bool $preserveKeys = false): self
     {
@@ -921,6 +983,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param int|null $length       Length of the slice. Default is null.
      * @param bool     $preserveKeys Whether array keys are preserved or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function limit(?int $length = null, bool $preserveKeys = false): self
     {
@@ -933,6 +997,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Shuffle the given array and return the result.
      *
      * @param  int|null $seed An arbitrary integer seed value.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function shuffle(?int $seed = null): self
     {
@@ -953,6 +1019,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Convert the current array into a query string.
+     *
+     * @return string Returns query string.
      */
     public function toQuery(): string
     {
@@ -961,6 +1029,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Get all items from stored array and convert them to array.
+     *
+     * @return array Returns array.
      */
     public function toArray(): array
     {
@@ -972,6 +1042,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param int $options Bitmask consisting of encode options
      * @param int $depth   Encode Depth. Set the maximum depth. Must be greater than zero.
+     *
+     * @return string Returns current array as json.
      */
     public function toJson(int $options = 0, int $depth = 512): string
     {
@@ -995,6 +1067,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param string $glue        Value that glues elements together.
      * @param bool   $includeKeys Include keys before their values.
      * @param bool   $trimAll     Trim ALL whitespace from string.
+     *
+     * @return string Returns current array as string.
      */
     public function toString(string $glue = ',', bool $includeKeys = false, bool $trimAll = true): string
     {
@@ -1027,6 +1101,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param int $sortFlags Sort flags used to modify the sorting behavior.
      *                       Sorting type flags:
      *                       https://www.php.net/manual/en/function.array-unique
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function unique(int $sortFlags = SORT_STRING): self
     {
@@ -1041,6 +1117,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param callable $callback  The callback function.
      * @param bool     $recursive Whether array will be walked recursively or no. Default is false.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function walk(callable $callback, bool $recursive = false): self
     {
@@ -1057,6 +1135,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Return slice of an array with just a given keys.
      *
      * @param array $keys List of keys to return.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function only(array $keys): self
     {
@@ -1069,6 +1149,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Return slice of an array with just a given keys.
      *
      * @param array $keys List of keys to return.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function except(array $keys): self
     {
@@ -1077,6 +1159,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Creates a new Arrays object with the same items.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function copy(): self
     {
@@ -1088,6 +1172,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param int $step   Step width.
      * @param int $offset Number of items to start from. Default is 0.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function nth(int $step, int $offset = 0): self
     {
@@ -1114,6 +1200,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param  int    $sortFlags    A PHP sort method flags.
      *                              https://www.php.net/manual/ru/function.sort.php
      * @param bool   $preserveKeys Maintain index association
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function sort(string $direction = 'ASC', int $sortFlags = SORT_REGULAR, bool $preserveKeys = false): self
     {
@@ -1145,6 +1233,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param  string $direction Order type DESC (descending) or ASC (ascending)
      * @param  int    $sortFlags A PHP sort method flags.
      *                           https://www.php.net/manual/ru/function.sort.php
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function sortKeys(string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
     {
@@ -1163,6 +1253,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Sorts the array values with a user-defined comparison function and maintain index association.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function customSortValues(callable $callback): self
     {
@@ -1173,6 +1265,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Sorts the array keys with a user-defined comparison function and maintain index association.
+     *
+     * @return self Returns instance of The Arrays class.
      */
     public function customSortKeys(callable $callback): self
     {
@@ -1210,6 +1304,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param mixed $offset The offset to assign the value to.
      * @param mixed $value  The value to set.
+     *
+     * @return void Return void.
      */
     public function offsetSet($offset, $value): void
     {
@@ -1220,6 +1316,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Unset an offset.
      *
      * @param mixed $offset The offset to unset.
+     *
+     * @return void Return void.
      */
     public function offsetUnset($offset): void
     {
@@ -1228,6 +1326,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Create a new iterator from an ArrayObject instance
+     *
+     * @return ArrayIterator Returns instance of The ArrayIterator class.
      */
     public function getIterator(): ArrayIterator
     {
@@ -1238,6 +1338,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Returns array of the given items.
      *
      * @param mixed $items Items
+     *
+     * @return array Returns array of the given items.
      */
     protected function getArray($items): array
     {
