@@ -230,6 +230,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * the index of its first occurrence.
      *
      * @param mixed $needle The searched value.
+     *
      * @return mixed Returns the key for needle if it is found in the array, FALSE otherwise.
      */
     public function indexOf($needle)
@@ -249,6 +250,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Searches the array for a given value and returns the first corresponding key if successful.
      *
      * @param  mixed $needle The searched value.
+     *
      * @return mixed Returns the key for needle if it is found in the array, FALSE otherwise.
      */
     public function search($needle)
@@ -260,6 +262,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Checks if the given dot-notated key exists in the array.
      *
      * @param  string|array $keys Keys
+     *
      * @return bool Return TRUE key exists in the array, FALSE otherwise.
      */
     public function has($keys): bool
@@ -296,6 +299,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param  string|int|null $key     Key
      * @param  mixed           $default Default value
+     *
      * @return mixed Item from an array.
      */
     public function get($key, $default = null)
@@ -512,6 +516,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param  string $key     Key
      * @param  mixed  $default Default value
+     *
+     * @return mixed Value from the array.
      */
     public function pull(string $key, $default = null)
     {
@@ -571,6 +577,9 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Moves the internal iterator position to the next element and returns this element.
+     *
+     * @return mixed Returns the array value in the next place that's pointed
+     *               to by the internal array pointer, or FALSE if there are no more elements.
      */
     public function next()
     {
@@ -579,6 +588,9 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Rewind the internal iterator position and returns this element.
+     *
+     * @return mixed Returns the array value in the previous place that's pointed
+     *               to by the internal array pointer, or FALSE if there are no more elements.
      */
     public function prev()
     {
@@ -587,6 +599,11 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Gets the element of the array at the current internal iterator position.
+     *
+     * @return mixed Returns the value of the array element that's currently
+     *               being pointed to by the internal pointer. It does not move
+     *               the pointer in any way. If the internal pointer points beyond
+     *               the end of the elements list or the array is empty, returns FALSE.
      */
     public function current()
     {
@@ -595,6 +612,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Get the first value from the current array.
+     *
+     * @return mixed Returns the value of the array.
      */
     public function first()
     {
@@ -609,6 +628,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Get the first key from the current array.
+     *
+     * @return mixed Returns the first key of array if the array is not empty; NULL otherwise.
      */
     public function firstKey()
     {
@@ -617,6 +638,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Get the last value from the current array.
+     *
+     * @return mixed Returns the value of the array.
      */
     public function last()
     {
@@ -631,6 +654,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Get the last key from the current array.
+     *
+     * @return mixed Returns the last key of array if the array is not empty; NULL otherwise.
      */
     public function lastKey()
     {
@@ -645,7 +670,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      */
     public function chunk(int $size, bool $preserveKeys = false): self
     {
-         $this->items = array_chunk($this->items, $size, $preserveKeys);
+        $this->items = array_chunk($this->items, $size, $preserveKeys);
 
         return $this;
     }
@@ -784,6 +809,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Returns one or a specified number of items randomly from the array.
      *
      * @param int|null $number Number of items to return.
+     *
+     * @return mixed Returns the value of the array.
      */
     public function random(?int $number = null)
     {
@@ -1148,6 +1175,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Whether an offset exists.
      *
      * @param mixed $offset An offset to check for.
+     *
+     * @return bool Return TRUE key exists in the array, FALSE otherwise.
      */
     public function offsetExists($offset): bool
     {
@@ -1158,6 +1187,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Offset to retrieve.
      *
      * @param mixed $offset The offset to retrieve.
+     *
+     * @return mixed Returns the value of the array.
      */
     public function offsetGet($offset)
     {
