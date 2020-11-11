@@ -682,7 +682,13 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      */
     public function combine(array $array): self
     {
-        $this->items = array_combine($this->items, $array);
+        $data = array_combine($this->items, $array);
+
+        if ($data === false) {
+            $data = [];
+        }
+
+        $this->items = $data;
 
         return $this;
     }
