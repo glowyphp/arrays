@@ -123,6 +123,8 @@ $arrays = arrays();
  * Push an item into the end of an array.
  *
  * @param mixed $value The new item to append
+ *
+ * @return self Returns instance of The Arrays class.
  */
 function append($value = null): self
 ```
@@ -188,6 +190,8 @@ Array
 ```php
 /**
  *  Get all items from stored array.
+ *
+ * @return array Returns all items from stored array.
  */
 public function all(): array
 ```
@@ -248,6 +252,8 @@ Array
 ```php
 /**
  * Creates a new Arrays object with the same items.
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function copy(): self
 ```
@@ -265,7 +271,9 @@ $bar = $foo->copy();
 /**
  * Return the number of items in a given key.
  *
- * @param  int|string|null $key
+ * @param  int|string|null $key Key
+ *
+ * @return int Returns count of items.
  */
 public function count($key = null): int
 ```
@@ -309,9 +317,11 @@ print_r($total);
  *
  * Initializes a Arrays object and assigns $items the supplied values.
  *
- * @param mixed $items Elements
+ * @param mixed $items Items
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public static function create(array $items = []): Arrays
+public static function create($items = []): self
 ```
 
 ##### Example
@@ -345,8 +355,10 @@ $arrays = Arrays::create([
  * @param bool   $assoc Decode assoc. When TRUE, returned objects will be converted into associative arrays.
  * @param int    $depth Decode Depth. Set the maximum depth. Must be greater than zero.
  * @param int    $flags Bitmask consisting of decode options
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public static function createFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): Arrays
+public static function createFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): self
 ```
 
 ##### Example
@@ -363,8 +375,10 @@ $arrays = Arrays::createFromJson('{"foo": "bar"}');
  *
  * @param string $string    Input string.
  * @param string $separator Elements separator.
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public static function createFromString($string, $separator): Arrays
+public static function createFromString(string $string, string $separator): self
 ```
 
 ##### Example
@@ -383,8 +397,10 @@ $arrays = Arrays::createFromString('foo,bar', ',');
  * @param mixed $high The sequence is ended upon reaching the end value.
  * @param int   $step If a step value is given, it will be used as the increment between elements in the sequence.
  *                    step should be given as a positive number. If not specified, step will default to 1.
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public static function createWithRange($low, $high, int $step = 1): Arrays
+public static function createWithRange($low, $high, int $step = 1): self
 ```
 
 ##### Example
@@ -402,8 +418,10 @@ $arrays = Arrays::createWithRange(1, 5);
  *
  * @param int  $size         Size of each chunk.
  * @param bool $preserveKeys Whether array keys are preserved or no.
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public function chunk($size, $preserveKeys = false): self
+public function chunk(int $size, bool $preserveKeys = false): self
 ```
 
 ##### Example
@@ -435,6 +453,8 @@ Array
  * Create an array using the current array as keys and the other array as values.
  *
  * @param array $array Values array
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function combine(array $array): self
 ```
@@ -463,6 +483,11 @@ Array
 ```php
 /**
  * Gets the element of the array at the current internal iterator position.
+ *
+ * @return mixed Returns the value of the array element that's currently
+ *               being pointed to by the internal pointer. It does not move
+ *               the pointer in any way. If the internal pointer points beyond
+ *               the end of the elements list or the array is empty, returns FALSE.
  */
 public function current()
 ```
@@ -487,7 +512,7 @@ blue
 /**
  * Sorts the array keys with a user-defined comparison function and maintain index association.
  *
- * @param callable $callback
+ * @return self Returns instance of The Arrays class.
  */
 public function customSortKeys(callable $callback): self
 ```
@@ -524,7 +549,7 @@ Array
 /**
  * Sorts the array values with a user-defined comparison function and maintain index association.
  *
- * @param callable $callback
+ * @return self Returns instance of The Arrays class.
  */
 public function customSortValues(callable $callback): self
 ```
@@ -560,6 +585,8 @@ Array
 /**
  * Divide an array into two arrays.
  * One with keys and the other with values.
+ *
+ * @return array Returns result array.
  */
 public function divide(): array
 ```
@@ -632,7 +659,9 @@ Array
 /**
  * Compute the current array values which not present in the given one.
  *
- * @param array $array Array for diff
+ * @param array $array Array for diff.
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function diff(array $array): self
 ```
@@ -660,6 +689,8 @@ Array
  * Flatten a multi-dimensional associative array with dots.
  *
  * @param  string $prepend Prepend string
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function dot(string $prepend = ''): self
 ```
@@ -712,6 +743,8 @@ Array
  * Deletes an array value using "dot notation".
  *
  * @param  array|string $keys Keys
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function delete($keys): self
 ```
@@ -746,6 +779,8 @@ $arrays->delete('movies.the-thin-red-line');
  * Return slice of an array with just a given keys.
  *
  * @param array $keys List of keys to return.
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function except(array $keys): self
 ```
@@ -784,8 +819,10 @@ Array
  *                                                    to callback instead of the value.
  *                             ARRAY_FILTER_USE_BOTH - pass both value and key as arguments
  *                                                     to callback instead of the value.
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public function filter(callable $callback, $flag = ARRAY_FILTER_USE_BOTH): self
+public function filter(callable $callback, int $flag = ARRAY_FILTER_USE_BOTH): self
 ```
 
 ##### Example
@@ -815,8 +852,10 @@ Array
 ```php
 /**
  * Flush all values from the array.
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public function flush(): void
+public function flush(): self
 ```
 
 ##### Example
@@ -857,6 +896,8 @@ Array
 ```php
 /**
  * Get the first value from the current array.
+ *
+ * @return mixed Returns the value of the array.
  */
 public function first()
 ```
@@ -901,6 +942,8 @@ Array
 ```php
 /**
  * Get the first key from the current array.
+ *
+ * @return mixed Returns the first key of array if the array is not empty; NULL otherwise.
  */
 public function firstKey()
 ```
@@ -939,6 +982,8 @@ the_thin_red_line
 ```php
 /**
  * Exchanges all keys of current array with their associated values.
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function flip(): self
 ```
@@ -969,7 +1014,9 @@ Array
  * Get an item from an array using "dot" notation.
  *
  * @param  string|int|null $key     Key
- * @param  mixed           $default Default
+ * @param  mixed           $default Default value
+ *
+ * @return mixed Item from an array.
  */
 public function get($key, $default = null)
 ```
@@ -1010,8 +1057,10 @@ The Thin Red Line
 ```php
 /**
  * Return an array of all values stored array.
+ *
+ * @return array Returns an indexed array of values.
  */
-public function getValues()
+public function getValues(): array
 ```
 
 ##### Example
@@ -1042,6 +1091,8 @@ Array
  * Checks if the given dot-notated key exists in the array.
  *
  * @param  string|array $keys Keys
+ *
+ * @return bool Return TRUE key exists in the array, FALSE otherwise.
  */
 public function has($keys): bool
 ```
@@ -1082,9 +1133,6 @@ if ($arrays->has('movies.the-thin-red-line')) {
 The Thin Red Line
 ```
 
-
-
-
 ##### <a name="arrays_pad"></a> Method: `pad()`
 
 ```php
@@ -1093,6 +1141,8 @@ The Thin Red Line
  *
  * @param int   $size  Size of the result array.
  * @param mixed $value Empty value by default.
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function pad(int $size, $value): self
 ```
@@ -1125,6 +1175,8 @@ Array
  * Push an item into the beginning of an array.
  *
  * @param mixed $value The new item to append
+ *
+ * @return self Returns instance of The Arrays class.
  */
 function prepend($value = null): self
 ```
@@ -2616,6 +2668,8 @@ print_r($result);
 ```php
 /**
  * Expands a dot notation array into a full multi-dimensional array.
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function undot(): self
 ```
@@ -2658,6 +2712,8 @@ Array
  * @param int $sortFlags Sort flags used to modify the sorting behavior.
  *                       Sorting type flags:
  *                       https://www.php.net/manual/en/function.array-unique
+ *
+ * @return self Returns instance of The Arrays class.
  */
 public function unique(int $sortFlags = SORT_STRING): self
 ```
@@ -2689,9 +2745,12 @@ Array
  * Apply the given function to the every element of the current array,
  * discarding the results.
  *
- * @param bool $recursively Whether array will be walked recursively or no. Default is false.
+ * @param callable $callback  The callback function.
+ * @param bool     $recursive Whether array will be walked recursively or no. Default is false.
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public function walk(callable $callable, bool $recursive = false): self
+public function walk(callable $callback, bool $recursive = false): self
 ```
 
 ##### Example
