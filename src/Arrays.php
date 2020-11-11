@@ -8,6 +8,7 @@ use ArrayAccess;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
+use Traversable;
 
 use function array_chunk;
 use function array_combine;
@@ -46,7 +47,6 @@ use function explode;
 use function function_exists;
 use function http_build_query;
 use function is_array;
-use function is_iterable;
 use function is_null;
 use function iterator_to_array;
 use function json_decode;
@@ -1239,7 +1239,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
             return $items->toArray();
         }
 
-        if (is_iterable($items)) {
+        if ($items instanceof Traversable) {
             return iterator_to_array($items);
         }
 
