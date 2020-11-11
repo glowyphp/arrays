@@ -1014,6 +1014,10 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         // Trim ALL whitespace
         $trimAll and $string = preg_replace('/(\s)/ixsm', '', $string);
 
+        if (is_null($string)) {
+            $string = '';
+        }
+
         return $string;
     }
 
