@@ -2806,141 +2806,137 @@ public function where(string $key, string $operator, $value): self
 ##### Operators
 
 <table>
-    <thead>
-        <tr>
-            <th style="width: 190px;">
-                Operator
-            </th>
-            <th>
-                Description
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                eq =
-            </td>
-            <td>
-                <b>Equal to</b><br><br>
+    <tr>
+        <th>
+            Operator
+        </th>
+        <th>
+            Description
+        </th>
+    </tr>
+    <tr>
+        <td>
+            eq =
+        </td>
+        <td>
+            <b>Equal to</b><br><br>
 
-                Filter your array items by checking if your custom attribute (key) has a value that is equal to one of the values provided.<br><br>
+            Filter your array items by checking if your custom attribute (key) has a value that is equal to one of the values provided.<br><br>
 
-                <b>Use-cases:</b><br>
-                Get collection that is refered to another in a 1:N relationship or if you want to get collection with a specific value in one of it's fields.
-            </td>
-        </tr>
-        <tr>
-            <td>
-                neq &lt;&gt; !=
-            </td>
-            <td>
-                <b>Not equal to</b><br><br>
+            <b>Use-cases:</b><br>
+            Get collection that is refered to another in a 1:N relationship or if you want to get collection with a specific value in one of it's fields.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            neq &lt;&gt; !=
+        </td>
+        <td>
+            <b>Not equal to</b><br><br>
 
-                Filter your array items by checking if your custom attribute (key) does not have a value that is equal to one of the values provided.
-            </td>
-        </tr>
-        <tr>
-            <td>
-                lt &lt;
-            </td>
-            <td>
-                <b>Lower than</b><br><br>
+            Filter your array items by checking if your custom attribute (key) does not have a value that is equal to one of the values provided.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            lt &lt;
+        </td>
+        <td>
+            <b>Lower than</b><br><br>
 
-               Filter your array items by checking if your custom attribute (key) has a value that is lower than one of the values provided.
-            </td>
-        </tr>
-        <tr>
-            <td>
-                gt &gt;
-            </td>
-            <td>
-                <b>Greater than</b><br><br>
+           Filter your array items by checking if your custom attribute (key) has a value that is lower than one of the values provided.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            gt &gt;
+        </td>
+        <td>
+            <b>Greater than</b><br><br>
 
-                Filter your array items by checking if your custom attribute (key) has a value that is greater than one of the values provided.
-            </td>
-        </tr>
-        <tr>
-            <td>
-                lte &lt;=
-            </td>
-            <td>
-                <b>Lower than or equal to</b><br><br>
+            Filter your array items by checking if your custom attribute (key) has a value that is greater than one of the values provided.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            lte &lt;=
+        </td>
+        <td>
+            <b>Lower than or equal to</b><br><br>
 
-                Filter your array items by checking if your custom attribute (key) has a value that is lower than or equal to one of the values provided.
-            </td>
-        </tr>
-        <tr>
-            <td>
-                gt &gt;=
-            </td>
-            <td>
-                <b>Greater than or equal to</b><br><br>
+            Filter your array items by checking if your custom attribute (key) has a value that is lower than or equal to one of the values provided.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            gt &gt;=
+        </td>
+        <td>
+            <b>Greater than or equal to</b><br><br>
 
-                Filter your array items by checking if your custom attribute (key) has a value that is greater than or equal to one of the values provided.
-            </td>
-        </tr>
-        <tr>
-            <td>
-                in
-            </td>
-            <td>
-                <b>Included in an array of values</b><br><br>
+            Filter your array items by checking if your custom attribute (key) has a value that is greater than or equal to one of the values provided.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            in
+        </td>
+        <td>
+            <b>Included in an array of values</b><br><br>
 
-                Filter your array items by checking if your custom array attribute (key) contains one of the values provided. As soon as one of the provided values separated with, are in the array field, the entry object will be in the response.<br><br>
+            Filter your array items by checking if your custom array attribute (key) contains one of the values provided. As soon as one of the provided values separated with, are in the array field, the entry object will be in the response.<br><br>
 
-                <b>Use-cases:</b><br>
-                Get all content entries that is refered to others in a N:N relationship or if you want to get all entries with a specific value in one of it's array fields.
-            </td>
-        </tr>
-        <tr>
-            <td>
-                nin
-            </td>
-            <td>
-                <b>Isn't included in an array of values</b><br><br>
+            <b>Use-cases:</b><br>
+            Get all content entries that is refered to others in a N:N relationship or if you want to get all entries with a specific value in one of it's array fields.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            nin
+        </td>
+        <td>
+            <b>Isn't included in an array of values</b><br><br>
 
-                Filter your array items by checking if your custom array attribute (key) is not contains one of the values provided.<br><br>
+            Filter your array items by checking if your custom array attribute (key) is not contains one of the values provided.<br><br>
 
-                <b>Use-cases:</b><br>
-                Get all content collection that is not refered to others in a N:N relationship or if you want to get all entries with a specific value that is not in one of it's array fields.
-            </td>
-        </tr>
-        <tr>
-            <td>
-                contains
-            </td>
-            <td>
-                <b>Contains the substring</b><br><br>
+            <b>Use-cases:</b><br>
+            Get all content collection that is not refered to others in a N:N relationship or if you want to get all entries with a specific value that is not in one of it's array fields.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            contains
+        </td>
+        <td>
+            <b>Contains the substring</b><br><br>
 
-                Filter your array items by checking if your custom attribute (key) has a value that is "like" the value provided.
-            </td>
-        </tr>
-        <tr>
-            <td>
-                member_of
-            </td>
-            <td>
-                <b>Member of</b><br><br>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                starts_with
-            </td>
-            <td>
-                <b>Starts with</b><br><br>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                ends_with
-            </td>
-            <td>
-                <b>Ends with</b><br><br>
-            </td>
-        </tr>
-    </tbody>
+            Filter your array items by checking if your custom attribute (key) has a value that is "like" the value provided.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            member_of
+        </td>
+        <td>
+            <b>Member of</b><br><br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            starts_with
+        </td>
+        <td>
+            <b>Starts with</b><br><br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            ends_with
+        </td>
+        <td>
+            <b>Ends with</b><br><br>
+        </td>
+    </tr>
 </table>
 
 
