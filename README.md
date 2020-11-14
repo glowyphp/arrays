@@ -2808,9 +2808,9 @@ public function where(string $key, string $operator, $value): self
 **Equal to**
 `eq` `=`
 
-Filter your array items by checking if your custom attribute (key) has a value that is equal to one of the values provided.<br><br>
+Filter your array items by checking if your custom attribute (key) has a value that is equal to one of the values provided.
 
-<b>Use-cases:</b><br>
+Use-cases:
 Get collection that is refered to another in a 1:N relationship or if you want to get collection with a specific value in one of it's fields.
 
 **Not equal to**
