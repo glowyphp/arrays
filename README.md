@@ -2807,12 +2807,12 @@ public function where(string $key, string $operator, $value): self
 
 <table>
     <tr>
-        <th>
+        <td>
             Operator
-        </th>
-        <th>
+        </td>
+        <td>
             Description
-        </th>
+        </td>
     </tr>
     <tr>
         <td>
