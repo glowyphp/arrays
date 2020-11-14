@@ -113,6 +113,7 @@ $arrays = arrays();
 | <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
 | <a href="#arrays_unique">`unique()`</a> | Remove duplicate values from the current array. |
 | <a href="#arrays_walk">`walk()`</a> | Apply the given function to the every element of the current array, discarding the results. |
+| <a href="#arrays_where">`where()`</a> | Filters the array items by a given condition. |
 
 #### Methods Details
 
@@ -2737,7 +2738,6 @@ Array
 )
 ```
 
-
 ##### <a name="arrays_walk"></a> Method: `walk()`
 
 ```php
@@ -2775,6 +2775,174 @@ Array
     [c] => c
 )
 ```
+
+##### <a name="arrays_where"></a> Method: `where()`
+
+```php
+/**
+ * Filters the array items by a given condition.
+ *
+ * @param string $key      Key of the array or object to used for comparison.
+ * @param string $operator Operator used for comparison.
+ *                         operators: in, nin, lt, <, lte, > gt, gte, >=, <=,
+ *                                    eq, =, neq, !=, contains, starts_with, ends_with
+ * @param mixed  $value    Value used for comparison.
+ */
+public function where(string $key, string $operator, $value): self
+```
+
+##### Example
+
+```php
+    $result = Arrays::create([
+                        0 => ['title' => 'FòôBar'],
+                        1 => ['title' => 'BarFòô'],
+                    ])
+                    ->where('title', '=', 'FòôBar')
+                    ->toArray();
+);
+```
+
+##### Operators
+
+<table>
+    <thead>
+        <tr>
+            <th style="width: 190px;">
+                Operator
+            </th>
+            <th>
+                Description
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                eq =
+            </td>
+            <td>
+                <b>Equal to</b><br><br>
+
+                Filter your array items by checking if your custom attribute (key) has a value that is equal to one of the values provided.<br><br>
+
+                <b>Use-cases:</b><br>
+                Get collection that is refered to another in a 1:N relationship or if you want to get collection with a specific value in one of it's fields.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                neq &lt;&gt; !=
+            </td>
+            <td>
+                <b>Not equal to</b><br><br>
+
+                Filter your array items by checking if your custom attribute (key) does not have a value that is equal to one of the values provided.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                lt &lt;
+            </td>
+            <td>
+                <b>Lower than</b><br><br>
+
+               Filter your array items by checking if your custom attribute (key) has a value that is lower than one of the values provided.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                gt &gt;
+            </td>
+            <td>
+                <b>Greater than</b><br><br>
+
+                Filter your array items by checking if your custom attribute (key) has a value that is greater than one of the values provided.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                lte &lt;=
+            </td>
+            <td>
+                <b>Lower than or equal to</b><br><br>
+
+                Filter your array items by checking if your custom attribute (key) has a value that is lower than or equal to one of the values provided.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                gt &gt;=
+            </td>
+            <td>
+                <b>Greater than or equal to</b><br><br>
+
+                Filter your array items by checking if your custom attribute (key) has a value that is greater than or equal to one of the values provided.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                in
+            </td>
+            <td>
+                <b>Included in an array of values</b><br><br>
+
+                Filter your array items by checking if your custom array attribute (key) contains one of the values provided. As soon as one of the provided values separated with, are in the array field, the entry object will be in the response.<br><br>
+
+                <b>Use-cases:</b><br>
+                Get all content entries that is refered to others in a N:N relationship or if you want to get all entries with a specific value in one of it's array fields.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                nin
+            </td>
+            <td>
+                <b>Isn't included in an array of values</b><br><br>
+
+                Filter your array items by checking if your custom array attribute (key) is not contains one of the values provided.<br><br>
+
+                <b>Use-cases:</b><br>
+                Get all content collection that is not refered to others in a N:N relationship or if you want to get all entries with a specific value that is not in one of it's array fields.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                contains
+            </td>
+            <td>
+                <b>Contains the substring</b><br><br>
+
+                Filter your array items by checking if your custom attribute (key) has a value that is "like" the value provided.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                member_of
+            </td>
+            <td>
+                <b>Member of</b><br><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                starts_with
+            </td>
+            <td>
+                <b>Starts with</b><br><br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ends_with
+            </td>
+            <td>
+                <b>Ends with</b><br><br>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 
 ### Tests
 

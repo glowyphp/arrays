@@ -46,6 +46,7 @@ use function defined;
 use function explode;
 use function function_exists;
 use function http_build_query;
+use function in_array;
 use function is_array;
 use function is_null;
 use function iterator_to_array;
@@ -54,6 +55,7 @@ use function json_encode;
 use function krsort;
 use function ksort;
 use function mb_strlen;
+use function mb_strpos;
 use function mb_strtolower;
 use function mb_substr;
 use function mt_srand;
@@ -65,6 +67,7 @@ use function range;
 use function rsort;
 use function shuffle;
 use function sort;
+use function strncmp;
 use function strpos;
 use function strtolower;
 use function strval;
@@ -95,7 +98,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * Initializes a Arrays object and assigns $items the supplied values.
      *
-     * @param mixed $items Items
+     * @param mixed  $items    Items
      */
     public function __construct($items = [])
     {
@@ -1322,6 +1325,83 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     public function offsetUnset($offset): void
     {
         $this->delete($offset);
+    }
+
+    /**
+     * Filters the array items by a given condition.
+     *
+     * @param string $key      Key of the array or object to used for comparison.
+     * @param string $operator Operator used for comparison.
+     *                         operators: in, nin, lt, <, lte, > gt, gte, >=, <=,
+     *                                    eq, =, neq, !=, contains, starts_with, ends_with
+     * @param mixed  $value    Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function where(string $key, string $operator, $value): self
+    {
+        $encoding = mb_internal_encoding();
+        $operator = mb_strtolower($operator, $encoding);
+
+        $this->items = array_filter(
+            $this->items,
+            static function ($item) use ($key, $operator, $value, $encoding) {
+                $item = (array) $item;
+
+                if (! static::create($item)->has($key)) {
+                    return;
+                }
+
+                $valueToCompare = static::create($item)->get($key);
+
+                switch ($operator) {
+                    case 'in':
+                        return in_array($valueToCompare, (array) $value);
+
+                    case 'nin':
+                        return ! in_array($valueToCompare, (array) $value);
+
+                    case 'lt':
+                    case '<':
+                        return $valueToCompare < $value;
+
+                    case 'gt':
+                    case '>':
+                        return $valueToCompare > $value;
+
+                    case 'lte':
+                    case '<=':
+                        return $valueToCompare <= $value;
+
+                    case 'gte':
+                    case '>=':
+                        return $valueToCompare >= $value;
+
+                    case 'eq':
+                    case '=':
+                        return $valueToCompare === $value;
+
+                    case 'neq':
+                    case '!=':
+                        return $valueToCompare !== $value;
+
+                    case 'contains':
+                        return mb_strpos($valueToCompare, $value, 0, $encoding) !== false;
+
+                    case 'starts_with':
+                        return strncmp($valueToCompare, $value, mb_strlen($value)) === 0;
+
+                    case 'ends_with':
+                        return mb_substr($valueToCompare, -mb_strlen($value), null, $encoding) ===  $value;
+
+                    default:
+                        return false;
+                }
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
+
+        return $this;
     }
 
     /**

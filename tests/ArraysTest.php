@@ -671,6 +671,309 @@ test('test getValues() method', function (): void {
     );
 });
 
+test('test where() method', function (): void {
+    $this->assertEquals(
+        [1 => ['title' => 'Bar']],
+        Arrays::create([
+            0 => ['title' => 'Foo'],
+            1 => ['title' => 'Bar'],
+        ])
+                        ->where('title', '=', 'Bar')
+                        ->toArray()
+    );
+
+    $this->assertEquals(
+        [1 => ['title' => 'Bar', 'foo' => ['title' => 'FooBar']]],
+        Arrays::create([0 => ['title' => 'Foo'], 1 => ['title' => 'Bar', 'foo' => ['title' => 'FooBar']]])->where('foo.title', '=', 'FooBar')->toArray()
+    );
+
+    $this->assertEquals(
+        [1 => ['title' => 'Bar', 'category' => 'A']],
+        Arrays::create([
+            0 => ['title' => 'Foo'],
+            1 => ['title' => 'Bar', 'category' => 'A'],
+            2 => ['title' => 'Zed', 'category' => 'A', 'tag' => 'apple'],
+            3 => ['title' => 'Zed', 'category' => 'A', 'tag' => 'apple', 'flag' => 5],
+        ])
+                    ->where('title', '=', 'Bar')
+                    ->where('category', '=', 'A')
+                    ->toArray()
+    );
+
+    $this->assertEquals(
+        [1 => ['title' => 'Bar', 'category' => 'A']],
+        Arrays::create([
+            0 => ['title' => 'Foo'],
+            1 => ['title' => 'Bar', 'category' => 'A'],
+            2 => ['title' => 'Zed', 'category' => 'A', 'tag' => 'apple'],
+            3 => ['title' => 'Zed', 'category' => 'A', 'tag' => 'apple', 'flag' => 5],
+        ])
+                    ->where('title', '=', 'Bar')
+                    ->where('category', '=', 'A')
+                    ->toArray()
+    );
+
+    // operator: starts_with
+
+    $this->assertEquals(
+        [0 => ['title' => 'Foo']],
+        Arrays::create([
+            0 => ['title' => 'Foo'],
+            1 => ['title' => 'Bar'],
+        ])
+                    ->where('title', 'starts_with', 'Foo')
+                    ->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => ['title' => 'FooBar']],
+        Arrays::create([
+            0 => ['title' => 'FooBar'],
+            1 => ['title' => 'BarFoo'],
+        ])
+                    ->where('title', 'starts_with', 'Foo')
+                    ->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => ['title' => 'FòôBar']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFoo'],
+        ])
+                    ->where('title', 'starts_with', 'Fòô')
+                    ->toArray()
+    );
+
+    // operator: ends_with
+
+    $this->assertEquals(
+        [1 => ['title' => 'Bar']],
+        Arrays::create([
+            0 => ['title' => 'Foo'],
+            1 => ['title' => 'Bar'],
+        ])
+                    ->where('title', 'ends_with', 'Bar')
+                    ->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => ['title' => 'FooBar']],
+        Arrays::create([
+            0 => ['title' => 'FooBar'],
+            1 => ['title' => 'BarFoo'],
+        ])
+                    ->where('title', 'ends_with', 'Bar')
+                    ->toArray()
+    );
+
+    $this->assertEquals(
+        [1 => ['title' => 'BarFòô']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+                    ->where('title', 'ends_with', 'Fòô')
+                    ->toArray()
+    );
+
+    // operator: contains
+
+    $this->assertEquals(
+        [0 => ['title' => 'FòôBar'],
+         1 => ['title' => 'BarFòô']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->where('title', 'contains', 'Fòô')
+            ->toArray()
+    );
+
+    // operator: neq, !=
+
+    $this->assertEquals(
+        [0 => ['title' => 'FòôBar']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->where('title', '!=', 'BarFòô')
+            ->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => ['title' => 'FòôBar']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->where('title', 'neq', 'BarFòô')
+            ->toArray()
+    );
+
+    // operator: eq, =
+
+    $this->assertEquals(
+        [0 => ['title' => 'FòôBar']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->where('title', '=', 'FòôBar')
+            ->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => ['title' => 'FòôBar']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->where('title', 'eq', 'FòôBar')
+            ->toArray()
+    );
+
+    // operator: in
+
+    $this->assertEquals(
+        [0 => ['title' => 'FòôBar']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->where('title', 'in', ['FòôBar'])
+            ->toArray()
+    );
+
+    // operator: nin
+
+    $this->assertEquals(
+        [1 => ['title' => 'BarFòô']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->where('title', 'nin', ['FòôBar'])
+            ->toArray()
+    );
+
+    // operator: lt, <
+
+    $this->assertEquals(
+        [0 => ['price' => 10]],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->where('price', 'lt', 20)
+        ->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => ['price' => 10]],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->where('price', '<', 20)
+        ->toArray()
+    );
+
+    // operator: gt, >
+
+    $this->assertEquals(
+        [1 => ['price' => 20]],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->where('price', 'gt', 10)
+        ->toArray()
+    );
+
+    $this->assertEquals(
+        [1 => ['price' => 20]],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->where('price', '>', 10)
+        ->toArray()
+    );
+
+    // operator: gte, >=
+
+    $this->assertEquals(
+        [0 => ['price' => 10],
+         1 => ['price' => 20]],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->where('price', 'gte', 10)
+        ->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => ['price' => 10],
+         1 => ['price' => 20]],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->where('price', '>=', 10)
+        ->toArray()
+    );
+
+    // operator: lte, =<
+
+    $this->assertEquals(
+        [0 => ['price' => 10],
+         1 => ['price' => 20]],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->where('price', 'lte', 20)
+        ->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => ['price' => 10],
+         1 => ['price' => 20]],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->where('price', '<=', 20)
+        ->toArray()
+    );
+
+    // operator: lte, =<
+
+    $this->assertEquals(
+        [0 => ['price' => 10],
+         1 => ['price' => 20]],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->where('price', 'lte', 20)
+        ->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => ['price' => 10],
+         1 => ['price' => 20]],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->where('price', '<=', 20)
+        ->toArray()
+    );
+});
 
 test('test isEmpty() method', function (): void {
     $this->assertFalse(Arrays::create([1, 2, 3, 4, 5])->isEmpty());
@@ -881,7 +1184,7 @@ test('test offsetSet() method', function (): void {
         $arrays['foo']
     );
 
-    $arrays = Arrays::create();
+    $arrays        = Arrays::create();
     $arrays['foo'] = 'Foo';
     $arrays['bar'] = 'Bar';
 
@@ -895,7 +1198,7 @@ test('test offsetSet() method', function (): void {
         $arrays['bar']
     );
 
-    $arrays = Arrays::create();
+    $arrays              = Arrays::create();
     $arrays['items.foo'] = 'Foo';
     $arrays['items.bar'] = 'Bar';
 
@@ -911,7 +1214,7 @@ test('test offsetSet() method', function (): void {
 });
 
 test('test offsetUnset() method', function (): void {
-    $arrays = Arrays::create();
+    $arrays              = Arrays::create();
     $arrays['items.foo'] = 'Foo';
     $arrays['items.bar'] = 'Bar';
 
@@ -939,7 +1242,7 @@ test('test offsetUnset() method', function (): void {
 });
 
 test('test offsetExists() method', function (): void {
-    $arrays = Arrays::create();
+    $arrays              = Arrays::create();
     $arrays['items.foo'] = 'Foo';
     $arrays['items.bar'] = 'Bar';
 
