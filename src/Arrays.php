@@ -1390,11 +1390,23 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
                     case 'like':
                         return mb_strpos($valueToCompare, $value, 0, $encoding) !== false;
 
+                    case 'ncontains':
+                    case 'nlike':
+                        return mb_strpos($valueToCompare, $value, 0, $encoding) === false;
+
+                    case 'between':
+                        $value = (array) $value;
+                        return ($valueToCompare >= current($value) && $valueToCompare <= end($value)) !== false;
+
+                    case 'nbetween':
+                        $value = (array) $value;
+                        return ($valueToCompare >= current($value) && $valueToCompare <= end($value)) === false;
+
                     case 'starts_with':
                         return strncmp($valueToCompare, $value, mb_strlen($value)) === 0;
 
                     case 'ends_with':
-                        return mb_substr($valueToCompare, -mb_strlen($value), null, $encoding) ===  $value;
+                        return mb_substr($valueToCompare, -mb_strlen($value), null, $encoding) === $value;
 
                     default:
                         return false;

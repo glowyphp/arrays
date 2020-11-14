@@ -777,7 +777,25 @@ test('test where() method', function (): void {
                     ->toArray()
     );
 
-    // operator: contains
+    // operator: between
+
+    $this->assertEquals(
+        [1 => ['price' => '150'], 2 => ['price' => '200']],
+        Arrays::create([['price' => '100'], ['price' => '150'], ['price' => '200']])
+            ->where('price', 'between', [150, 200])
+            ->toArray()
+    );
+
+    // operator: nbetween
+
+    $this->assertEquals(
+        [0 => ['price' => '100']],
+        Arrays::create([['price' => '100'], ['price' => '150'], ['price' => '200']])
+            ->where('price', 'nbetween', [150, 200])
+            ->toArray()
+    );
+
+    // operator: contains like
 
     $this->assertEquals(
         [0 => ['title' => 'FòôBar'],
@@ -787,6 +805,48 @@ test('test where() method', function (): void {
             1 => ['title' => 'BarFòô'],
         ])
             ->where('title', 'contains', 'Fòô')
+            ->toArray()
+    );
+
+    $this->assertEquals(
+        [0 => ['title' => 'FòôBar'],
+         1 => ['title' => 'BarFòô']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->where('title', 'like', 'Fòô')
+            ->toArray()
+    );
+
+    $this->assertEquals(
+        [],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->where('title', 'ncontains', 'Fòô')
+            ->toArray()
+    );
+
+    $this->assertEquals(
+        [],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->where('title', 'nlike', 'Fòô')
+            ->toArray()
+    );
+
+    $this->assertEquals(
+        [2 => ['title' => 'Zed']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+            2 => ['title' => 'Zed'],
+        ])
+            ->where('title', 'nlike', 'Fòô')
             ->toArray()
     );
 
