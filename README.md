@@ -2829,7 +2829,7 @@ public function where(string $key, string $operator, $value): self
     </tr>
     <tr>
         <td>
-            neq &lt;&gt; !=
+            neq <> !=
         </td>
         <td>
             <b>Not equal to</b><br><br>
@@ -2839,7 +2839,7 @@ public function where(string $key, string $operator, $value): self
     </tr>
     <tr>
         <td>
-            lt &lt;
+            lt <
         </td>
         <td>
             <b>Lower than</b><br><br>
@@ -2849,7 +2849,7 @@ public function where(string $key, string $operator, $value): self
     </tr>
     <tr>
         <td>
-            gt &gt;
+            gt <
         </td>
         <td>
             <b>Greater than</b><br><br>
@@ -2859,7 +2859,7 @@ public function where(string $key, string $operator, $value): self
     </tr>
     <tr>
         <td>
-            lte &lt;=
+            lte <=
         </td>
         <td>
             <b>Lower than or equal to</b><br><br>
@@ -2869,7 +2869,7 @@ public function where(string $key, string $operator, $value): self
     </tr>
     <tr>
         <td>
-            gt &gt;=
+            gt >=
         </td>
         <td>
             <b>Greater than or equal to</b><br><br>
@@ -2905,7 +2905,7 @@ public function where(string $key, string $operator, $value): self
     </tr>
     <tr>
         <td>
-            contains
+            contains like
         </td>
         <td>
             <b>Contains the substring</b><br><br>
