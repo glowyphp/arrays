@@ -2816,14 +2816,58 @@ Get collection that is refered to another in a 1:N relationship or if you want t
 **Not equal to**
 `neq` `<>` `!=`
 
-Filter your collection by checking if your custom attribute (field) does not have a value that is equal to one of the values provided.
+Filter your array items by checking if your custom attribute (key) does not have a value that is equal to one of the values provided.
 
 **Lower than**
 `lt` `<`
 
-Filter your collection by checking if your custom attribute (field) has a value that is lower than one of the values provided.
+Filter your array items by checking if your custom attribute (key) has a value that is lower than one of the values provided.
 
+**Greater than**
+`gt` `>`
 
+Filter your array items by checking if your custom attribute (key) has a value that is greater than one of the values provided.
+
+**Lower than or equal to**
+`lte` `<=`
+
+Filter your array items by checking if your custom attribute (key) has a value that is lower than or equal to one of the values provided.
+
+**Greater than or equal to**
+`gt` `>=`
+
+Filter your array items by checking if your custom attribute (key) has a value that is greater than or equal to one of the values provided.
+
+**Included in an array of values**
+`in`
+
+Filter your array items by checking if your custom array attribute (key) contains one of the values provided. As soon as one of the provided values separated with, are in the array field, the entry object will be in the response.
+
+Use-cases:
+Get all content array items that is refered to others in a N:N relationship or if you want to get all entries with a specific value in one of it's array fields.
+
+**Isn't included in an array of values**
+`nin`
+
+Filter your entries by checking if your custom array attribute (key) is not contains one of the values provided.
+
+Use-cases:
+Get all content array items that is not refered to others in a N:N relationship or if you want to get all entries with a specific value that is not in one of it's array fields.
+
+**Contains the substring**
+`contains` `like`
+
+Filter your array items by checking if your custom attribute (key) has a value that is "like" the value provided.
+
+**Starts with**
+`starts_with`
+
+Filter your array items by checking if your custom attribute (key) has a value that is "starts with" the value provided.
+
+**Ends with**
+`ends_with`
+
+Filter your array items by checking if your custom attribute (key) has a value that is "ends with" the value provided.
 
 ### Tests
 
