@@ -1382,10 +1382,12 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
                         return $valueToCompare === $value;
 
                     case 'neq':
+                    case '<>':
                     case '!=':
                         return $valueToCompare !== $value;
 
                     case 'contains':
+                    case 'like':
                         return mb_strpos($valueToCompare, $value, 0, $encoding) !== false;
 
                     case 'starts_with':
