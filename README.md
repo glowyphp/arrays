@@ -745,7 +745,7 @@ Array
 /**
  * Dumps the arrays items using the given function (print_r by default).
  *
- * @param callable $callback Function receiving the map elements as parameter (optional)
+ * @param callable $callback Function receiving the arrays items as parameter.
  *
  * @return self Returns instance of The Arrays class.
  */
@@ -806,9 +806,9 @@ Array
 /**
  * Dumps the arrays items using the given function (print_r by default) and die.
  *
- * @param callable $callback Function receiving the map elements as parameter (optional)
+ * @param callable $callback Function receiving the arrays items as parameter.
  *
- * @return self Returns instance of The Arrays class.
+ * @return void Return void.
  */
 public function dd(?callable $callback = null): void
 ```

@@ -1347,7 +1347,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param callable $callback Function receiving the arrays items as parameter.
      *
-     * @return self Returns instance of The Arrays class.
+     * @return void Return void.
      */
     public function dd(?callable $callback = null): void
     {
