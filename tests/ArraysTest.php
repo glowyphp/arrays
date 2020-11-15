@@ -1109,6 +1109,28 @@ test('test prev() method', function (): void {
     );
 });
 
+test('test pipe() method', function (): void {
+    $arrays = new Arrays([1, 2, 3]);
+
+    $this->assertEquals(3, $arrays->pipe(static function ($arrays) {
+        return $arrays->last();
+    }));
+});
+
+test('test sum() method', function (): void {
+    $this->assertEquals(
+        6,
+        Arrays::create([2, 2, 2])->sum()
+    );
+});
+
+test('test product() method', function (): void {
+    $this->assertEquals(
+        8,
+        Arrays::create([2, 2, 2])->product()
+    );
+});
+
 test('test current() method', function (): void {
     $this->assertEquals(
         'blue',

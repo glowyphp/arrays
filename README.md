@@ -90,7 +90,9 @@ $arrays = arrays();
 | <a href="#arrays_merge">`merge()`</a> | Merge the current array with the provided one. |
 | <a href="#arrays_next">`next()`</a> | Moves the internal iterator position to the next element and returns this element. |
 | <a href="#arrays_nth">`nth()`</a> | Extract array items with every nth item from the array. |
+| <a href="#arrays_pipe">`pipe()`</a> | Passes the array to the given callback and return the result. |
 | <a href="#arrays_prev">`prev()`</a> | Rewind the internal iterator position and returns this element. |
+| <a href="#arrays_product">`product()`</a> | Calculate the product of values in the current array. |
 | <a href="#arrays_only">`only()`</a> | Return slice of an array with just a given keys. |
 | <a href="#arrays_offset">`offset()`</a> | Extract a slice of the current array with specific offset. |
 | <a href="#arrays_offsetGet">`offsetGet()`</a> | Offset to retrieve. |
@@ -111,6 +113,7 @@ $arrays = arrays();
 | <a href="#arrays_sortKeys">`sortKeys()`</a> | Sorts array by keys. |
 | <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
 | <a href="#arrays_shuffle">`shuffle()`</a> | Shuffle the given array and return the result. |
+| <a href="#arrays_sum">`sum()`</a> | Calculate the sum of values in the current array. |
 | <a href="#arrays_random">`random()`</a> | Returns one or a specified number of items randomly from the array. |
 | <a href="#arrays_reduce">`reduce()`</a> | Reduce the array to a single value iteratively combining all values using `$callback.` |
 | <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
@@ -2090,6 +2093,38 @@ Array
 )
 ```
 
+
+##### <a name="arrays_pipe"></a> Method: `pipe()`
+
+```php
+/**
+ * Passes the array to the given callback and return the result.
+ *
+ * @param Closure $callback Function with arrays as parameter which returns arbitrary result.
+ *
+ * @return mixed Result returned by the callback.
+ */
+public function pipe(Closure $callback)
+```
+
+##### Example
+
+```php
+$arrays = new Arrays([1, 2, 3]);
+
+$arrays->pipe(static function ($arrays) {
+    return $arrays->last();
+}));
+
+print_r(arrays);
+```
+
+##### The above example will output:
+
+```
+3
+```
+
 ##### <a name="arrays_prev"></a> Method: `prev()`
 
 ```php
@@ -2111,6 +2146,31 @@ print_r($arrays);
 
 ```
 false
+```
+
+##### <a name="arrays_product"></a> Method: `product()`
+
+```php
+/**
+ * Calculate the product of values in the current array.
+ *
+ * @return float|int Returns the product as an integer or float.
+ */
+public function product()
+```
+
+##### Example
+
+```php
+$result = Arrays::create([2, 2, 2])->product();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+8
 ```
 
 ##### <a name="arrays_only"></a> Method: `only()`
@@ -2811,6 +2871,31 @@ Array
     [3] => 1
     [4] => 2
 )
+```
+
+##### <a name="arrays_sum"></a> Method: `sum()`
+
+```php
+/**
+ * Calculate the sum of values in the current array.
+ *
+ * @return float|int Returns the sum as an integer or float.
+ */
+public function sum()
+```
+
+##### Example
+
+```php
+$result = Arrays::create([2, 2, 2])->sum();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+6
 ```
 
 ##### <a name="arrays_random"></a> Method: `random()`

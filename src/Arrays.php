@@ -6,6 +6,7 @@ namespace Atomastic\Arrays;
 
 use ArrayAccess;
 use ArrayIterator;
+use Closure;
 use Countable;
 use IteratorAggregate;
 use Traversable;
@@ -26,6 +27,7 @@ use function array_map;
 use function array_merge;
 use function array_merge_recursive;
 use function array_pad;
+use function array_product;
 use function array_rand;
 use function array_reduce;
 use function array_replace;
@@ -34,6 +36,7 @@ use function array_reverse;
 use function array_search;
 use function array_shift;
 use function array_slice;
+use function array_sum;
 use function array_unique;
 use function array_unshift;
 use function array_values;
@@ -304,9 +307,21 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Passes the array to the given callback and return the result.
+     *
+     * @param Closure $callback Function with arrays as parameter which returns arbitrary result.
+     *
+     * @return mixed Result returned by the callback.
+     */
+    public function pipe(Closure $callback)
+    {
+        return $callback($this);
+    }
+
+    /**
      * Get an item from an array using "dot" notation.
      *
-     * @param  string|int|null $key     Key
+     * @param  string|int|null $keys    Key
      * @param  mixed           $default Default value
      *
      * @return mixed Item from an array.
@@ -916,6 +931,26 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         $this->items = array_values($this->items);
 
         return $this;
+    }
+
+    /**
+     * Calculate the product of values in the current array.
+     *
+     * @return float|int Returns the product as an integer or float.
+     */
+    public function product()
+    {
+        return array_product($this->items);
+    }
+
+    /**
+     * Calculate the sum of values in the current array.
+     *
+     * @return float|int Returns the sum as an integer or float.
+     */
+    public function sum()
+    {
+        return array_sum($this->items);
     }
 
     /**
