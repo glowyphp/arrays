@@ -43,8 +43,8 @@ use function asort;
 use function count;
 use function current;
 use function defined;
+use function end;
 use function explode;
-use function function_exists;
 use function http_build_query;
 use function in_array;
 use function is_array;
@@ -54,6 +54,7 @@ use function json_decode;
 use function json_encode;
 use function krsort;
 use function ksort;
+use function mb_internal_encoding;
 use function mb_strlen;
 use function mb_strpos;
 use function mb_strtolower;
@@ -63,13 +64,13 @@ use function natsort;
 use function next;
 use function preg_replace;
 use function prev;
+use function print_r;
 use function range;
 use function rsort;
 use function shuffle;
 use function sort;
 use function strncmp;
 use function strpos;
-use function strtolower;
 use function strval;
 use function uksort;
 use function usort;
@@ -98,7 +99,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * Initializes a Arrays object and assigns $items the supplied values.
      *
-     * @param mixed  $items    Items
+     * @param mixed $items Items
      */
     public function __construct($items = [])
     {
@@ -1328,6 +1329,34 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Dumps the arrays items using the given function (print_r by default).
+     *
+     * @param callable $callback Function receiving the map elements as parameter (optional)
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function dump(?callable $callback = null): self
+    {
+        $callback ? $callback($this->items) : print_r($this->items);
+
+        return $this;
+    }
+
+    /**
+     * Dumps the arrays items using the given function (print_r by default) and die.
+     *
+     * @param callable $callback Function receiving the map elements as parameter (optional)
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function dd(?callable $callback = null): void
+    {
+        $this->dump($callback);
+
+        die;
+    }
+
+    /**
      * Filters the array items by a given condition.
      *
      * @param string $key      Key of the array or object to used for comparison.
@@ -1397,10 +1426,12 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
                     case 'between':
                         $value = (array) $value;
+
                         return ($valueToCompare >= current($value) && $valueToCompare <= end($value)) !== false;
 
                     case 'nbetween':
                         $value = (array) $value;
+
                         return ($valueToCompare >= current($value) && $valueToCompare <= end($value)) === false;
 
                     case 'starts_with':

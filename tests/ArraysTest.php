@@ -1339,3 +1339,24 @@ test('test getIterator() method', function (): void {
         Arrays::create()->getIterator()
     );
 });
+
+test('test dump() method', function (): void {
+    $arrays = Arrays::create(['a' => 'foo', 'b' => 'bar'])
+                    ->dump()
+                    ->sort()
+                    ->dump('var_dump');
+
+    $this->assertInstanceOf(Arrays::class, $arrays);
+    $this->expectOutputString('Array
+(
+    [a] => foo
+    [b] => bar
+)
+array(2) {
+  [0]=>
+  string(3) "bar"
+  [1]=>
+  string(3) "foo"
+}
+');
+});

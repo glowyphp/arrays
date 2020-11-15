@@ -59,6 +59,8 @@ $arrays = arrays();
 | <a href="#arrays_diff">`diff()`</a> | Compute the current array values which not present in the given one. |
 | <a href="#arrays_dot">`dot()`</a> | Flatten a multi-dimensional associative array with dots. |
 | <a href="#arrays_delete">`delete()`</a> | Deletes an array value using "dot notation". |
+| <a href="#arrays_dump">`dump()`</a> | Dumps the arrays items using the given function (print_r by default). |
+| <a href="#arrays_dd">`dd()`</a> | Dumps the arrays items using the given function (print_r by default) and die. |
 | <a href="#arrays_except">`except()`</a> | Return slice of an array with just a given keys. |
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 | <a href="#arrays_first">`first()`</a> | Get the first value from the current array. |
@@ -736,6 +738,136 @@ Array
     [movies.bad_times_at_the_el_royale.decription] => Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.
 )
 ```
+
+##### <a name="arrays_dump"></a> Method: `dump()`
+
+```php
+/**
+ * Dumps the arrays items using the given function (print_r by default).
+ *
+ * @param callable $callback Function receiving the map elements as parameter (optional)
+ *
+ * @return self Returns instance of The Arrays class.
+ */
+public function dump(?callable $callback = null): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ])
+
+$arrays->dump();
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [movies] => Array
+        (
+            [the_thin_red_line] => Array
+                (
+                    [title] => The Thin Red Line
+                    [directed_by] => Terrence Malick
+                    [produced_by] => Robert Michael, Geisler Grant Hill, John Roberdeau
+                    [decription] => Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.
+                )
+            [bad_times_at_the_el_royale] => Array
+                (
+                    [title] => Bad Times at the El Royale
+                    [directed_by] => Drew Goddard
+                    [produced_by] => Drew Goddard, Steve Asbell
+                    [decription] => Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.
+                )
+        )
+)
+```
+
+##### <a name="arrays_dd"></a> Method: `dd()`
+
+```php
+/**
+ * Dumps the arrays items using the given function (print_r by default) and die.
+ *
+ * @param callable $callback Function receiving the map elements as parameter (optional)
+ *
+ * @return self Returns instance of The Arrays class.
+ */
+public function dd(?callable $callback = null): void
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ])
+
+$arrays->dd('var_dump');
+```
+
+##### The above example will output:
+
+```
+array(1) {
+  ["movies"]=>
+  array(2) {
+    ["the_thin_red_line"]=>
+    array(4) {
+      ["title"]=>
+      string(17) "The Thin Red Line"
+      ["directed_by"]=>
+      string(15) "Terrence Malick"
+      ["produced_by"]=>
+      string(50) "Robert Michael, Geisler Grant Hill, John Roberdeau"
+      ["decription"]=>
+      string(123) "Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War."
+    }
+    ["bad_times_at_the_el_royale"]=>
+    array(4) {
+      ["title"]=>
+      string(26) "Bad Times at the El Royale"
+      ["directed_by"]=>
+      string(12) "Drew Goddard"
+      ["produced_by"]=>
+      string(26) "Drew Goddard, Steve Asbell"
+      ["decription"]=>
+      string(225) "Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be."
+    }
+  }
+}
+```
+
 
 ##### <a name="arrays_delete"></a> Method: `delete()`
 
