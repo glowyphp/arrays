@@ -889,6 +889,18 @@ test('test where() method', function (): void {
     );
 
     $this->assertEquals(
+        [1 => ['title' => 'BarFòô', 'published' => true]],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô', 'published' => true],
+            2 => ['title' => 'BarFòô', 'published' => false],
+        ])
+            ->where('title', '=', 'BarFòô')
+            ->where('published', 'eq', true)  // and where
+            ->toArray()
+    );
+
+    $this->assertEquals(
         [0 => ['title' => 'FòôBar']],
         Arrays::create([
             0 => ['title' => 'FòôBar'],
