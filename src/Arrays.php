@@ -513,7 +513,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         }
 
         foreach ($array as $k => $row) {
-            $helper[$k] = function_exists('mb_strtolower') ? mb_strtolower(strval(static::create($row)->get($subKey))) : strtolower(strval(static::create($row)->get($subKey)));
+            $helper[$k] = mb_strtolower(strval(static::create($row)->get($subKey)));
         }
 
         if ($sortFlags === SORT_NATURAL) {
@@ -1350,7 +1350,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
                 $item = (array) $item;
 
                 if (! static::create($item)->has($key)) {
-                    return;
+                    return false;
                 }
 
                 $valueToCompare = static::create($item)->get($key);
