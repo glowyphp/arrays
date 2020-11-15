@@ -798,8 +798,10 @@ test('test where() method', function (): void {
     // operator: contains like
 
     $this->assertEquals(
-        [0 => ['title' => 'FòôBar'],
-         1 => ['title' => 'BarFòô']],
+        [
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ],
         Arrays::create([
             0 => ['title' => 'FòôBar'],
             1 => ['title' => 'BarFòô'],
@@ -809,8 +811,10 @@ test('test where() method', function (): void {
     );
 
     $this->assertEquals(
-        [0 => ['title' => 'FòôBar'],
-         1 => ['title' => 'BarFòô']],
+        [
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ],
         Arrays::create([
             0 => ['title' => 'FòôBar'],
             1 => ['title' => 'BarFòô'],
@@ -965,8 +969,10 @@ test('test where() method', function (): void {
     // operator: gte, >=
 
     $this->assertEquals(
-        [0 => ['price' => 10],
-         1 => ['price' => 20]],
+        [
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ],
         Arrays::create([
             0 => ['price' => 10],
             1 => ['price' => 20],
@@ -976,8 +982,10 @@ test('test where() method', function (): void {
     );
 
     $this->assertEquals(
-        [0 => ['price' => 10],
-         1 => ['price' => 20]],
+        [
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ],
         Arrays::create([
             0 => ['price' => 10],
             1 => ['price' => 20],
@@ -989,8 +997,10 @@ test('test where() method', function (): void {
     // operator: lte, =<
 
     $this->assertEquals(
-        [0 => ['price' => 10],
-         1 => ['price' => 20]],
+        [
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ],
         Arrays::create([
             0 => ['price' => 10],
             1 => ['price' => 20],
@@ -1000,8 +1010,10 @@ test('test where() method', function (): void {
     );
 
     $this->assertEquals(
-        [0 => ['price' => 10],
-         1 => ['price' => 20]],
+        [
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ],
         Arrays::create([
             0 => ['price' => 10],
             1 => ['price' => 20],
@@ -1013,8 +1025,10 @@ test('test where() method', function (): void {
     // operator: lte, =<
 
     $this->assertEquals(
-        [0 => ['price' => 10],
-         1 => ['price' => 20]],
+        [
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ],
         Arrays::create([
             0 => ['price' => 10],
             1 => ['price' => 20],
@@ -1024,8 +1038,10 @@ test('test where() method', function (): void {
     );
 
     $this->assertEquals(
-        [0 => ['price' => 10],
-         1 => ['price' => 20]],
+        [
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ],
         Arrays::create([
             0 => ['price' => 10],
             1 => ['price' => 20],
@@ -1220,6 +1236,27 @@ test('test customSortKeys() method', function (): void {
 
                   return $a < $b ? -1 : 1;
               })->toArray()
+    );
+});
+
+test('test column() method', function (): void {
+    $arrays1 = Arrays::create([['id' => 'i1', 'val' => 'v1'], ['id' => 'i2', 'val' => 'v2']])->column('val');
+    $arrays2 = Arrays::create([['id' => 'i1', 'val' => 'v1'], ['id' => 'i2', 'val' => 'v2']])->column('val', 'id');
+    $arrays3 = Arrays::create([['id' => 'i1', 'val' => 'v1'], ['id' => 'i2', 'val' => 'v2']])->column(null, 'id');
+
+    $this->assertEquals(
+        ['v1', 'v2'],
+        $arrays1->toArray()
+    );
+
+    $this->assertEquals(
+        ['i1' => 'v1', 'i2' => 'v2'],
+        $arrays2->toArray()
+    );
+
+    $this->assertEquals(
+        ['i1' => ['id' => 'i1', 'val' => 'v1'], 'i2' => ['id' => 'i2', 'val' => 'v2']],
+        $arrays3->toArray()
     );
 });
 

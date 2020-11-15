@@ -11,6 +11,7 @@ use IteratorAggregate;
 use Traversable;
 
 use function array_chunk;
+use function array_column;
 use function array_combine;
 use function array_diff;
 use function array_filter;
@@ -1131,6 +1132,27 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         } else {
             array_walk($this->items, $callback);
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the values of a single column from an arrays items.
+     *
+     * @param mixed $columnKey The column of values to return.
+     *                         This value may be an integer key of the column you wish to retrieve,
+     *                         or it may be a string key name for an associative array or property name.
+     *                         It may also be NULL to return complete arrays or objects
+     *                         (this is useful together with index_key to reindex the array).
+     * @param mixed $indexKey  The column to use as the index/keys for the returned array.
+     *                         This value may be the integer key of the column, or it may be the string key name.
+     *                         The value is cast as usual for array keys (however, objects supporting conversion to string are also allowed).
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function column(?string $columnKey = null, ?string $indexKey = null): self
+    {
+        $this->items = array_column($this->items, $columnKey, $indexKey);
 
         return $this;
     }

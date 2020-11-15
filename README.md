@@ -52,6 +52,7 @@ $arrays = arrays();
 | <a href="#arrays_createWithRange">`createWithRange()`</a> | Create a new arrayable object with a range of elements. |
 | <a href="#arrays_chunk">`chunk()`</a> | Create a chunked version of current array. |
 | <a href="#arrays_combine">`combine()`</a> | Create an array using the current array as keys and the other array as values. |
+| <a href="#arrays_column">`column()`</a> | Get the values of a single column from an arrays items. |
 | <a href="#arrays_current">`current()`</a> | Gets the element of the array at the current internal iterator position. |
 | <a href="#arrays_customSortKeys">`customSortKeys()`</a> | Sorts array by keys. |
 | <a href="#arrays_customSortValues">`customSortValues()`</a> | Sorts array by values. |
@@ -478,6 +479,71 @@ Array
     [green] => avacado
     [red] => apple
     [yellow] => banana
+)
+```
+
+##### <a name="arrays_column"></a> Method: `column()`
+
+```php
+/**
+ * Get the values of a single column from an arrays items.
+ *
+ * @param mixed $columnKey The column of values to return.
+ *                         This value may be an integer key of the column you wish to retrieve,
+ *                         or it may be a string key name for an associative array or property name.
+ *                         It may also be NULL to return complete arrays or objects
+ *                         (this is useful together with index_key to reindex the array).
+ * @param mixed $indexKey  The column to use as the index/keys for the returned array.
+ *                         This value may be the integer key of the column, or it may be the string key name.
+ *                         The value is cast as usual for array keys (however, objects supporting conversion to string are also allowed).
+ *
+ * @return self Returns instance of The Arrays class.
+ */
+public function column(?string $columnKey = null, ?string $indexKey = null): self
+```
+
+##### Example
+
+```php
+$arrays1 = Arrays::create([['id' => 'i1', 'val' => 'v1'], ['id' => 'i2', 'val' => 'v2']])
+                    ->column('val');
+$arrays2 = Arrays::create([['id' => 'i1', 'val' => 'v1'], ['id' => 'i2', 'val' => 'v2']])
+                    ->column('val', 'id');
+$arrays3 = Arrays::create([['id' => 'i1', 'val' => 'v1'], ['id' => 'i2', 'val' => 'v2']])
+                    ->column(null, 'id');
+
+print_r($arrays1->toArray());
+print_r($arrays2->toArray());
+print_r($arrays3->toArray());
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => v1
+    [1] => v2
+)
+Array
+(
+    [i1] => v1
+    [i2] => v2
+)
+Array
+(
+    [i1] => Array
+        (
+            [id] => i1
+            [val] => v1
+        )
+
+    [i2] => Array
+        (
+            [id] => i2
+            [val] => v2
+        )
+
 )
 ```
 
