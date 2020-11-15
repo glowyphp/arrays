@@ -3105,7 +3105,7 @@ Array
  * @param string $operator Operator used for comparison.
  *                         operators: in, nin, lt, <, lte, > gt, gte, >=, <=,
  *                                    eq, =, neq, !=, contains, like, starts_with,
- *                                    ends_with, between, nbetween
+ *                                    ends_with, between, nbetween, older, newer
  * @param mixed  $value    Value used for comparison.
  *
  * @return self Returns instance of The Arrays class.
@@ -3191,6 +3191,17 @@ Filter your array items by checking if your custom attribute (key) has a value t
 `ends_with`
 
 Filter your array items by checking if your custom attribute (key) has a value that is "ends with" the value provided.
+
+**Older**
+`older`
+
+Filter your array items by checking if your custom attribute (key) is older than the value provided.
+
+**Newer**
+`newer`
+
+Filter your array items by checking if your custom attribute (key) is newer than the value provided.
+
 
 ### Tests
 

@@ -1465,7 +1465,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param string $operator Operator used for comparison.
      *                         operators: in, nin, lt, <, lte, > gt, gte, >=, <=,
      *                                    eq, =, neq, !=, contains, like, starts_with,
-     *                                    ends_with, between, nbetween
+     *                                    ends_with, between, nbetween, older, newer
      * @param mixed  $value    Value used for comparison.
      *
      * @return self Returns instance of The Arrays class.
@@ -1541,6 +1541,12 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
                     case 'ends_with':
                         return mb_substr($valueToCompare, -mb_strlen($value), null, $encoding) === $value;
+
+                    case 'newer':
+                        return strtotime($valueToCompare) > strtotime($value);
+
+                    case 'older':
+                        return strtotime($valueToCompare) < strtotime($value);
 
                     default:
                         return false;

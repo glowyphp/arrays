@@ -1049,6 +1049,30 @@ test('test where() method', function (): void {
         ->where('price', '<=', 20)
         ->toArray()
     );
+
+    $this->assertEquals(
+        [
+            1 => ['date' => '2020-11-12']
+        ],
+        Arrays::create([
+            0 => ['date' => '2020-11-11'],
+            1 => ['date' => '2020-11-12'],
+        ])
+        ->where('date', 'newer', '2020-11-11')
+        ->toArray()
+    );
+
+    $this->assertEquals(
+        [
+            0 => ['date' => '2020-11-11']
+        ],
+        Arrays::create([
+            0 => ['date' => '2020-11-11'],
+            1 => ['date' => '2020-11-12'],
+        ])
+        ->where('date', 'older', '2020-11-12')
+        ->toArray()
+    );
 });
 
 test('test isEmpty() method', function (): void {
