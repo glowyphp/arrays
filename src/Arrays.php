@@ -1331,7 +1331,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Dumps the arrays items using the given function (print_r by default).
      *
-     * @param callable $callback Function receiving the map elements as parameter (optional)
+     * @param callable $callback Function receiving the arrays items as parameter.
      *
      * @return self Returns instance of The Arrays class.
      */
@@ -1345,7 +1345,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Dumps the arrays items using the given function (print_r by default) and die.
      *
-     * @param callable $callback Function receiving the map elements as parameter (optional)
+     * @param callable $callback Function receiving the arrays items as parameter.
      *
      * @return self Returns instance of The Arrays class.
      */
