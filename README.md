@@ -52,6 +52,7 @@ $arrays = arrays();
 | <a href="#arrays_createWithRange">`createWithRange()`</a> | Create a new arrayable object with a range of elements. |
 | <a href="#arrays_chunk">`chunk()`</a> | Create a chunked version of current array. |
 | <a href="#arrays_combine">`combine()`</a> | Create an array using the current array as keys and the other array as values. |
+| <a href="#arrays_column">`column()`</a> | Get the values of a single column from an arrays items. |
 | <a href="#arrays_current">`current()`</a> | Gets the element of the array at the current internal iterator position. |
 | <a href="#arrays_customSortKeys">`customSortKeys()`</a> | Sorts array by keys. |
 | <a href="#arrays_customSortValues">`customSortValues()`</a> | Sorts array by values. |
@@ -59,7 +60,11 @@ $arrays = arrays();
 | <a href="#arrays_diff">`diff()`</a> | Compute the current array values which not present in the given one. |
 | <a href="#arrays_dot">`dot()`</a> | Flatten a multi-dimensional associative array with dots. |
 | <a href="#arrays_delete">`delete()`</a> | Deletes an array value using "dot notation". |
+| <a href="#arrays_dump">`dump()`</a> | Dumps the arrays items using the given function (print_r by default). |
+| <a href="#arrays_dd">`dd()`</a> | Dumps the arrays items using the given function (print_r by default) and die. |
+| <a href="#arrays_every">`every()`</a> | Verifies that all elements pass the test of the given callback. |
 | <a href="#arrays_except">`except()`</a> | Return slice of an array with just a given keys. |
+| <a href="#arrays_extract">`extract()`</a> | Extract the items from the current array using "dot" notation for further manipulations. |
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 | <a href="#arrays_first">`first()`</a> | Get the first value from the current array. |
 | <a href="#arrays_firstKey">`firstKey()`</a> | Get the first key from the current array. |
@@ -87,7 +92,9 @@ $arrays = arrays();
 | <a href="#arrays_merge">`merge()`</a> | Merge the current array with the provided one. |
 | <a href="#arrays_next">`next()`</a> | Moves the internal iterator position to the next element and returns this element. |
 | <a href="#arrays_nth">`nth()`</a> | Extract array items with every nth item from the array. |
+| <a href="#arrays_pipe">`pipe()`</a> | Passes the array to the given callback and return the result. |
 | <a href="#arrays_prev">`prev()`</a> | Rewind the internal iterator position and returns this element. |
+| <a href="#arrays_product">`product()`</a> | Calculate the product of values in the current array. |
 | <a href="#arrays_only">`only()`</a> | Return slice of an array with just a given keys. |
 | <a href="#arrays_offset">`offset()`</a> | Extract a slice of the current array with specific offset. |
 | <a href="#arrays_offsetGet">`offsetGet()`</a> | Offset to retrieve. |
@@ -108,11 +115,13 @@ $arrays = arrays();
 | <a href="#arrays_sortKeys">`sortKeys()`</a> | Sorts array by keys. |
 | <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
 | <a href="#arrays_shuffle">`shuffle()`</a> | Shuffle the given array and return the result. |
+| <a href="#arrays_sum">`sum()`</a> | Calculate the sum of values in the current array. |
 | <a href="#arrays_random">`random()`</a> | Returns one or a specified number of items randomly from the array. |
 | <a href="#arrays_reduce">`reduce()`</a> | Reduce the array to a single value iteratively combining all values using `$callback.` |
 | <a href="#arrays_undot">`undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
 | <a href="#arrays_unique">`unique()`</a> | Remove duplicate values from the current array. |
 | <a href="#arrays_walk">`walk()`</a> | Apply the given function to the every element of the current array, discarding the results. |
+| <a href="#arrays_where">`where()`</a> | Filters the array items by a given condition. |
 
 #### Methods Details
 
@@ -478,6 +487,71 @@ Array
 )
 ```
 
+##### <a name="arrays_column"></a> Method: `column()`
+
+```php
+/**
+ * Get the values of a single column from an arrays items.
+ *
+ * @param mixed $columnKey The column of values to return.
+ *                         This value may be an integer key of the column you wish to retrieve,
+ *                         or it may be a string key name for an associative array or property name.
+ *                         It may also be NULL to return complete arrays or objects
+ *                         (this is useful together with index_key to reindex the array).
+ * @param mixed $indexKey  The column to use as the index/keys for the returned array.
+ *                         This value may be the integer key of the column, or it may be the string key name.
+ *                         The value is cast as usual for array keys (however, objects supporting conversion to string are also allowed).
+ *
+ * @return self Returns instance of The Arrays class.
+ */
+public function column(?string $columnKey = null, ?string $indexKey = null): self
+```
+
+##### Example
+
+```php
+$arrays1 = Arrays::create([['id' => 'i1', 'val' => 'v1'], ['id' => 'i2', 'val' => 'v2']])
+                    ->column('val');
+$arrays2 = Arrays::create([['id' => 'i1', 'val' => 'v1'], ['id' => 'i2', 'val' => 'v2']])
+                    ->column('val', 'id');
+$arrays3 = Arrays::create([['id' => 'i1', 'val' => 'v1'], ['id' => 'i2', 'val' => 'v2']])
+                    ->column(null, 'id');
+
+print_r($arrays1->toArray());
+print_r($arrays2->toArray());
+print_r($arrays3->toArray());
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [0] => v1
+    [1] => v2
+)
+Array
+(
+    [i1] => v1
+    [i2] => v2
+)
+Array
+(
+    [i1] => Array
+        (
+            [id] => i1
+            [val] => v1
+        )
+
+    [i2] => Array
+        (
+            [id] => i2
+            [val] => v2
+        )
+
+)
+```
+
 ##### <a name="arrays_current"></a> Method: `current()`
 
 ```php
@@ -736,6 +810,136 @@ Array
 )
 ```
 
+##### <a name="arrays_dump"></a> Method: `dump()`
+
+```php
+/**
+ * Dumps the arrays items using the given function (print_r by default).
+ *
+ * @param callable $callback Function receiving the arrays items as parameter.
+ *
+ * @return self Returns instance of The Arrays class.
+ */
+public function dump(?callable $callback = null): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ])
+
+$arrays->dump();
+```
+
+##### The above example will output:
+
+```
+Array
+(
+    [movies] => Array
+        (
+            [the_thin_red_line] => Array
+                (
+                    [title] => The Thin Red Line
+                    [directed_by] => Terrence Malick
+                    [produced_by] => Robert Michael, Geisler Grant Hill, John Roberdeau
+                    [decription] => Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.
+                )
+            [bad_times_at_the_el_royale] => Array
+                (
+                    [title] => Bad Times at the El Royale
+                    [directed_by] => Drew Goddard
+                    [produced_by] => Drew Goddard, Steve Asbell
+                    [decription] => Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.
+                )
+        )
+)
+```
+
+##### <a name="arrays_dd"></a> Method: `dd()`
+
+```php
+/**
+ * Dumps the arrays items using the given function (print_r by default) and die.
+ *
+ * @param callable $callback Function receiving the arrays items as parameter.
+ *
+ * @return void Return void.
+ */
+public function dd(?callable $callback = null): void
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create([
+                        'movies' => [
+                           'the_thin_red_line' => [
+                               'title' => 'The Thin Red Line',
+                               'directed_by' => 'Terrence Malick',
+                               'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                               'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.'
+                           ],
+                           'bad_times_at_the_el_royale' => [
+                               'title' => 'Bad Times at the El Royale',
+                               'directed_by' => 'Drew Goddard',
+                               'produced_by' => 'Drew Goddard, Steve Asbell',
+                               'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
+                           ]
+                        ]
+                    ])
+
+$arrays->dd('var_dump');
+```
+
+##### The above example will output:
+
+```
+array(1) {
+  ["movies"]=>
+  array(2) {
+    ["the_thin_red_line"]=>
+    array(4) {
+      ["title"]=>
+      string(17) "The Thin Red Line"
+      ["directed_by"]=>
+      string(15) "Terrence Malick"
+      ["produced_by"]=>
+      string(50) "Robert Michael, Geisler Grant Hill, John Roberdeau"
+      ["decription"]=>
+      string(123) "Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War."
+    }
+    ["bad_times_at_the_el_royale"]=>
+    array(4) {
+      ["title"]=>
+      string(26) "Bad Times at the El Royale"
+      ["directed_by"]=>
+      string(12) "Drew Goddard"
+      ["produced_by"]=>
+      string(26) "Drew Goddard, Steve Asbell"
+      ["decription"]=>
+      string(225) "Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be."
+    }
+  }
+}
+```
+
+
 ##### <a name="arrays_delete"></a> Method: `delete()`
 
 ```php
@@ -772,6 +976,41 @@ $arrays = Arrays::create([
 $arrays->delete('movies.the-thin-red-line');
 ```
 
+##### <a name="arrays_every"></a> Method: `every()`
+
+```php
+/**
+ * Verifies that all elements pass the test of the given callback.
+ *
+ * @param Closure $callback Function with (value, key) parameters and returns TRUE/FALSE
+ *
+ * @return bool TRUE if all elements pass the test, FALSE if if fails for at least one element
+ */
+public function every(Closure $callback): bool
+```
+
+##### Example
+
+```php
+$arrays1 = Arrays::create([0 => 'Foo', 1 => 'Bar'])->every(function($value, $key) {
+    return is_string($value);
+});
+
+$arrays2 = Arrays::create([0 => 'Foo', 1 => 42])->every(function($value, $key) {
+    return is_string($value);
+});
+
+var_dump($arrays1);
+var_dump($arrays2);
+```
+
+##### The above example will output:
+
+```
+bool(true)
+bool(false)
+```
+
 ##### <a name="arrays_except"></a> Method: `except()`
 
 ```php
@@ -805,6 +1044,46 @@ Array
     [c] => 3
     [d] => 4
 )
+```
+
+
+##### <a name="arrays_extract"></a> Method: `extract()`
+
+```php
+/**
+ * Extract the items from the current array using "dot" notation for further manipulations.
+ *
+ * @param  string|int|null $key     Key.
+ * @param  mixed           $default Default value.
+ *
+ * @return self Returns instance of The Arrays class.
+ */
+public function extract($key, $default = null): self
+```
+
+##### Example
+
+```php
+$result = Arrays::create(['items' => ['catalog' => ['nums' => [10, 20, 30]]]])
+                    ->extract('items.catalog.nums')
+                    ->sum()
+
+print_r($result);
+
+$result = Arrays::create(['items' => ['catalog' => ['nums' => [10, 20, 30]]]])
+                    ->extract('items')
+                    ->extract('catalog')
+                    ->extract('nums')
+                    ->sum()
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+60
+60
 ```
 
 ##### <a name="arrays_filter"></a> Method: `filter()`
@@ -1891,6 +2170,38 @@ Array
 )
 ```
 
+
+##### <a name="arrays_pipe"></a> Method: `pipe()`
+
+```php
+/**
+ * Passes the array to the given callback and return the result.
+ *
+ * @param Closure $callback Function with arrays as parameter which returns arbitrary result.
+ *
+ * @return mixed Result returned by the callback.
+ */
+public function pipe(Closure $callback)
+```
+
+##### Example
+
+```php
+$arrays = new Arrays([1, 2, 3]);
+
+$arrays->pipe(static function ($arrays) {
+    return $arrays->last();
+}));
+
+print_r(arrays);
+```
+
+##### The above example will output:
+
+```
+3
+```
+
 ##### <a name="arrays_prev"></a> Method: `prev()`
 
 ```php
@@ -1912,6 +2223,31 @@ print_r($arrays);
 
 ```
 false
+```
+
+##### <a name="arrays_product"></a> Method: `product()`
+
+```php
+/**
+ * Calculate the product of values in the current array.
+ *
+ * @return float|int Returns the product as an integer or float.
+ */
+public function product()
+```
+
+##### Example
+
+```php
+$result = Arrays::create([2, 2, 2])->product();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+8
 ```
 
 ##### <a name="arrays_only"></a> Method: `only()`
@@ -2614,6 +2950,31 @@ Array
 )
 ```
 
+##### <a name="arrays_sum"></a> Method: `sum()`
+
+```php
+/**
+ * Calculate the sum of values in the current array.
+ *
+ * @return float|int Returns the sum as an integer or float.
+ */
+public function sum()
+```
+
+##### Example
+
+```php
+$result = Arrays::create([2, 2, 2])->sum();
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+6
+```
+
 ##### <a name="arrays_random"></a> Method: `random()`
 
 ```php
@@ -2737,7 +3098,6 @@ Array
 )
 ```
 
-
 ##### <a name="arrays_walk"></a> Method: `walk()`
 
 ```php
@@ -2775,6 +3135,114 @@ Array
     [c] => c
 )
 ```
+
+##### <a name="arrays_where"></a> Method: `where()`
+
+```php
+/**
+ * Filters the array items by a given condition.
+ *
+ * @param string $key      Key of the array or object to used for comparison.
+ * @param string $operator Operator used for comparison.
+ *                         operators: in, nin, lt, <, lte, > gt, gte, >=, <=,
+ *                                    eq, =, neq, !=, contains, like, starts_with,
+ *                                    ends_with, between, nbetween, older, newer
+ * @param mixed  $value    Value used for comparison.
+ *
+ * @return self Returns instance of The Arrays class.
+ */
+public function where(string $key, string $operator, $value): self
+
+```
+
+##### Example
+
+```php
+    $result = Arrays::create([
+                        0 => ['title' => 'FòôBar'],
+                        1 => ['title' => 'BarFòô'],
+                    ])
+                    ->where('title', '=', 'FòôBar')
+                    ->toArray();
+);
+```
+
+##### Operators
+
+**Equal to**
+`eq` `=`
+
+Filter your array items by checking if your custom attribute (key) has a value that is equal to one of the values provided.
+
+Use-cases:
+Get collection that is refered to another in a 1:N relationship or if you want to get collection with a specific value in one of it's fields.
+
+**Not equal to**
+`neq` `<>` `!=`
+
+Filter your array items by checking if your custom attribute (key) does not have a value that is equal to one of the values provided.
+
+**Lower than**
+`lt` `<`
+
+Filter your array items by checking if your custom attribute (key) has a value that is lower than one of the values provided.
+
+**Greater than**
+`gt` `>`
+
+Filter your array items by checking if your custom attribute (key) has a value that is greater than one of the values provided.
+
+**Lower than or equal to**
+`lte` `<=`
+
+Filter your array items by checking if your custom attribute (key) has a value that is lower than or equal to one of the values provided.
+
+**Greater than or equal to**
+`gt` `>=`
+
+Filter your array items by checking if your custom attribute (key) has a value that is greater than or equal to one of the values provided.
+
+**Included in an array of values**
+`in`
+
+Filter your array items by checking if your custom array attribute (key) contains one of the values provided. As soon as one of the provided values separated with, are in the array field, the entry object will be in the response.
+
+Use-cases:
+Get all content array items that is refered to others in a N:N relationship or if you want to get all entries with a specific value in one of it's array fields.
+
+**Isn't included in an array of values**
+`nin`
+
+Filter your entries by checking if your custom array attribute (key) is not contains one of the values provided.
+
+Use-cases:
+Get all content array items that is not refered to others in a N:N relationship or if you want to get all entries with a specific value that is not in one of it's array fields.
+
+**Contains the substring**
+`contains` `like`
+
+Filter your array items by checking if your custom attribute (key) has a value that is "like" the value provided.
+
+**Starts with**
+`starts_with`
+
+Filter your array items by checking if your custom attribute (key) has a value that is "starts with" the value provided.
+
+**Ends with**
+`ends_with`
+
+Filter your array items by checking if your custom attribute (key) has a value that is "ends with" the value provided.
+
+**Older**
+`older`
+
+Filter your array items by checking if your custom attribute (key) is older than the value provided.
+
+**Newer**
+`newer`
+
+Filter your array items by checking if your custom attribute (key) is newer than the value provided.
+
 
 ### Tests
 

@@ -6,11 +6,13 @@ namespace Atomastic\Arrays;
 
 use ArrayAccess;
 use ArrayIterator;
+use Closure;
 use Countable;
 use IteratorAggregate;
 use Traversable;
 
 use function array_chunk;
+use function array_column;
 use function array_combine;
 use function array_diff;
 use function array_filter;
@@ -25,6 +27,7 @@ use function array_map;
 use function array_merge;
 use function array_merge_recursive;
 use function array_pad;
+use function array_product;
 use function array_rand;
 use function array_reduce;
 use function array_replace;
@@ -33,6 +36,7 @@ use function array_reverse;
 use function array_search;
 use function array_shift;
 use function array_slice;
+use function array_sum;
 use function array_unique;
 use function array_unshift;
 use function array_values;
@@ -43,9 +47,10 @@ use function asort;
 use function count;
 use function current;
 use function defined;
+use function end;
 use function explode;
-use function function_exists;
 use function http_build_query;
+use function in_array;
 use function is_array;
 use function is_null;
 use function iterator_to_array;
@@ -53,7 +58,9 @@ use function json_decode;
 use function json_encode;
 use function krsort;
 use function ksort;
+use function mb_internal_encoding;
 use function mb_strlen;
+use function mb_strpos;
 use function mb_strtolower;
 use function mb_substr;
 use function mt_srand;
@@ -61,12 +68,14 @@ use function natsort;
 use function next;
 use function preg_replace;
 use function prev;
+use function print_r;
 use function range;
 use function rsort;
 use function shuffle;
 use function sort;
+use function strncmp;
 use function strpos;
-use function strtolower;
+use function strtotime;
 use function strval;
 use function uksort;
 use function usort;
@@ -299,6 +308,18 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Passes the array to the given callback and return the result.
+     *
+     * @param Closure $callback Function with arrays as parameter which returns arbitrary result.
+     *
+     * @return mixed Result returned by the callback.
+     */
+    public function pipe(Closure $callback)
+    {
+        return $callback($this);
+    }
+
+    /**
      * Get an item from an array using "dot" notation.
      *
      * @param  string|int|null $key     Key
@@ -380,6 +401,21 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         }
 
         $this->items = $array;
+
+        return $this;
+    }
+
+    /**
+     * Extract the items from the current array using "dot" notation for further manipulations.
+     *
+     * @param  string|int|null $key     Key.
+     * @param  mixed           $default Default value.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function extract($key, $default = null): self
+    {
+        $this->items = $this->get($key);
 
         return $this;
     }
@@ -510,7 +546,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         }
 
         foreach ($array as $k => $row) {
-            $helper[$k] = function_exists('mb_strtolower') ? mb_strtolower(strval(static::create($row)->get($subKey))) : strtolower(strval(static::create($row)->get($subKey)));
+            $helper[$k] = mb_strtolower(strval(static::create($row)->get($subKey)));
         }
 
         if ($sortFlags === SORT_NATURAL) {
@@ -914,6 +950,26 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Calculate the product of values in the current array.
+     *
+     * @return float|int Returns the product as an integer or float.
+     */
+    public function product()
+    {
+        return array_product($this->items);
+    }
+
+    /**
+     * Calculate the sum of values in the current array.
+     *
+     * @return float|int Returns the sum as an integer or float.
+     */
+    public function sum()
+    {
+        return array_sum($this->items);
+    }
+
+    /**
      * Replace values in the current array with values in the given one
      * that have the same key.
      *
@@ -961,6 +1017,24 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         $this->items = array_slice($this->items, $offset, $length, $preserveKeys);
 
         return $this;
+    }
+
+    /**
+     * Verifies that all elements pass the test of the given callback.
+     *
+     * @param Closure $callback Function with (value, key) parameters and returns TRUE/FALSE
+     *
+     * @return bool TRUE if all elements pass the test, FALSE if if fails for at least one element
+     */
+    public function every(Closure $callback): bool
+    {
+        foreach ($this->items as $key => $value) {
+            if ($callback($value, $key) === false) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -1127,6 +1201,27 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         } else {
             array_walk($this->items, $callback);
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the values of a single column from an arrays items.
+     *
+     * @param mixed $columnKey The column of values to return.
+     *                         This value may be an integer key of the column you wish to retrieve,
+     *                         or it may be a string key name for an associative array or property name.
+     *                         It may also be NULL to return complete arrays or objects
+     *                         (this is useful together with index_key to reindex the array).
+     * @param mixed $indexKey  The column to use as the index/keys for the returned array.
+     *                         This value may be the integer key of the column, or it may be the string key name.
+     *                         The value is cast as usual for array keys (however, objects supporting conversion to string are also allowed).
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function column($columnKey = null, $indexKey = null): self
+    {
+        $this->items = array_column($this->items, $columnKey, $indexKey);
 
         return $this;
     }
@@ -1322,6 +1417,134 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     public function offsetUnset($offset): void
     {
         $this->delete($offset);
+    }
+
+    /**
+     * Dumps the arrays items using the given function (print_r by default).
+     *
+     * @param callable $callback Function receiving the arrays items as parameter.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function dump(?callable $callback = null): self
+    {
+        $callback ? $callback($this->items) : print_r($this->items);
+
+        return $this;
+    }
+
+    /**
+     * Dumps the arrays items using the given function (print_r by default) and die.
+     *
+     * @param callable $callback Function receiving the arrays items as parameter.
+     *
+     * @return void Return void.
+     */
+    public function dd(?callable $callback = null): void
+    {
+        $this->dump($callback);
+
+        die;
+    }
+
+    /**
+     * Filters the array items by a given condition.
+     *
+     * @param string $key      Key of the array or object to used for comparison.
+     * @param string $operator Operator used for comparison.
+     *                         operators: in, nin, lt, <, lte, > gt, gte, >=, <=,
+     *                                    eq, =, neq, !=, contains, like, starts_with,
+     *                                    ends_with, between, nbetween, older, newer
+     * @param mixed  $value    Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function where(string $key, string $operator, $value): self
+    {
+        $encoding = mb_internal_encoding();
+        $operator = mb_strtolower($operator, $encoding);
+
+        $this->items = array_filter(
+            $this->items,
+            static function ($item) use ($key, $operator, $value, $encoding) {
+                $item = (array) $item;
+
+                if (! static::create($item)->has($key)) {
+                    return false;
+                }
+
+                $valueToCompare = static::create($item)->get($key);
+
+                switch ($operator) {
+                    case 'in':
+                        return in_array($valueToCompare, (array) $value);
+
+                    case 'nin':
+                        return ! in_array($valueToCompare, (array) $value);
+
+                    case 'lt':
+                    case '<':
+                        return $valueToCompare < $value;
+
+                    case 'gt':
+                    case '>':
+                        return $valueToCompare > $value;
+
+                    case 'lte':
+                    case '<=':
+                        return $valueToCompare <= $value;
+
+                    case 'gte':
+                    case '>=':
+                        return $valueToCompare >= $value;
+
+                    case 'eq':
+                    case '=':
+                        return $valueToCompare === $value;
+
+                    case 'neq':
+                    case '<>':
+                    case '!=':
+                        return $valueToCompare !== $value;
+
+                    case 'contains':
+                    case 'like':
+                        return mb_strpos($valueToCompare, $value, 0, $encoding) !== false;
+
+                    case 'ncontains':
+                    case 'nlike':
+                        return mb_strpos($valueToCompare, $value, 0, $encoding) === false;
+
+                    case 'between':
+                        $value = (array) $value;
+
+                        return ($valueToCompare >= current($value) && $valueToCompare <= end($value)) !== false;
+
+                    case 'nbetween':
+                        $value = (array) $value;
+
+                        return ($valueToCompare >= current($value) && $valueToCompare <= end($value)) === false;
+
+                    case 'starts_with':
+                        return strncmp($valueToCompare, $value, mb_strlen($value)) === 0;
+
+                    case 'ends_with':
+                        return mb_substr($valueToCompare, -mb_strlen($value), null, $encoding) === $value;
+
+                    case 'newer':
+                        return strtotime($valueToCompare) > strtotime($value);
+
+                    case 'older':
+                        return strtotime($valueToCompare) < strtotime($value);
+
+                    default:
+                        return false;
+                }
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
+
+        return $this;
     }
 
     /**
