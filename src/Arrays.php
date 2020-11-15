@@ -406,6 +406,21 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Extract the items from the current array using "dot" notation for further manipulations.
+     *
+     * @param  string|int|null $key     Key.
+     * @param  mixed           $default Default value.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function extract($key, $default = null): self
+    {
+        $this->items = $this->get($key);
+
+        return $this;
+    }
+
+    /**
      * Push an item into the end of an array.
      *
      * @param mixed $value The new item to append

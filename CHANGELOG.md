@@ -3,6 +3,7 @@
 * add where() method.
 * add dump() method.
 * add dd() method.
+* add extract() method.
 * add column() method.
 * add pipe() method.
 * add sum() method.

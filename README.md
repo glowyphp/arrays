@@ -64,6 +64,7 @@ $arrays = arrays();
 | <a href="#arrays_dd">`dd()`</a> | Dumps the arrays items using the given function (print_r by default) and die. |
 | <a href="#arrays_every">`every()`</a> | Verifies that all elements pass the test of the given callback. |
 | <a href="#arrays_except">`except()`</a> | Return slice of an array with just a given keys. |
+| <a href="#arrays_extract">`extract()`</a> | Extract the items from the current array using "dot" notation for further manipulations. |
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 | <a href="#arrays_first">`first()`</a> | Get the first value from the current array. |
 | <a href="#arrays_firstKey">`firstKey()`</a> | Get the first key from the current array. |
@@ -1043,6 +1044,46 @@ Array
     [c] => 3
     [d] => 4
 )
+```
+
+
+##### <a name="arrays_extract"></a> Method: `extract()`
+
+```php
+/**
+ * Extract the items from the current array using "dot" notation for further manipulations.
+ *
+ * @param  string|int|null $key     Key.
+ * @param  mixed           $default Default value.
+ *
+ * @return self Returns instance of The Arrays class.
+ */
+public function extract($key, $default = null): self
+```
+
+##### Example
+
+```php
+$result = Arrays::create(['items' => ['catalog' => ['nums' => [10, 20, 30]]]])
+                    ->extract('items.catalog.nums')
+                    ->sum()
+
+print_r($result);
+
+$result = Arrays::create(['items' => ['catalog' => ['nums' => [10, 20, 30]]]])
+                    ->extract('items')
+                    ->extract('catalog')
+                    ->extract('nums')
+                    ->sum()
+
+print_r($result);
+```
+
+##### The above example will output:
+
+```
+60
+60
 ```
 
 ##### <a name="arrays_filter"></a> Method: `filter()`

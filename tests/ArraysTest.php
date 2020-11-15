@@ -1448,3 +1448,48 @@ test('test getIterator() method', function (): void {
         Arrays::create()->getIterator()
     );
 });
+
+
+test('test extract() method', function (): void {
+    $this->assertEquals(
+        2,
+        Arrays::create(['items' => ['catalog' => ['reviews' => [['name' => 'Sam'], ['name' => 'Jack']]]]])->extract('items.catalog.reviews')->count()
+    );
+
+    $this->assertEquals(
+        ['name' => 'Jack'],
+        Arrays::create(['items' => ['catalog' => ['reviews' => [0 => ['name' => 'Sam'], 1 => ['name' => 'Jack']]]]])
+                    ->extract('items.catalog.reviews')
+                    ->last()
+    );
+    $this->assertEquals(
+        ['name' => 'Jack'],
+        Arrays::create(['items' => ['catalog' => ['reviews' => [0 => ['name' => 'Sam'], 1 => ['name' => 'Jack']]]]])
+                    ->extract('items')
+                    ->extract('catalog')
+                    ->extract('reviews')
+                    ->last()
+    );
+
+    $this->assertEquals(
+        [['name' => 'Sam'], ['name' => 'Jack']],
+        Arrays::create(['items' => ['catalog' => ['reviews' => [['name' => 'Sam'], ['name' => 'Jack']]]]])
+                    ->extract('items.catalog.reviews')
+                    ->all()
+    );
+
+
+    $this->assertEquals(
+        60,
+        Arrays::create(['items' => ['catalog' => ['nums' => [10, 20, 30]]]])
+                    ->extract('items.catalog.nums')
+                    ->sum()
+    );
+
+    $this->assertEquals(
+        8,
+        Arrays::create(['items' => ['catalog' => ['nums' => [2, 2, 2]]]])
+                    ->extract('items.catalog.nums')
+                    ->product()
+    );
+});
