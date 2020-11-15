@@ -1,3 +1,12 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/atomastic/arrays) (2020-11-xx)
+* add where() method.
+* add dump() method.
+* add dd() method.
+* add column() method.
+* general tests improvements.
+* add new requirements for php modules: ext-json and ext-mbstring.
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/atomastic/arrays) (2020-11-11)
 * add offset() method.
