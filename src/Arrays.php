@@ -322,7 +322,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Get an item from an array using "dot" notation.
      *
-     * @param  string|int|null $keys    Key
+     * @param  string|int|null $key     Key
      * @param  mixed           $default Default value
      *
      * @return mixed Item from an array.
