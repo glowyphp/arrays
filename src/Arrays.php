@@ -75,6 +75,7 @@ use function shuffle;
 use function sort;
 use function strncmp;
 use function strpos;
+use function strtotime;
 use function strval;
 use function uksort;
 use function usort;
@@ -1019,33 +1020,6 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         }
 
         return true;
-    }
-
-    /**
-    * Executes a callback over each item until FALSE is returned.
-    *
-    * Examples:
-    *  $result = [];
-    *  Map::from( [0 => 'a', 1 => 'b'] )->each( function( $value, $key ) use ( &$result ) {
-    *      $result[$key] = strtoupper( $value );
-    *      return false;
-    *  } );
-    *
-    * The $result array will contain [0 => 'A'] because FALSE is returned
-    * after the first entry and all other entries are then skipped.
-    *
-    * @param Closure $callback Function with (value, key) parameters and returns TRUE/FALSE
-    * @return self Same map for fluid interface
-    */
-    public function each(Closure $callback): self
-    {
-        foreach ($this->items as $key => $value) {
-            if ($callback($value, $key) === false) {
-                break;
-            }
-        }
-
-        return $this;
     }
 
     /**
