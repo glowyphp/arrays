@@ -62,6 +62,7 @@ $arrays = arrays();
 | <a href="#arrays_delete">`delete()`</a> | Deletes an array value using "dot notation". |
 | <a href="#arrays_dump">`dump()`</a> | Dumps the arrays items using the given function (print_r by default). |
 | <a href="#arrays_dd">`dd()`</a> | Dumps the arrays items using the given function (print_r by default) and die. |
+| <a href="#arrays_every">`every()`</a> | Verifies that all elements pass the test of the given callback. |
 | <a href="#arrays_except">`except()`</a> | Return slice of an array with just a given keys. |
 | <a href="#arrays_flush">`flush()`</a> | Flush all values from the array. |
 | <a href="#arrays_first">`first()`</a> | Get the first value from the current array. |
@@ -972,6 +973,41 @@ $arrays = Arrays::create([
                     ]);
 
 $arrays->delete('movies.the-thin-red-line');
+```
+
+##### <a name="arrays_every"></a> Method: `every()`
+
+```php
+/**
+ * Verifies that all elements pass the test of the given callback.
+ *
+ * @param Closure $callback Function with (value, key) parameters and returns TRUE/FALSE
+ *
+ * @return bool TRUE if all elements pass the test, FALSE if if fails for at least one element
+ */
+public function every(Closure $callback): bool
+```
+
+##### Example
+
+```php
+$arrays1 = Arrays::create([0 => 'Foo', 1 => 'Bar'])->every(function($value, $key) {
+    return is_string($value);
+});
+
+$arrays2 = Arrays::create([0 => 'Foo', 1 => 42])->every(function($value, $key) {
+    return is_string($value);
+});
+
+var_dump($arrays1);
+var_dump($arrays2);
+```
+
+##### The above example will output:
+
+```
+bool(true)
+bool(false)
 ```
 
 ##### <a name="arrays_except"></a> Method: `except()`

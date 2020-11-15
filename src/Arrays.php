@@ -1004,6 +1004,51 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Verifies that all elements pass the test of the given callback.
+     *
+     * @param Closure $callback Function with (value, key) parameters and returns TRUE/FALSE
+     *
+     * @return bool TRUE if all elements pass the test, FALSE if if fails for at least one element
+     */
+    public function every(Closure $callback): bool
+    {
+        foreach ($this->items as $key => $value) {
+            if ($callback($value, $key) === false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+    * Executes a callback over each item until FALSE is returned.
+    *
+    * Examples:
+    *  $result = [];
+    *  Map::from( [0 => 'a', 1 => 'b'] )->each( function( $value, $key ) use ( &$result ) {
+    *      $result[$key] = strtoupper( $value );
+    *      return false;
+    *  } );
+    *
+    * The $result array will contain [0 => 'A'] because FALSE is returned
+    * after the first entry and all other entries are then skipped.
+    *
+    * @param Closure $callback Function with (value, key) parameters and returns TRUE/FALSE
+    * @return self Same map for fluid interface
+    */
+    public function each(Closure $callback): self
+    {
+        foreach ($this->items as $key => $value) {
+            if ($callback($value, $key) === false) {
+                break;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Extract a slice of the current array with specific offset.
      *
      * @param int  $offset       Slice begin index.

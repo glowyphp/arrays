@@ -1131,6 +1131,20 @@ test('test product() method', function (): void {
     );
 });
 
+test('test every() method', function (): void {
+    $this->assertTrue(
+        Arrays::create([0 => 'Foo', 1 => 'Bar'])->every(function($value, $key) {
+            return is_string($value);
+        })
+    );
+
+    $this->assertFalse(
+        Arrays::create([0 => 'Foo', 1 => 42])->every(function($value, $key) {
+            return is_string($value);
+        })
+    );
+});
+
 test('test current() method', function (): void {
     $this->assertEquals(
         'blue',
