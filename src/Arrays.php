@@ -1150,7 +1150,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return self Returns instance of The Arrays class.
      */
-    public function column(?string $columnKey = null, ?string $indexKey = null): self
+    public function column($columnKey = null, $indexKey = null): self
     {
         $this->items = array_column($this->items, $columnKey, $indexKey);
 
