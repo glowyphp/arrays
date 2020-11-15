@@ -1333,7 +1333,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * @param string $key      Key of the array or object to used for comparison.
      * @param string $operator Operator used for comparison.
      *                         operators: in, nin, lt, <, lte, > gt, gte, >=, <=,
-     *                                    eq, =, neq, !=, contains, starts_with, ends_with
+     *                                    eq, =, neq, !=, contains, like, starts_with,
+     *                                    ends_with, between, nbetween
      * @param mixed  $value    Value used for comparison.
      *
      * @return self Returns instance of The Arrays class.
