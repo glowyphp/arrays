@@ -1,5 +1,5 @@
 <a name="1.3.0"></a>
-# [1.3.0](https://github.com/atomastic/arrays) (2020-11-xx)
+# [1.3.0](https://github.com/atomastic/arrays) (2020-11-15)
 * add where() method.
 * add dump() method.
 * add dd() method.
