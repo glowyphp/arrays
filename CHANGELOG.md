@@ -4,6 +4,9 @@
 * add dump() method.
 * add dd() method.
 * add column() method.
+* add pipe() method.
+* add sum() method.
+* add product() method.
 * general tests improvements.
 * add new requirements for php modules: ext-json and ext-mbstring.
 
