@@ -3144,15 +3144,17 @@ Array
  *
  * @param string $key      Key of the array or object to used for comparison.
  * @param string $operator Operator used for comparison.
- *                         operators: in, nin, lt, <, lte, > gt, gte, >=, <=,
- *                                    eq, =, neq, !=, contains, like, starts_with,
- *                                    ends_with, between, nbetween, older, newer
+ *                         operators: in, nin, not in, lt, less than, <, lte,
+ *                                    less than or equal to, >, gt, greater than,
+ *                                    gte, greater than or equal to, >=, less than or equal to,
+ *                                    <=, equals, not equals, like, not like, regexp, nregexp, not regexp
+ *                                    eq, =, neq, !=, contains, starts with,
+ *                                    ends with, between, nbetween, not between, older, newer
  * @param mixed  $value    Value used for comparison.
  *
  * @return self Returns instance of The Arrays class.
  */
 public function where(string $key, string $operator, $value): self
-
 ```
 
 ##### Example
@@ -3170,7 +3172,7 @@ public function where(string $key, string $operator, $value): self
 ##### Operators
 
 **Equal to**
-`eq` `=`
+`eq` `=` `equals`
 
 Filter your array items by checking if your custom attribute (key) has a value that is equal to one of the values provided.
 
@@ -3178,27 +3180,27 @@ Use-cases:
 Get collection that is refered to another in a 1:N relationship or if you want to get collection with a specific value in one of it's fields.
 
 **Not equal to**
-`neq` `<>` `!=`
+`neq` `<>` `!=` `not equals`
 
 Filter your array items by checking if your custom attribute (key) does not have a value that is equal to one of the values provided.
 
 **Lower than**
-`lt` `<`
+`lt` `<` `less than`
 
 Filter your array items by checking if your custom attribute (key) has a value that is lower than one of the values provided.
 
 **Greater than**
-`gt` `>`
+`gt` `>` `greater than`
 
 Filter your array items by checking if your custom attribute (key) has a value that is greater than one of the values provided.
 
 **Lower than or equal to**
-`lte` `<=`
+`lte` `<=` `less than or equal to`
 
 Filter your array items by checking if your custom attribute (key) has a value that is lower than or equal to one of the values provided.
 
 **Greater than or equal to**
-`gt` `>=`
+`gt` `>=` `greater than or equal to`
 
 Filter your array items by checking if your custom attribute (key) has a value that is greater than or equal to one of the values provided.
 
@@ -3211,7 +3213,7 @@ Use-cases:
 Get all content array items that is refered to others in a N:N relationship or if you want to get all entries with a specific value in one of it's array fields.
 
 **Isn't included in an array of values**
-`nin`
+`nin` `not in`
 
 Filter your entries by checking if your custom array attribute (key) is not contains one of the values provided.
 
@@ -3223,13 +3225,18 @@ Get all content array items that is not refered to others in a N:N relationship 
 
 Filter your array items by checking if your custom attribute (key) has a value that is "like" the value provided.
 
+**Not Contains the substring**
+`ncontains` `nlike` `not contains` `not like`
+
+Filter your array items by checking if your custom attribute (key) has a value that is "not like" the value provided.
+
 **Starts with**
-`starts_with`
+`starts with`
 
 Filter your array items by checking if your custom attribute (key) has a value that is "starts with" the value provided.
 
 **Ends with**
-`ends_with`
+`ends with`
 
 Filter your array items by checking if your custom attribute (key) has a value that is "ends with" the value provided.
 
@@ -3242,6 +3249,27 @@ Filter your array items by checking if your custom attribute (key) is older than
 `newer`
 
 Filter your array items by checking if your custom attribute (key) is newer than the value provided.
+
+**Between**
+`between`
+
+Filter your array items by checking if your custom attribute (key) is between the value provided.
+
+**Not Between**
+`nbetween` `not between`
+
+Filter your array items by checking if your custom attribute (key) is not between the value provided.
+
+**Regexp**
+`regexp`
+
+Filter your array items by checking if your custom attribute (key) is match the provided regexp.
+
+
+**Regexp**
+`regexp` `nregexp` `not regexp`
+
+Filter your array items by checking if your custom attribute (key) is not match the provided regexp.
 
 
 ### Tests

@@ -721,7 +721,7 @@ test('test where() method', function (): void {
             0 => ['title' => 'Foo'],
             1 => ['title' => 'Bar'],
         ])
-                    ->where('title', 'starts_with', 'Foo')
+                    ->where('title', 'starts with', 'Foo')
                     ->toArray()
     );
 
@@ -731,7 +731,7 @@ test('test where() method', function (): void {
             0 => ['title' => 'FooBar'],
             1 => ['title' => 'BarFoo'],
         ])
-                    ->where('title', 'starts_with', 'Foo')
+                    ->where('title', 'starts with', 'Foo')
                     ->toArray()
     );
 
@@ -741,7 +741,7 @@ test('test where() method', function (): void {
             0 => ['title' => 'FòôBar'],
             1 => ['title' => 'BarFoo'],
         ])
-                    ->where('title', 'starts_with', 'Fòô')
+                    ->where('title', 'starts with', 'Fòô')
                     ->toArray()
     );
 
@@ -753,7 +753,7 @@ test('test where() method', function (): void {
             0 => ['title' => 'Foo'],
             1 => ['title' => 'Bar'],
         ])
-                    ->where('title', 'ends_with', 'Bar')
+                    ->where('title', 'ends with', 'Bar')
                     ->toArray()
     );
 
@@ -763,7 +763,7 @@ test('test where() method', function (): void {
             0 => ['title' => 'FooBar'],
             1 => ['title' => 'BarFoo'],
         ])
-                    ->where('title', 'ends_with', 'Bar')
+                    ->where('title', 'ends with', 'Bar')
                     ->toArray()
     );
 
@@ -773,7 +773,7 @@ test('test where() method', function (): void {
             0 => ['title' => 'FòôBar'],
             1 => ['title' => 'BarFòô'],
         ])
-                    ->where('title', 'ends_with', 'Fòô')
+                    ->where('title', 'ends with', 'Fòô')
                     ->toArray()
     );
 
@@ -1031,6 +1031,56 @@ test('test where() method', function (): void {
             1 => ['price' => 20],
         ])
         ->where('price', '<=', 20)
+        ->toArray()
+    );
+
+    // operator: regexp
+
+    $this->assertEquals(
+        [
+            0 => ['message' => '42'],
+            1 => ['message' => '21'],
+        ],
+        Arrays::create([
+            0 => ['message' => '42'],
+            1 => ['message' => '21'],
+            2 => ['message' => 'Hello'],
+            3 => ['message' => 'Hello 42'],
+        ])
+        ->where('message', 'regexp', '^\d+$')
+        ->toArray()
+    );
+
+    // operator: nregexp
+    // operator: not regexp
+
+    $this->assertEquals(
+        [
+            2 => ['message' => 'Hello'],
+            3 => ['message' => 'Hello 42'],
+        ],
+        Arrays::create([
+            0 => ['message' => '42'],
+            1 => ['message' => '21'],
+            2 => ['message' => 'Hello'],
+            3 => ['message' => 'Hello 42'],
+        ])
+        ->where('message', 'nregexp', '^\d+$')
+        ->toArray()
+    );
+
+    $this->assertEquals(
+        [
+            2 => ['message' => 'Hello'],
+            3 => ['message' => 'Hello 42'],
+        ],
+        Arrays::create([
+            0 => ['message' => '42'],
+            1 => ['message' => '21'],
+            2 => ['message' => 'Hello'],
+            3 => ['message' => 'Hello 42'],
+        ])
+        ->where('message', 'not regexp', '^\d+$')
         ->toArray()
     );
 
