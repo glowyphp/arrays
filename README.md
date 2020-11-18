@@ -3266,7 +3266,7 @@ Filter your array items by checking if your custom attribute (key) is not betwee
 Filter your array items by checking if your custom attribute (key) is match the provided regexp.
 
 
-**Regexp**
+**Not Regexp**
 `regexp` `nregexp` `not regexp`
 
 Filter your array items by checking if your custom attribute (key) is not match the provided regexp.
