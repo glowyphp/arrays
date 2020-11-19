@@ -125,6 +125,7 @@ test('test has() method', function (): void {
     $this->assertFalse(Arrays::create([''])->has(''));
     $this->assertFalse(Arrays::create([])->has(''));
     $this->assertFalse(Arrays::create([])->has(['']));
+
 });
 
 test('test delete() method', function (): void {
@@ -721,7 +722,7 @@ test('test where() method', function (): void {
             0 => ['title' => 'Foo'],
             1 => ['title' => 'Bar'],
         ])
-                    ->where('title', 'starts with', 'Foo')
+                    ->where('title', 'starts_with', 'Foo')
                     ->toArray()
     );
 
@@ -731,7 +732,7 @@ test('test where() method', function (): void {
             0 => ['title' => 'FooBar'],
             1 => ['title' => 'BarFoo'],
         ])
-                    ->where('title', 'starts with', 'Foo')
+                    ->where('title', 'starts_with', 'Foo')
                     ->toArray()
     );
 
@@ -741,7 +742,7 @@ test('test where() method', function (): void {
             0 => ['title' => 'FòôBar'],
             1 => ['title' => 'BarFoo'],
         ])
-                    ->where('title', 'starts with', 'Fòô')
+                    ->where('title', 'starts_with', 'Fòô')
                     ->toArray()
     );
 
@@ -753,7 +754,7 @@ test('test where() method', function (): void {
             0 => ['title' => 'Foo'],
             1 => ['title' => 'Bar'],
         ])
-                    ->where('title', 'ends with', 'Bar')
+                    ->where('title', 'ends_with', 'Bar')
                     ->toArray()
     );
 
@@ -763,7 +764,7 @@ test('test where() method', function (): void {
             0 => ['title' => 'FooBar'],
             1 => ['title' => 'BarFoo'],
         ])
-                    ->where('title', 'ends with', 'Bar')
+                    ->where('title', 'ends_with', 'Bar')
                     ->toArray()
     );
 
@@ -773,7 +774,7 @@ test('test where() method', function (): void {
             0 => ['title' => 'FòôBar'],
             1 => ['title' => 'BarFòô'],
         ])
-                    ->where('title', 'ends with', 'Fòô')
+                    ->where('title', 'ends_with', 'Fòô')
                     ->toArray()
     );
 
@@ -1080,7 +1081,7 @@ test('test where() method', function (): void {
             2 => ['message' => 'Hello'],
             3 => ['message' => 'Hello 42'],
         ])
-        ->where('message', 'not regexp', '^\d+$')
+        ->where('message', 'nregexp', '^\d+$')
         ->toArray()
     );
 
