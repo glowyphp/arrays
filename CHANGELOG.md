@@ -1,5 +1,5 @@
-<a name="2.0.0"></a>
-# [2.0.0](https://github.com/atomastic/arrays) (2020-11-15)
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/atomastic/arrays) (2020-11-xx)
 * new operators added for where() method.
 
     suported operators:
@@ -11,15 +11,6 @@
     eq, =, neq, !=, contains, starts with,
     ends with, between, nbetween, not between, older, newer
     ```
-
-### BREAKING CHANGES
-* old operators are not supported in where() method:
-
-    ```
-    starts_with
-    ends_with
-    ```
-
 
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/atomastic/arrays) (2020-11-15)

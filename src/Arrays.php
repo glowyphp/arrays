@@ -1452,12 +1452,11 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param string $key      Key of the array or object to used for comparison.
      * @param string $operator Operator used for comparison.
-     *                         operators: in, nin, not in, lt, less than, <, lte,
-     *                                    less than or equal to, >, gt, greater than,
-     *                                    gte, greater than or equal to, >=, less than or equal to,
-     *                                    <=, equals, not equals, like, not like, regexp, nregexp, not regexp
-     *                                    eq, =, neq, !=, contains, starts with,
-     *                                    ends with, between, nbetween, not between, older, newer
+     *                         operators: in, nin, lt, <, lte,
+     *                                    >, gt, gte, >=, contains, ncontains
+     *                                    >=, <=, like, nlike, regexp, nregexp,
+     *                                    eq, =, neq, !=, starts_with,
+     *                                    ends_with, between, nbetween, older, newer
      * @param mixed  $value    Value used for comparison.
      *
      * @return self Returns instance of The Arrays class.
@@ -1482,36 +1481,29 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
                     case 'in':
                         return in_array($valueToCompare, (array) $value);
 
-                    case 'not in':
                     case 'nin':
                         return ! in_array($valueToCompare, (array) $value);
 
-                    case 'less than':
                     case 'lt':
                     case '<':
                         return $valueToCompare < $value;
 
-                    case 'greater than':
                     case 'gt':
                     case '>':
                         return $valueToCompare > $value;
 
-                    case 'less than or equal to':
                     case 'lte':
                     case '<=':
                         return $valueToCompare <= $value;
 
-                    case 'greater than or equal to':
                     case 'gte':
                     case '>=':
                         return $valueToCompare >= $value;
 
-                    case 'equals':
                     case 'eq':
                     case '=':
                         return $valueToCompare === $value;
 
-                    case 'not equals':
                     case 'neq':
                     case '<>':
                     case '!=':
@@ -1521,8 +1513,6 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
                     case 'like':
                         return mb_strpos($valueToCompare, $value, 0, $encoding) !== false;
 
-                    case 'not contains':
-                    case 'not like':
                     case 'ncontains':
                     case 'nlike':
                         return mb_strpos($valueToCompare, $value, 0, $encoding) === false;
@@ -1532,16 +1522,15 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
                         return ($valueToCompare >= current($value) && $valueToCompare <= end($value)) !== false;
 
-                    case 'not between':
                     case 'nbetween':
                         $value = (array) $value;
 
                         return ($valueToCompare >= current($value) && $valueToCompare <= end($value)) === false;
 
-                    case 'starts with':
+                    case 'starts_with':
                         return strncmp($valueToCompare, $value, mb_strlen($value)) === 0;
 
-                    case 'ends with':
+                    case 'ends_with':
                         return mb_substr($valueToCompare, -mb_strlen($value), null, $encoding) === $value;
 
                     case 'newer':
@@ -1553,7 +1542,6 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
                     case 'regexp':
                         return preg_match("/{$value}/ium", $valueToCompare);
 
-                    case 'not regexp':
                     case 'nregexp':
                         return ! preg_match("/{$value}/ium", $valueToCompare);
 
