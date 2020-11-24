@@ -1187,8 +1187,18 @@ test('test sort() method', function (): void {
     );
 
     $this->assertEquals(
+        [0 => 'blue', 2 => 'green', 1 => 'red', 3 => 'red'],
+        Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->sort('ASC', SORT_REGULAR, true)->toArray()
+    );
+
+    $this->assertEquals(
         [0 => 'red', 1 => 'red', 2 => 'green', 3 => 'blue'],
         Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->sort('DESC')->toArray()
+    );
+
+    $this->assertEquals(
+        [1 => 'red', 3 => 'red', 2 => 'green', 0 => 'blue'],
+        Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->sort('DESC', SORT_REGULAR, true)->toArray()
     );
 });
 
