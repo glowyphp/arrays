@@ -4,7 +4,7 @@ on: ['push', 'pull_request']
 
 jobs:
   build:
-
+    name: PHP ${{ matrix.php }} - ${{ matrix.os }} - ${{ matrix.dependency-version }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -21,7 +21,7 @@ jobs:
         php-version: ${{ matrix.php }}
         tools: composer:v2
         extensions: json, mbstring
-        coverage: none
+        coverage: xdebug
 
     - name: Setup Problem Matches
       run: |
@@ -37,4 +37,4 @@ jobs:
       if: "matrix.php >= 8"
 
     - name: Run Tests
-      run: ./vendor/bin/pest
+      run: ./vendor/bin/pest --coverage
