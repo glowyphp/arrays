@@ -119,6 +119,11 @@ test('test get() method', function (): void {
         ['test'],
         Arrays::create(null)->get('film.scores', ['test'])
     );
+
+    $this->assertEquals(
+        null,
+        Arrays::create(null)->get('film.scores')
+    );
 });
 
 test('test has() method', function (): void {
