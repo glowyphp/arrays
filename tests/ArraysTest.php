@@ -1175,6 +1175,12 @@ test('test random() method', function (): void {
     $this->assertCount(2, $random);
     $this->assertContains(Arrays::create($random)->first(), ['foo', 'bar', 'baz']);
     $this->assertContains(Arrays::create($random)->last(), ['foo', 'bar', 'baz']);
+
+    $random = Arrays::create(['foo', 'bar', 'baz'])->random(10);
+    $this->assertIsArray($random);
+    $this->assertCount(3, $random);
+    $this->assertContains(Arrays::create($random)->first(), ['foo', 'bar', 'baz']);
+    $this->assertContains(Arrays::create($random)->last(), ['foo', 'bar', 'baz']);
 });
 
 test('test sort() method', function (): void {
