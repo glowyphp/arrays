@@ -462,6 +462,11 @@ test('test combine() method', function (): void {
         ['green' => 'avacado', 'red' => 'apple', 'yellow' => 'banana'],
         Arrays::create(['green', 'red', 'yellow'])->combine(['avacado', 'apple', 'banana'])->toArray()
     );
+
+    $this->assertEquals(
+        [],
+        Arrays::create(['green', 'red', 'yellow'])->combine(['avacado', 'apple', 'banana', 'tomato'])->toArray()
+    );
 });
 
 test('test diff() method', function (): void {

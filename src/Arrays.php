@@ -203,7 +203,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
         if (is_null($key)) {
             $this->items = $value;
-            
+
             return $this;
         }
 
@@ -754,14 +754,12 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      */
     public function combine(array $array): self
     {
-        $data = array_combine($this->items, $array);
-
-        if ($data === false) {
-            $data = [];
+        if (count($this->items) == count($array)) {
+            $this->items = array_combine($this->items, $array);
+        } else {
+            $this->items = [];
         }
-
-        $this->items = $data;
-
+        
         return $this;
     }
 
