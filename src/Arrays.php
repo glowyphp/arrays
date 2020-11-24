@@ -202,7 +202,9 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         $array = &$this->items;
 
         if (is_null($key)) {
-            return $array = $value;
+            $this->items = $value;
+            
+            return $this;
         }
 
         $segments = explode('.', $key);

@@ -94,6 +94,11 @@ test('test set() method', function (): void {
         ['movies' => ['SG-1' => ['stars' => []]]],
         Arrays::create()->set('movies.SG-1.stars', [])->all()
     );
+
+    $this->assertEquals(
+        ['movies' => ['SG-1' => ['stars' => []]]],
+        Arrays::create()->set(null, ['movies' => ['SG-1' => ['stars' => []]]])->all()
+    );
 });
 
 test('test get() method', function (): void {
