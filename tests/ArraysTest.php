@@ -353,6 +353,7 @@ test('test toString() method', function (): void {
 test('test first() method', function (): void {
     $this->assertEquals('SG-1', Arrays::create(['SG-1', 'SG-2'])->first());
     $this->assertEquals('bar1', Arrays::create(['foo1' => 'bar1', 'foo2' => 'bar2'])->first());
+    $this->assertEquals(null, Arrays::create(null)->first());
 });
 
 test('test firstKey() method', function (): void {
@@ -363,6 +364,7 @@ test('test firstKey() method', function (): void {
 test('test last() method', function (): void {
     $this->assertEquals('SG-2', Arrays::create(['SG-1', 'SG-2'])->last());
     $this->assertEquals('bar2', Arrays::create(['foo1' => 'bar1', 'foo2' => 'bar2'])->last());
+    $this->assertEquals(null, Arrays::create(null)->last());
 });
 
 test('test lastKey() method', function (): void {
