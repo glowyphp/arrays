@@ -755,11 +755,16 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     public function combine(array $array): self
     {
         if (count($this->items) == count($array)) {
-            $this->items = array_combine($this->items, $array);
+            $result = array_combine($this->items, $array);
+            if ($result === false) {
+                $this->items = [];
+            } else {
+                $this->items = $result;
+            }
         } else {
             $this->items = [];
         }
-        
+
         return $this;
     }
 
