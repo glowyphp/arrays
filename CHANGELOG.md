@@ -1,5 +1,6 @@
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/atomastic/arrays) (2020-11-xx)
+* improve combine() method.
 * new operators added for where() method.
 
     suported operators:
