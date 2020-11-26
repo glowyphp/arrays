@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Setup PHP
-      uses: owenvoke/setup-php@e189084
+      uses: shivammathur/setup-php@v2.9.0
       with:
         php-version: ${{ matrix.php }}
         tools: composer:v2
