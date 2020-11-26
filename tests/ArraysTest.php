@@ -203,7 +203,7 @@ test('test flush() method', function (): void {
     $this->assertEquals([], $arrays->all());
 });
 
-test('test sortBySubKey() method', function (): void {
+test('test sortBy() method', function (): void {
     // Default
     $arrays_original = [
         0 => ['title' => 'Post 1'],
@@ -213,7 +213,7 @@ test('test sortBySubKey() method', function (): void {
     $arrays_result = Arrays::create([
         1 => ['title' => 'Post 2'],
         0 => ['title' => 'Post 1'],
-    ])->sortBySubKey('title')->all();
+    ])->sortBy('title')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -230,7 +230,7 @@ test('test sortBySubKey() method', function (): void {
     $arrays_result = Arrays::create([
         1 => ['title' => 'Post 2'],
         0 => ['title' => 'Post 1'],
-    ])->sortBySubKey('title', 'ASC')->all();
+    ])->sortBy('title', 'ASC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -247,7 +247,7 @@ test('test sortBySubKey() method', function (): void {
     $arrays_result = Arrays::create([
         1 => ['title' => 'Post 2'],
         0 => ['title' => 'Post 1'],
-    ])->sortBySubKey('title', 'DESC')->all();
+    ])->sortBy('title', 'DESC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -272,7 +272,7 @@ test('test sortBySubKey() method', function (): void {
         ],
     ]);
     $movies          = $arrays_original->get('movies');
-    $arrays_result   = Arrays::create($movies)->sortBySubKey('title', 'DESC')->all();
+    $arrays_result   = Arrays::create($movies)->sortBy('title', 'DESC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -297,7 +297,7 @@ test('test sortBySubKey() method', function (): void {
         ],
     ]);
     $movies          = $arrays_original->get('movies');
-    $arrays_result   = Arrays::create($movies)->sortBySubKey('title', 'ASC')->all();
+    $arrays_result   = Arrays::create($movies)->sortBy('title', 'ASC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -322,7 +322,7 @@ test('test sortBySubKey() method', function (): void {
         ],
     ]);
     $movies          = $arrays_original->get('movies');
-    $arrays_result   = Arrays::create($movies)->sortBySubKey('title', 'ASC', SORT_NATURAL)->all();
+    $arrays_result   = Arrays::create($movies)->sortBy('title', 'ASC', SORT_NATURAL)->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -347,7 +347,7 @@ test('test sortBySubKey() method', function (): void {
         ],
     ]);
     $movies          = $arrays_original->get('movies');
-    $arrays_result   = Arrays::create($movies)->sortBySubKey('title', 'DESC', SORT_NATURAL)->all();
+    $arrays_result   = Arrays::create($movies)->sortBy('title', 'DESC', SORT_NATURAL)->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);

@@ -529,16 +529,16 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Sorts a associative array by a certain sub key.
+     * Sorts a associative array by a certain key.
      *
-     * @param  string $subKey    The name of the sub key.
+     * @param  string $key    The name of the key.
      * @param  string $direction Order type DESC (descending) or ASC (ascending)
      * @param  int    $sortFlags A PHP sort method flags.
      *                           https://www.php.net/manual/ru/function.sort.php
      *
      * @return self Returns instance of The Arrays class.
      */
-    public function sortBySubKey(string $subKey, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
+    public function sortBy(string $key, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
     {
         $array  = $this->items;
         $result = [];
@@ -548,7 +548,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         }
 
         foreach ($array as $k => $row) {
-            $helper[$k] = mb_strtolower(strval(static::create($row)->get($subKey)));
+            $helper[$k] = mb_strtolower(strval(static::create($row)->get($key)));
         }
 
         if ($sortFlags === SORT_NATURAL) {

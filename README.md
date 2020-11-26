@@ -113,7 +113,7 @@ $arrays = arrays();
 | <a href="#arrays_search">`search()`</a> | Searches the array for a given value and returns the first corresponding key if successful. |
 | <a href="#arrays_sort">`sort()`</a> | Sorts array by values. |
 | <a href="#arrays_sortKeys">`sortKeys()`</a> | Sorts array by keys. |
-| <a href="#arrays_sortBySubKey">`sortBySubKey()`</a> | Sorts a associative array by a certain field. |
+| <a href="#arrays_sortBy">`sortBy()`</a> | Sorts a associative array by a certain field. |
 | <a href="#arrays_shuffle">`shuffle()`</a> | Shuffle the given array and return the result. |
 | <a href="#arrays_sum">`sum()`</a> | Calculate the sum of values in the current array. |
 | <a href="#arrays_random">`random()`</a> | Returns one or a specified number of items randomly from the array. |
@@ -2859,19 +2859,20 @@ Array
 )
 ```
 
-##### <a name="arrays_sortBySubKey"></a> Method: `sortBySubKey()`
+##### <a name="arrays_sortBy"></a> Method: `sortBy()`
 
 ```php
 /**
- * Sorts a associative array by a certain sub key.
+ * Sorts a associative array by a certain key.
  *
- * @param  string $subKey    The name of the sub key.
+ * @param  string $key    The name of the key.
  * @param  string $direction Order type DESC (descending) or ASC (ascending)
  * @param  int    $sortFlags A PHP sort method flags.
  *                           https://www.php.net/manual/ru/function.sort.php
+ *
+ * @return self Returns instance of The Arrays class.
  */
-public function sortBySubKey(string $subKey, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
-```
+public function sortBy(string $key, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self```
 
 ##### Example
 
@@ -2889,7 +2890,7 @@ $arrays = Arrays::create([
                                'produced_by' => 'Drew Goddard, Steve Asbell',
                                'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.'
                            ]
-                    ])->sortBySubKey('title', 'ASC');
+                    ])->sortBy('title', 'ASC');
 
 print_r($arrays->toArray());
 ```
