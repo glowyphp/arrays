@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+      uses: owenvoke/setup-php@e189084
       with:
         php-version: ${{ matrix.php }}
         tools: composer:v2
@@ -37,9 +37,4 @@ jobs:
       if: "matrix.php >= 8"
 
     - name: Run Tests with Coverage
-      if: "matrix.os == 'ubuntu-latest'"
       run: ./vendor/bin/pest --coverage
-
-    - name: Run Tests
-      if: "matrix.os == 'windows-latest' || matrix.os == 'macos-latest'"
-      run: ./vendor/bin/pest
