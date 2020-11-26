@@ -1,16 +1,15 @@
-<a name="1.4.0"></a>
-# [1.4.0](https://github.com/atomastic/arrays) (2020-11-xx)
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/atomastic/arrays) (2020-12-xx)
 * improve combine() method.
 * new operators added for where() method.
 
-    suported operators:
+    supported operators:
     ```
-    in, nin, not in, lt, less than, <, lte,
-    less than or equal to, >, gt, greater than,
-    gte, greater than or equal to, >=, less than or equal to,
-    <=, equals, not equals, like, not like, regexp, nregexp, not regexp
-    eq, =, neq, !=, contains, starts with,
-    ends with, between, nbetween, not between, older, newer
+    in, nin, lt, <, lte,
+    >, gt, gte, >=, contains, ncontains
+    >=, <=, like, nlike, regexp, nregexp,
+    eq, =, neq, !=, starts_with,
+    ends_with, between, nbetween, older, newer
     ```
 
 <a name="1.3.0"></a>
