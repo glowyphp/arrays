@@ -1,9 +1,8 @@
 <a name="2.0.0"></a>
-# [2.0.0](https://github.com/atomastic/arrays) (2020-12-xx)
-* improve combine() method.
-* new operators added for where() method.
+# [2.0.0](https://github.com/atomastic/arrays) (2020-12-02)
+* add new operators added for where() method.
 
-    supported operators:
+    Supported operators:
     ```
     in, nin, lt, <, lte,
     >, gt, gte, >=, contains, ncontains
@@ -11,6 +10,23 @@
     eq, =, neq, !=, starts_with,
     ends_with, between, nbetween, older, newer
     ```
+
+* fix issue in set() method with null key.
+* fix combine() method when two arrays are different.
+* rename sortBySubkey() method to sortBy() method.
+* improve combine() method.
+* improve tests for get() method.
+* improve tests for get() method.
+* improve tests for sort() method.
+* improve tests for first() method.
+* improve tests for last() method.
+* improve tests for random() method.
+* improve tests for sortBy() method.
+* improve tests workflow.
+
+### BREAKING CHANGES
+
+* USE sortBy() INSTEAD OF sortBySubkey() method.
 
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/atomastic/arrays) (2020-11-15)
