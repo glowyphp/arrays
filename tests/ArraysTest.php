@@ -94,6 +94,11 @@ test('test set() method', function (): void {
         ['movies' => ['SG-1' => ['stars' => []]]],
         Arrays::create()->set('movies.SG-1.stars', [])->all()
     );
+
+    $this->assertEquals(
+        ['movies' => ['SG-1' => ['stars' => []]]],
+        Arrays::create()->set(null, ['movies' => ['SG-1' => ['stars' => []]]])->all()
+    );
 });
 
 test('test get() method', function (): void {
@@ -108,6 +113,16 @@ test('test get() method', function (): void {
     $this->assertEquals(
         ['test'],
         Arrays::create(['movies' => ['SG-1' => ['stars' => ['Jack', 'Daniel', 'Sam']]]])->get('film.scores', ['test'])
+    );
+
+    $this->assertEquals(
+        ['test'],
+        Arrays::create(null)->get('film.scores', ['test'])
+    );
+
+    $this->assertEquals(
+        null,
+        Arrays::create(null)->get('film.scores')
     );
 });
 
@@ -125,6 +140,7 @@ test('test has() method', function (): void {
     $this->assertFalse(Arrays::create([''])->has(''));
     $this->assertFalse(Arrays::create([])->has(''));
     $this->assertFalse(Arrays::create([])->has(['']));
+
 });
 
 test('test delete() method', function (): void {
@@ -187,7 +203,7 @@ test('test flush() method', function (): void {
     $this->assertEquals([], $arrays->all());
 });
 
-test('test sortBySubKey() method', function (): void {
+test('test sortBy() method', function (): void {
     // Default
     $arrays_original = [
         0 => ['title' => 'Post 1'],
@@ -197,7 +213,7 @@ test('test sortBySubKey() method', function (): void {
     $arrays_result = Arrays::create([
         1 => ['title' => 'Post 2'],
         0 => ['title' => 'Post 1'],
-    ])->sortBySubKey('title')->all();
+    ])->sortBy('title')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -214,7 +230,7 @@ test('test sortBySubKey() method', function (): void {
     $arrays_result = Arrays::create([
         1 => ['title' => 'Post 2'],
         0 => ['title' => 'Post 1'],
-    ])->sortBySubKey('title', 'ASC')->all();
+    ])->sortBy('title', 'ASC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -231,7 +247,7 @@ test('test sortBySubKey() method', function (): void {
     $arrays_result = Arrays::create([
         1 => ['title' => 'Post 2'],
         0 => ['title' => 'Post 1'],
-    ])->sortBySubKey('title', 'DESC')->all();
+    ])->sortBy('title', 'DESC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -256,7 +272,7 @@ test('test sortBySubKey() method', function (): void {
         ],
     ]);
     $movies          = $arrays_original->get('movies');
-    $arrays_result   = Arrays::create($movies)->sortBySubKey('title', 'DESC')->all();
+    $arrays_result   = Arrays::create($movies)->sortBy('title', 'DESC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
@@ -281,13 +297,63 @@ test('test sortBySubKey() method', function (): void {
         ],
     ]);
     $movies          = $arrays_original->get('movies');
-    $arrays_result   = Arrays::create($movies)->sortBySubKey('title', 'ASC')->all();
+    $arrays_result   = Arrays::create($movies)->sortBy('title', 'ASC')->all();
 
     $array_equal = static function ($a, $b) {
         return serialize($a) === serialize($b);
     };
 
     $this->assertFalse($array_equal($movies, $arrays_result));
+
+    $arrays_original = Arrays::create([
+        'movies' => [
+            'the_thin_red_line' => [
+                'title' => 'The Thin Red Line',
+                'directed_by' => 'Terrence Malick',
+                'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+            ],
+            'bad_times_at_the_el_royale' => [
+                'title' => 'Bad Times at the El Royale',
+                'directed_by' => 'Drew Goddard',
+                'produced_by' => 'Drew Goddard, Steve Asbell',
+                'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.',
+            ],
+        ],
+    ]);
+    $movies          = $arrays_original->get('movies');
+    $arrays_result   = Arrays::create($movies)->sortBy('title', 'ASC', SORT_NATURAL)->all();
+
+    $array_equal = static function ($a, $b) {
+        return serialize($a) === serialize($b);
+    };
+
+    $this->assertFalse($array_equal($movies, $arrays_result));
+
+    $arrays_original = Arrays::create([
+        'movies' => [
+            'the_thin_red_line' => [
+                'title' => 'The Thin Red Line',
+                'directed_by' => 'Terrence Malick',
+                'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+            ],
+            'bad_times_at_the_el_royale' => [
+                'title' => 'Bad Times at the El Royale',
+                'directed_by' => 'Drew Goddard',
+                'produced_by' => 'Drew Goddard, Steve Asbell',
+                'decription' => 'Early 1970s. Four strangers check in at the El Royale Hotel. The hotel is deserted, staffed by a single desk clerk. Some of the new guests reasons for being there are less than innocent and some are not who they appear to be.',
+            ],
+        ],
+    ]);
+    $movies          = $arrays_original->get('movies');
+    $arrays_result   = Arrays::create($movies)->sortBy('title', 'DESC', SORT_NATURAL)->all();
+
+    $array_equal = static function ($a, $b) {
+        return serialize($a) === serialize($b);
+    };
+
+    $this->assertTrue($array_equal($movies, $arrays_result));
 });
 
 test('test count() method', function (): void {
@@ -342,6 +408,7 @@ test('test toString() method', function (): void {
 test('test first() method', function (): void {
     $this->assertEquals('SG-1', Arrays::create(['SG-1', 'SG-2'])->first());
     $this->assertEquals('bar1', Arrays::create(['foo1' => 'bar1', 'foo2' => 'bar2'])->first());
+    $this->assertEquals(null, Arrays::create(null)->first());
 });
 
 test('test firstKey() method', function (): void {
@@ -352,6 +419,7 @@ test('test firstKey() method', function (): void {
 test('test last() method', function (): void {
     $this->assertEquals('SG-2', Arrays::create(['SG-1', 'SG-2'])->last());
     $this->assertEquals('bar2', Arrays::create(['foo1' => 'bar1', 'foo2' => 'bar2'])->last());
+    $this->assertEquals(null, Arrays::create(null)->last());
 });
 
 test('test lastKey() method', function (): void {
@@ -398,6 +466,11 @@ test('test combine() method', function (): void {
     $this->assertEquals(
         ['green' => 'avacado', 'red' => 'apple', 'yellow' => 'banana'],
         Arrays::create(['green', 'red', 'yellow'])->combine(['avacado', 'apple', 'banana'])->toArray()
+    );
+
+    $this->assertEquals(
+        [],
+        Arrays::create(['green', 'red', 'yellow'])->combine(['avacado', 'apple', 'banana', 'tomato'])->toArray()
     );
 });
 
@@ -1034,6 +1107,56 @@ test('test where() method', function (): void {
         ->toArray()
     );
 
+    // operator: regexp
+
+    $this->assertEquals(
+        [
+            0 => ['message' => '42'],
+            1 => ['message' => '21'],
+        ],
+        Arrays::create([
+            0 => ['message' => '42'],
+            1 => ['message' => '21'],
+            2 => ['message' => 'Hello'],
+            3 => ['message' => 'Hello 42'],
+        ])
+        ->where('message', 'regexp', '^\d+$')
+        ->toArray()
+    );
+
+    // operator: nregexp
+    // operator: not regexp
+
+    $this->assertEquals(
+        [
+            2 => ['message' => 'Hello'],
+            3 => ['message' => 'Hello 42'],
+        ],
+        Arrays::create([
+            0 => ['message' => '42'],
+            1 => ['message' => '21'],
+            2 => ['message' => 'Hello'],
+            3 => ['message' => 'Hello 42'],
+        ])
+        ->where('message', 'nregexp', '^\d+$')
+        ->toArray()
+    );
+
+    $this->assertEquals(
+        [
+            2 => ['message' => 'Hello'],
+            3 => ['message' => 'Hello 42'],
+        ],
+        Arrays::create([
+            0 => ['message' => '42'],
+            1 => ['message' => '21'],
+            2 => ['message' => 'Hello'],
+            3 => ['message' => 'Hello 42'],
+        ])
+        ->where('message', 'nregexp', '^\d+$')
+        ->toArray()
+    );
+
     // operator: lte, =<
 
     $this->assertEquals(
@@ -1112,6 +1235,12 @@ test('test random() method', function (): void {
     $this->assertCount(2, $random);
     $this->assertContains(Arrays::create($random)->first(), ['foo', 'bar', 'baz']);
     $this->assertContains(Arrays::create($random)->last(), ['foo', 'bar', 'baz']);
+
+    $random = Arrays::create(['foo', 'bar', 'baz'])->random(10);
+    $this->assertIsArray($random);
+    $this->assertCount(3, $random);
+    $this->assertContains(Arrays::create($random)->first(), ['foo', 'bar', 'baz']);
+    $this->assertContains(Arrays::create($random)->last(), ['foo', 'bar', 'baz']);
 });
 
 test('test sort() method', function (): void {
@@ -1126,8 +1255,18 @@ test('test sort() method', function (): void {
     );
 
     $this->assertEquals(
+        [0 => 'blue', 2 => 'green', 1 => 'red', 3 => 'red'],
+        Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->sort('ASC', SORT_REGULAR, true)->toArray()
+    );
+
+    $this->assertEquals(
         [0 => 'red', 1 => 'red', 2 => 'green', 3 => 'blue'],
         Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->sort('DESC')->toArray()
+    );
+
+    $this->assertEquals(
+        [1 => 'red', 3 => 'red', 2 => 'green', 0 => 'blue'],
+        Arrays::create([0 => 'blue', 1 => 'red', 2 => 'green', 3 => 'red'])->sort('DESC', SORT_REGULAR, true)->toArray()
     );
 });
 

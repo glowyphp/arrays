@@ -202,7 +202,9 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         $array = &$this->items;
 
         if (is_null($key)) {
-            return $array = $value;
+            $this->items = $value;
+
+            return $this;
         }
 
         $segments = explode('.', $key);
@@ -527,16 +529,16 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Sorts a associative array by a certain sub key.
+     * Sorts a associative array by a certain key.
      *
-     * @param  string $subKey    The name of the sub key.
+     * @param  string $key    The name of the key.
      * @param  string $direction Order type DESC (descending) or ASC (ascending)
      * @param  int    $sortFlags A PHP sort method flags.
      *                           https://www.php.net/manual/ru/function.sort.php
      *
      * @return self Returns instance of The Arrays class.
      */
-    public function sortBySubKey(string $subKey, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
+    public function sortBy(string $key, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
     {
         $array  = $this->items;
         $result = [];
@@ -546,7 +548,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         }
 
         foreach ($array as $k => $row) {
-            $helper[$k] = mb_strtolower(strval(static::create($row)->get($subKey)));
+            $helper[$k] = mb_strtolower(strval(static::create($row)->get($key)));
         }
 
         if ($sortFlags === SORT_NATURAL) {
@@ -752,13 +754,16 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      */
     public function combine(array $array): self
     {
-        $data = array_combine($this->items, $array);
-
-        if ($data === false) {
-            $data = [];
+        if (count($this->items) == count($array)) {
+            $result = array_combine($this->items, $array);
+            if ($result === false) {
+                $this->items = [];
+            } else {
+                $this->items = $result;
+            }
+        } else {
+            $this->items = [];
         }
-
-        $this->items = $data;
 
         return $this;
     }
@@ -1452,8 +1457,10 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param string $key      Key of the array or object to used for comparison.
      * @param string $operator Operator used for comparison.
-     *                         operators: in, nin, lt, <, lte, > gt, gte, >=, <=,
-     *                                    eq, =, neq, !=, contains, like, starts_with,
+     *                         operators: in, nin, lt, <, lte,
+     *                                    >, gt, gte, >=, contains, ncontains
+     *                                    >=, <=, like, nlike, regexp, nregexp,
+     *                                    eq, =, neq, !=, starts_with,
      *                                    ends_with, between, nbetween, older, newer
      * @param mixed  $value    Value used for comparison.
      *
@@ -1536,6 +1543,12 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
                     case 'older':
                         return strtotime($valueToCompare) < strtotime($value);
+
+                    case 'regexp':
+                        return preg_match("/{$value}/ium", $valueToCompare);
+
+                    case 'nregexp':
+                        return ! preg_match("/{$value}/ium", $valueToCompare);
 
                     default:
                         return false;
