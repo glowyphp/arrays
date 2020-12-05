@@ -39,7 +39,7 @@ $arrays = Arrays::create();
 $arrays = arrays();
 ```
 
-### Extending Arrays
+### Extending
 
 Arrays are "macroable", which allows you to add additional methods to the Arrays class at run time. For example, the following code adds a customMethod method to the Arrays class:
 
@@ -52,6 +52,7 @@ Arrays::macro('customMethod', function($arg1 = 1, $arg2 = 1) {
 });
 
 $arrays = new Arrays([1, 2, 3]);
+
 echo $arrays->customMethod(1, 2);
 echo $arrays->customMethod();
 ```
