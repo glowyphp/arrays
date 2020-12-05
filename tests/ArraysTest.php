@@ -1632,3 +1632,12 @@ test('test extract() method', function (): void {
                     ->product()
     );
 });
+
+test('test macro() method', function (): void {
+    Arrays::macro('customMethod', function($arg1 = 1, $arg2 = 1) {
+        return $this->count() + $arg1 + $arg2;
+    });
+    $arrays = new Arrays([1, 2, 3]);
+    $this->assertEquals(6, $arrays->customMethod(1, 2));
+    $this->assertEquals(5, $arrays->customMethod());
+});

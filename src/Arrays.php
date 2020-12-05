@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Atomastic\Arrays;
 
+use Atomastic\Macroable\Macroable;
+
 use ArrayAccess;
 use ArrayIterator;
 use Closure;
@@ -92,6 +94,8 @@ use const SORT_STRING;
 
 class Arrays implements ArrayAccess, Countable, IteratorAggregate
 {
+    use Macroable;
+
     /**
      * The underlying array items.
      *
