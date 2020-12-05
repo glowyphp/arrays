@@ -1,4 +1,21 @@
 <a name="2.0.0"></a>
+# [2.1.0](https://github.com/atomastic/arrays) (2020-12-05)
+* add ability to extend Arrays class with Macros.
+
+    ```php
+    use Atomastic\Arrays\Arrays;
+    use Atomastic\Macroable\Macroable;
+
+    Arrays::macro('customMethod', function($arg1 = 1, $arg2 = 1) {
+        return $this->count() + $arg1 + $arg2;
+    });
+
+    $arrays = new Arrays([1, 2, 3]);
+    
+    echo $arrays->customMethod(1, 2);
+    echo $arrays->customMethod();
+    ```
+
 # [2.0.0](https://github.com/atomastic/arrays) (2020-12-02)
 * add new operators added for where() method.
 
