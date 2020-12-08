@@ -575,6 +575,34 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Sorts a associative array by a certain key in descending order.
+     *
+     * @param  string $key    The name of the key.
+     * @param  int    $sortFlags A PHP sort method flags.
+     *                           https://www.php.net/manual/ru/function.sort.php
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function sortByDesc(string $key, int $sortFlags = SORT_REGULAR): self
+    {
+        return $this->sortBy($key, 'DESC', $sortFlags);
+    }
+
+    /**
+     * Sorts a associative array by a certain key in ascending order.
+     *
+     * @param  string $key    The name of the key.
+     * @param  int    $sortFlags A PHP sort method flags.
+     *                           https://www.php.net/manual/ru/function.sort.php
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function sortByAsc(string $key, int $sortFlags = SORT_REGULAR): self
+    {
+        return $this->sortBy($key, 'ASC', $sortFlags);
+    }
+
+    /**
      * Get a value from the array, and remove it.
      *
      * @param  string $key     Key

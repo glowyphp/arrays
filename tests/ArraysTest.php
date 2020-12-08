@@ -356,6 +356,44 @@ test('test sortBy() method', function (): void {
     $this->assertTrue($array_equal($movies, $arrays_result));
 });
 
+test('test sortByAsc() method', function (): void {
+    // SORT ASC
+    $arrays_original = [
+        0 => ['title' => 'Post 1'],
+        1 => ['title' => 'Post 2'],
+    ];
+
+    $arrays_result = Arrays::create([
+        1 => ['title' => 'Post 2'],
+        0 => ['title' => 'Post 1'],
+    ])->sortByAsc('title')->all();
+
+    $array_equal = static function ($a, $b) {
+        return serialize($a) === serialize($b);
+    };
+
+    $this->assertTrue($array_equal($arrays_original, $arrays_result));
+});
+
+test('test sortByDesc() method', function (): void {
+    // SORT DESC
+    $arrays_original = [
+        1 => ['title' => 'Post 2'],
+        0 => ['title' => 'Post 1'],
+    ];
+
+    $arrays_result = Arrays::create([
+        1 => ['title' => 'Post 2'],
+        0 => ['title' => 'Post 1'],
+    ])->sortByDesc('title')->all();
+
+    $array_equal = static function ($a, $b) {
+        return serialize($a) === serialize($b);
+    };
+
+    $this->assertTrue($array_equal($arrays_original, $arrays_result));
+});
+
 test('test count() method', function (): void {
     $this->assertEquals(3, Arrays::create(['Jack', 'Daniel', 'Sam'])->count());
     $this->assertEquals(1, Arrays::create(['names' => ['Jack', 'Daniel', 'Sam']])->count());
