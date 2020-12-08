@@ -545,6 +545,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     public function sortBy(string $key, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
     {
         $array  = $this->items;
+        $direction = mb_strtolower($direction);
         $result = [];
 
         if (count($array) <= 0) {
@@ -557,8 +558,8 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
         if ($sortFlags === SORT_NATURAL) {
             natsort($helper);
-            ($direction === 'DESC') and $helper = array_reverse($helper);
-        } elseif ($direction === 'DESC') {
+            ($direction === 'desc') and $helper = array_reverse($helper);
+        } elseif ($direction === 'desc') {
             arsort($helper, $sortFlags);
         } else {
             asort($helper, $sortFlags);
