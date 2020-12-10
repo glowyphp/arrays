@@ -1058,6 +1058,18 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Skip the first count items.
+     *
+     * @param  int  $count Count of first items to skip.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function skip(int $count): self
+    {
+        return $this->slice($count);
+    }
+
+    /**
      * Verifies that all elements pass the test of the given callback.
      *
      * @param Closure $callback Function with (value, key) parameters and returns TRUE/FALSE

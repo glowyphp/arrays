@@ -136,6 +136,7 @@ echo $arrays->customMethod();
 | <a href="#arrays_toString">`toString()`</a> | Convert the current array to string recursively implodes an array with optional key inclusion. |
 | <a href="#arrays_set">`set()`</a> | Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced. |
 | <a href="#arrays_slice">`slice()`</a> | Extract a slice of the current array. |
+| <a href="#arrays_skip">`skip()`</a> | Skip the first count items. |
 | <a href="#arrays_search">`search()`</a> | Searches the array for a given value and returns the first corresponding key if successful. |
 | <a href="#arrays_sort">`sort()`</a> | Sorts array by values. |
 | <a href="#arrays_sortKeys">`sortKeys()`</a> | Sorts array by keys. |
@@ -2807,6 +2808,27 @@ public function slice(int $offset, ?int $length = null, bool $preserveKeys = fal
 
 ```php
 $arrays = Arrays::create(['a', 'b', 'c', 'd', 'e'])->slice(0, 3)->toArray();
+
+print_r($arrays);
+```
+
+##### <a name="arrays_skip"></a> Method: `skip()`
+
+```php
+/**
+ * Skip the first count items.
+ *
+ * @param  int  $count Count of first items to skip.
+ *
+ * @return self Returns instance of The Arrays class.
+ */
+public function skip(int $count): self
+```
+
+##### Example
+
+```php
+$arrays = Arrays::create(['a', 'b', 'c', 'd', 'e'])->skip(2)->toArray();
 
 print_r($arrays);
 ```

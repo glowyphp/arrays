@@ -660,6 +660,12 @@ test('test slice() method', function (): void {
     );
 });
 
+test('test skip() method', function (): void {
+    $this->assertEquals(
+        ['c', 'd', 'e'],
+        Arrays::create(['a', 'b', 'c', 'd', 'e'])->skip(2)->toArray()
+    );
+});
 
 test('test offset() method', function (): void {
     $this->assertEquals(

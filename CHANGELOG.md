@@ -20,6 +20,7 @@
 * add whereNotRegexp() method.
 * add sortByDesc() method.
 * and sortByAsc() method.
+* and skip() method.
 * improve sortBy() method.
 
 <a name="2.1.0"></a>
