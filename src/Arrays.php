@@ -1711,7 +1711,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Filters the array items by the given key is contains given value.
+     * Filters the array items by the given key is not contains given value.
      *
      * @param string $key   Key of the array for comparison.
      * @param mixed  $value Value used for comparison.
@@ -1737,7 +1737,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Filters the array items by the given key is equal given value.
+     * Filters the array items by the given key is not equal given value.
      *
      * @param string $key   Key of the array for comparison.
      * @param mixed  $value Value used for comparison.
