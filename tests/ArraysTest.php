@@ -1248,6 +1248,242 @@ test('test where() method', function (): void {
     );
 });
 
+test('test whereIn() method', function (): void {
+    $this->assertEquals(
+        [0 => ['title' => 'FòôBar']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->whereIn('title', ['FòôBar'])
+            ->toArray()
+    );
+});
+
+test('test whereNotIn() method', function (): void {
+    $this->assertEquals(
+        [1 => ['title' => 'BarFòô']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->whereNotIn('title', ['FòôBar'])
+            ->toArray()
+    );
+});
+
+test('test whereBetween() method', function (): void {
+    $this->assertEquals(
+        [1 => ['price' => '150'], 2 => ['price' => '200']],
+        Arrays::create([['price' => '100'], ['price' => '150'], ['price' => '200']])
+            ->whereBetween('price', [150, 200])
+            ->toArray()
+    );
+});
+
+test('test whereNotBetween() method', function (): void {
+    $this->assertEquals(
+        [0 => ['price' => '100']],
+        Arrays::create([['price' => '100'], ['price' => '150'], ['price' => '200']])
+            ->whereNotBetween('price', [150, 200])
+            ->toArray()
+    );
+});
+
+test('test whereGreater() method', function (): void {
+    $this->assertEquals(
+        [1 => ['price' => 20]],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->whereGreater('price', 10)
+        ->toArray()
+    );
+});
+
+test('test whereGreaterOrEqual() method', function (): void {
+    $this->assertEquals(
+        [
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->whereGreaterOrEqual('price', 10)
+        ->toArray()
+    );
+});
+
+test('test whereLess() method', function (): void {
+    $this->assertEquals(
+        [0 => ['price' => 10]],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->whereLess('price', 20)
+        ->toArray()
+    );
+});
+
+test('test whereLessOrEqual() method', function (): void {
+    $this->assertEquals(
+        [
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ],
+        Arrays::create([
+            0 => ['price' => 10],
+            1 => ['price' => 20],
+        ])
+        ->whereLessOrEqual('price', 20)
+        ->toArray()
+    );
+});
+
+test('test whereContains() method', function (): void {
+    $this->assertEquals(
+        [
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->whereContains('title', 'Fòô')
+            ->toArray()
+    );
+});
+
+test('test whereNotContains() method', function (): void {
+    $this->assertEquals(
+        [],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->whereNotContains('title', 'Fòô')
+            ->toArray()
+    );
+});
+
+test('test whereEqual() method', function (): void {
+    $this->assertEquals(
+        [1 => ['title' => 'BarFòô', 'published' => true]],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô', 'published' => true],
+            2 => ['title' => 'BarFòô', 'published' => false],
+        ])
+            ->whereEqual('title', 'BarFòô')
+            ->whereEqual('published', true)  // and where
+            ->toArray()
+    );
+});
+
+test('test whereNotEqual() method', function (): void {
+    $this->assertEquals(
+        [0 => ['title' => 'FòôBar']],
+        Arrays::create([
+            0 => ['title' => 'FòôBar'],
+            1 => ['title' => 'BarFòô'],
+        ])
+            ->whereNotEqual('title', 'BarFòô')
+            ->toArray()
+    );
+});
+
+
+test('test whereStartsWith() method', function (): void {
+    $this->assertEquals(
+        [0 => ['title' => 'Foo']],
+        Arrays::create([
+            0 => ['title' => 'Foo'],
+            1 => ['title' => 'Bar'],
+        ])
+        ->whereStartsWith('title', 'Foo')
+        ->toArray()
+    );
+});
+
+test('test whereEndsWith() method', function (): void {
+    $this->assertEquals(
+        [1 => ['title' => 'Bar']],
+        Arrays::create([
+            0 => ['title' => 'Foo'],
+            1 => ['title' => 'Bar'],
+        ])
+        ->whereEndsWith('title', 'Bar')
+        ->toArray()
+    );
+});
+
+test('test whereNewer() method', function (): void {
+    $this->assertEquals(
+        [
+            1 => ['date' => '2020-11-12']
+        ],
+        Arrays::create([
+            0 => ['date' => '2020-11-11'],
+            1 => ['date' => '2020-11-12'],
+        ])
+        ->whereNewer('date', '2020-11-11')
+        ->toArray()
+    );
+});
+
+test('test whereOlder() method', function (): void {
+    $this->assertEquals(
+        [
+            0 => ['date' => '2020-11-11']
+        ],
+        Arrays::create([
+            0 => ['date' => '2020-11-11'],
+            1 => ['date' => '2020-11-12'],
+        ])
+        ->whereOlder('date', '2020-11-12')
+        ->toArray()
+    );
+});
+
+test('test whereRegexp() method', function (): void {
+    $this->assertEquals(
+        [
+            0 => ['message' => '42'],
+            1 => ['message' => '21'],
+        ],
+        Arrays::create([
+            0 => ['message' => '42'],
+            1 => ['message' => '21'],
+            2 => ['message' => 'Hello'],
+            3 => ['message' => 'Hello 42'],
+        ])
+        ->whereRegexp('message', '^\d+$')
+        ->toArray()
+    );
+});
+
+test('test whereNotRegexp() method', function (): void {
+    $this->assertEquals(
+        [
+            2 => ['message' => 'Hello'],
+            3 => ['message' => 'Hello 42'],
+        ],
+        Arrays::create([
+            0 => ['message' => '42'],
+            1 => ['message' => '21'],
+            2 => ['message' => 'Hello'],
+            3 => ['message' => 'Hello 42'],
+        ])
+        ->whereNotRegexp('message', '^\d+$')
+        ->toArray()
+    );
+});
+
 test('test isEmpty() method', function (): void {
     $this->assertFalse(Arrays::create([1, 2, 3, 4, 5])->isEmpty());
     $this->assertTrue(Arrays::create()->isEmpty());

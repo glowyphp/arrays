@@ -1488,7 +1488,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Filters the array items by a given condition.
      *
-     * @param string $key      Key of the array or object to used for comparison.
+     * @param string $key      Key of the array for comparison.
      * @param string $operator Operator used for comparison.
      *                         operators: in, nin, lt, <, lte,
      *                                    >, gt, gte, >=, contains, ncontains
@@ -1591,6 +1591,240 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         );
 
         return $this;
+    }
+
+    /**
+     * Filters the array items by the given key value pair.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereIn(string $key, $value): self
+    {
+        return $this->where($key, 'in', $value);
+    }
+
+    /**
+     * Filters the array items by the given key value pair.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereNotIn(string $key, $value): self
+    {
+        return $this->where($key, 'nin', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is between the given values.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereBetween(string $key, $value): self
+    {
+        return $this->where($key, 'between', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is not between the given values.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereNotBetween(string $key, $value): self
+    {
+        return $this->where($key, 'nbetween', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is less the given value.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereLess(string $key, $value): self
+    {
+        return $this->where($key, 'lt', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is less or equal the given value.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereLessOrEqual(string $key, $value): self
+    {
+        return $this->where($key, 'lte', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is greater the given value.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereGreater(string $key, $value): self
+    {
+        return $this->where($key, 'gt', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is greater or equal the given value.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereGreaterOrEqual(string $key, $value): self
+    {
+        return $this->where($key, 'gte', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is contains given value.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereContains(string $key, $value): self
+    {
+        return $this->where($key, 'contains', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is contains given value.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereNotContains(string $key, $value): self
+    {
+        return $this->where($key, 'ncontains', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is equal given value.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereEqual(string $key, $value): self
+    {
+        return $this->where($key, 'eq', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is equal given value.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereNotEqual(string $key, $value): self
+    {
+        return $this->where($key, 'neq', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is starts with given value.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereStartsWith(string $key, $value): self
+    {
+        return $this->where($key, 'starts_with', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is ends with given value.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereEndsWith(string $key, $value): self
+    {
+        return $this->where($key, 'ends_with', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is newer given value.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereNewer(string $key, $value): self
+    {
+        return $this->where($key, 'newer', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is older given value.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereOlder(string $key, $value): self
+    {
+        return $this->where($key, 'older', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is matches to given regexp.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereRegexp(string $key, $value): self
+    {
+        return $this->where($key, 'regexp', $value);
+    }
+
+    /**
+     * Filters the array items by the given key is not matches to given regexp.
+     *
+     * @param string $key   Key of the array for comparison.
+     * @param mixed  $value Value used for comparison.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public function whereNotRegexp(string $key, $value): self
+    {
+        return $this->where($key, 'nregexp', $value);
     }
 
     /**
