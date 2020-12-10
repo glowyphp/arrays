@@ -1,5 +1,5 @@
 <a name="2.2.0"></a>
-# [2.2.0](https://github.com/atomastic/arrays) (2020-12-xx)
+# [2.2.0](https://github.com/atomastic/arrays) (2020-12-10)
 * add whereIn() method.
 * add whereNotIn() method.
 * add whereBetween() method.
