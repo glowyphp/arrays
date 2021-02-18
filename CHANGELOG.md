@@ -1,3 +1,7 @@
+<a name="3.0.1"></a>
+# [3.0.1](https://github.com/atomastic/arrays) (2021-02-18)
+* fix where() method.
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/atomastic/arrays) (2021-02-18)
 * move to PHP 7.4
