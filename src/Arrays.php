@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Atomastic\Arrays;
 
-use Atomastic\Macroable\Macroable;
-
 use ArrayAccess;
 use ArrayIterator;
+use Atomastic\Macroable\Macroable;
 use Closure;
 use Countable;
 use IteratorAggregate;
@@ -68,6 +67,7 @@ use function mb_substr;
 use function mt_srand;
 use function natsort;
 use function next;
+use function preg_match;
 use function preg_replace;
 use function prev;
 use function print_r;
@@ -101,7 +101,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @var array
      */
-    protected $items = [];
+    protected array $items = [];
 
     /**
      * Create a new arrayable object from the given elements.
@@ -535,7 +535,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Sorts a associative array by a certain key.
      *
-     * @param  string $key    The name of the key.
+     * @param  string $key       The name of the key.
      * @param  string $direction Order type DESC (descending) or ASC (ascending)
      * @param  int    $sortFlags A PHP sort method flags.
      *                           https://www.php.net/manual/ru/function.sort.php
@@ -544,9 +544,9 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      */
     public function sortBy(string $key, string $direction = 'ASC', int $sortFlags = SORT_REGULAR): self
     {
-        $array  = $this->items;
+        $array     = $this->items;
         $direction = mb_strtolower($direction);
-        $result = [];
+        $result    = [];
 
         if (count($array) <= 0) {
             return $this;
@@ -577,7 +577,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Sorts a associative array by a certain key in descending order.
      *
-     * @param  string $key    The name of the key.
+     * @param  string $key       The name of the key.
      * @param  int    $sortFlags A PHP sort method flags.
      *                           https://www.php.net/manual/ru/function.sort.php
      *
@@ -591,7 +591,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Sorts a associative array by a certain key in ascending order.
      *
-     * @param  string $key    The name of the key.
+     * @param  string $key       The name of the key.
      * @param  int    $sortFlags A PHP sort method flags.
      *                           https://www.php.net/manual/ru/function.sort.php
      *
@@ -787,7 +787,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      */
     public function combine(array $array): self
     {
-        if (count($this->items) == count($array)) {
+        if (count($this->items) === count($array)) {
             $result = array_combine($this->items, $array);
             if ($result === false) {
                 $this->items = [];
@@ -1060,7 +1060,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Skip the first count items.
      *
-     * @param  int  $count Count of first items to skip.
+     * @param  int $count Count of first items to skip.
      *
      * @return self Returns instance of The Arrays class.
      */
