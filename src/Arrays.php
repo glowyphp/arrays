@@ -1529,71 +1529,71 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
                 switch ($operator) {
                     case 'in':
-                        return in_array($valueToCompare, (array) $value);
+                        return (bool) (in_array($valueToCompare, (array) $value));
 
                     case 'nin':
-                        return ! in_array($valueToCompare, (array) $value);
+                        return (bool) (! in_array($valueToCompare, (array) $value));
 
                     case 'lt':
                     case '<':
-                        return $valueToCompare < $value;
+                        return (bool) ($valueToCompare < $value);
 
                     case 'gt':
                     case '>':
-                        return $valueToCompare > $value;
+                        return (bool) ($valueToCompare > $value);
 
                     case 'lte':
                     case '<=':
-                        return $valueToCompare <= $value;
+                        return (bool) ($valueToCompare <= $value);
 
                     case 'gte':
                     case '>=':
-                        return $valueToCompare >= $value;
+                        return (bool) ($valueToCompare >= $value);
 
                     case 'eq':
                     case '=':
-                        return $valueToCompare === $value;
+                        return (bool) ($valueToCompare === $value);
 
                     case 'neq':
                     case '<>':
                     case '!=':
-                        return $valueToCompare !== $value;
+                        return (bool) ($valueToCompare !== $value);
 
                     case 'contains':
                     case 'like':
-                        return mb_strpos($valueToCompare, $value, 0, $encoding) !== false;
+                        return (bool) (mb_strpos($valueToCompare, $value, 0, $encoding) !== false);
 
                     case 'ncontains':
                     case 'nlike':
-                        return mb_strpos($valueToCompare, $value, 0, $encoding) === false;
+                        return (bool) (mb_strpos($valueToCompare, $value, 0, $encoding) === false);
 
                     case 'between':
                         $value = (array) $value;
 
-                        return ($valueToCompare >= current($value) && $valueToCompare <= end($value)) !== false;
+                        return (bool) (($valueToCompare >= current($value) && $valueToCompare <= end($value)) !== false);
 
                     case 'nbetween':
                         $value = (array) $value;
 
-                        return ($valueToCompare >= current($value) && $valueToCompare <= end($value)) === false;
+                        return (bool) (($valueToCompare >= current($value) && $valueToCompare <= end($value)) === false);
 
                     case 'starts_with':
-                        return strncmp($valueToCompare, $value, mb_strlen($value)) === 0;
+                        return (bool) (strncmp($valueToCompare, $value, mb_strlen($value)) === 0);
 
                     case 'ends_with':
-                        return mb_substr($valueToCompare, -mb_strlen($value), null, $encoding) === $value;
+                        return (bool) (mb_substr($valueToCompare, -mb_strlen($value), null, $encoding) === $value);
 
                     case 'newer':
-                        return strtotime($valueToCompare) > strtotime($value);
+                        return (bool) (strtotime($valueToCompare) > strtotime($value));
 
                     case 'older':
-                        return strtotime($valueToCompare) < strtotime($value);
+                        return (bool) (strtotime($valueToCompare) < strtotime($value));
 
                     case 'regexp':
-                        return preg_match("/{$value}/ium", $valueToCompare);
+                        return (bool) (preg_match("/{$value}/ium", $valueToCompare));
 
                     case 'nregexp':
-                        return ! preg_match("/{$value}/ium", $valueToCompare);
+                        return (bool) (! preg_match("/{$value}/ium", $valueToCompare));
 
                     default:
                         return false;
