@@ -365,18 +365,14 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Deletes an array value using "dot notation".
+     * Delete the given key or keys using "dot notation".
      *
-     * @param  array|string $keys Keys
+     * @param  array|int|string $keys Keys
      *
      * @return self Returns instance of The Arrays class.
      */
     public function delete($keys): self
     {
-        $array = $this->items;
-
-        $original = &$array;
-
         $keys = (array) $keys;
 
         if (count($keys) === 0) {
@@ -384,29 +380,25 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
         }
 
         foreach ($keys as $key) {
-            if (isset($array[$key])) {
-                unset($array[$key]);
+            if (array_key_exists($key, $this->items)) {
+                unset($this->items[$key]);
                 continue;
             }
 
-            $segements = explode('.', $key);
+            $items = &$this->items;
+            $segments = explode('.', $key);
+            $lastSegment = array_pop($segments);
 
-            $array = &$original;
-
-            while (count($segements) > 1) {
-                $segement = array_shift($segements);
-
-                if (! isset($array[$segement]) || ! is_array($array[$segement])) {
+            foreach ($segments as $segment) {
+                if (!isset($items[$segment]) || !is_array($items[$segment])) {
                     continue 2;
                 }
 
-                $array = &$array[$segement];
+                $items = &$items[$segment];
             }
 
-            unset($array[array_shift($segements)]);
+            unset($items[$lastSegment]);
         }
-
-        $this->items = $array;
 
         return $this;
     }
@@ -436,6 +428,24 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     function append($value = null): self
     {
         $this->items[] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Push an item into the end of an array by specific key.
+     *
+     * @param mixed $value The new item to append
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    function appendIn($key, $value = null): self
+    {
+        $data = $this->get($key);
+
+        $data[] = $value;
+
+        $this->set($key, $data);
 
         return $this;
     }
