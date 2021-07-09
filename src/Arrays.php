@@ -433,24 +433,6 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Push an item into the end of an array by specific key.
-     *
-     * @param mixed $value The new item to append
-     *
-     * @return self Returns instance of The Arrays class.
-     */
-    function appendIn($key, $value = null): self
-    {
-        $data = $this->get($key);
-
-        $data[] = $value;
-
-        $this->set($key, $data);
-
-        return $this;
-    }
-
-    /**
      * Push an item into the beginning of an array.
      *
      * @param mixed $value The new item to append
