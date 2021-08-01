@@ -144,9 +144,11 @@ test('test has() method', function (): void {
 });
 
 test('test delete() method', function (): void {
-    $array = Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam']]]);
+    $array = Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam'], 'score' => ['5', '4'], 'foo' => ['f1' => 'bar', 'f2' => 'zed']]]);
     $array->delete('film.stars');
+    $array->delete('film.foo.f1');    
     $this->assertFalse($array->has('film.stars'));
+    $this->assertTrue($array->has('film.score'));
 
     $array = Arrays::create(['film' => ['stars' => ['Jack', 'Daniel', 'Sam'], 'score' => ['5', '4']]]);
     $array->delete('film.stars');
