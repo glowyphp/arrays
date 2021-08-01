@@ -1,3 +1,7 @@
+<a name="3.0.4"></a>
+# [3.0.4](https://github.com/atomastic/arrays) (2021-07-09)
+* fix PHPstan tests
+
 <a name="3.0.3"></a>
 # [3.0.3](https://github.com/atomastic/arrays) (2021-07-09)
 * fix delete() method and improve tests
