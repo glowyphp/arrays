@@ -1291,7 +1291,9 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      */
     public function except(array $keys): self
     {
-        return $this->copy()->delete($keys);
+        $this->items = $this->delete($keys)->toArray();
+        
+        return $this;
     }
 
     /**
