@@ -861,7 +861,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return self Returns instance of The Arrays class.
      */
-    public function intersectAssoc($items = nul): self
+    public function intersectAssoc($items = null): self
     {
         $array = self::getArray($items);
 
@@ -877,7 +877,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return self Returns instance of The Arrays class.
      */
-    public function intersectKey(array $items = null): self
+    public function intersectKey($items = null): self
     {
         $array = self::getArray($items);
         
