@@ -108,11 +108,11 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * Initializes a Arrays object and assigns $items the supplied values.
      *
-     * @param mixed $items Items
+     * @param mixed $items Items.
      */
-    public function __construct($items = [])
+    public function __construct($items = null)
     {
-        $this->items = $this->getArray($items);
+        $this->items = self::getArray($items);
     }
 
     /**
@@ -120,17 +120,13 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * Initializes a Arrays object and assigns $items the supplied values.
      *
-     * @param mixed $items Items
+     * @param mixed $items Items.
      *
      * @return self Returns instance of The Arrays class.
      */
-    public static function create($items = []): self
+    public static function create($items = null): self
     {
-        if ($items instanceof self) {
-            return $items;
-        }
-
-        return new static($items);
+        return new static(self::getArray($items));
     }
 
     /**
@@ -773,12 +769,14 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Create an array using the current array as keys and the other array as values.
      *
-     * @param array $array Values array
+     * @param mixed $items Items.
      *
      * @return self Returns instance of The Arrays class.
      */
-    public function combine(array $array): self
+    public function combine($items = null): self
     {
+        $array = self::getArray($items);
+
         if (count($this->items) === count($array)) {
             $result = array_combine($this->items, $array);
             if ($result === false) {
@@ -796,12 +794,14 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Compute the current array values which not present in the given one.
      *
-     * @param array $array Array for diff.
+     * @param mixed $items Items for diff.
      *
      * @return self Returns instance of The Arrays class.
      */
-    public function diff(array $array): self
+    public function diff($items = null): self
     {
+        $array = self::getArray($items);
+
         $this->items = array_diff($this->items, $array);
 
         return $this;
@@ -841,12 +841,14 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Compute the current array values which present in the given one.
      *
-     * @param array $array Array for intersect.
+     * @param mixed $items Items for intersect.
      *
      * @return self Returns instance of The Arrays class.
      */
-    public function intersect(array $array): self
+    public function intersect($items = null): self
     {
+        $array = self::getArray($items);
+
         $this->items = array_intersect($this->items, $array);
 
         return $this;
@@ -855,12 +857,14 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Compute the current array values with additional index check.
      *
-     * @param array $array Array for intersect.
+     * @param array $items Items for intersect.
      *
      * @return self Returns instance of The Arrays class.
      */
-    public function intersectAssoc(array $array): self
+    public function intersectAssoc($items = null): self
     {
+        $array = self::getArray($items);
+
         $this->items = array_intersect_assoc($this->items, $array);
 
         return $this;
@@ -869,12 +873,14 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Compute the current array using keys for comparison which present in the given one.
      *
-     * @param array $array Array for intersect.
+     * @param mixed $items Items for intersect.
      *
      * @return self Returns instance of The Arrays class.
      */
-    public function intersectKey(array $array): self
+    public function intersectKey($items = null): self
     {
+        $array = self::getArray($items);
+        
         $this->items = array_intersect_key($this->items, $array);
 
         return $this;
@@ -898,13 +904,15 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Merge the current array with the provided one.
      *
-     * @param array $array     Array to merge with (overwrites).
+     * @param mixed $items     Items to merge with (overwrites).
      * @param bool  $recursive Whether array will be merged recursively or no. Default is false.
      *
      * @return self Returns instance of The Arrays class.
      */
-    public function merge(array $array, bool $recursive = false): self
+    public function merge($items = null, bool $recursive = false): self
     {
+        $array = self::getArray($items);
+
         if ($recursive) {
             $this->items = array_merge_recursive($this->items, $array);
         } else {
@@ -1003,13 +1011,15 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      * Replace values in the current array with values in the given one
      * that have the same key.
      *
-     * @param array $array     Array of replacing values.
+     * @param mixed $items     Items of replacing values.
      * @param bool  $recursive Whether array will be replaced recursively or no. Default is false.
      *
      * @return self Returns instance of The Arrays class.
      */
-    public function replace(array $array, bool $recursive = false): self
+    public function replace($items = null, bool $recursive = false): self
     {
+        $array = self::getArray($items);
+
         if ($recursive) {
             $this->items = array_replace_recursive($this->items, $array);
         } else {
@@ -1850,8 +1860,17 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return array Returns array of the given items.
      */
-    protected function getArray($items): array
+    protected static function getArray($items): array
     {
+        $isJson = function ($items) {
+            json_decode($items);
+            return json_last_error() === JSON_ERROR_NONE;
+        };
+
+        if (is_string($items) && $isJson($items)) {
+            return self::createFromJson($items)->toArray();
+        }
+
         if (is_array($items)) {
             return $items;
         }

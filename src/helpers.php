@@ -14,7 +14,7 @@ if (! function_exists('arrays')) {
      *
      * @return Atomastic\Arrays\Arrays<Arrays>
      */
-    function arrays($items = []): Arrays
+    function arrays($items = null): Arrays
     {
         return Arrays::create($items);
     }
