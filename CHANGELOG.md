@@ -1,3 +1,7 @@
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/atomastic/arrays) (2021-10-26)
+* use `getArray` for every methods and set default items value = null
+
 <a name="3.0.5"></a>
 # [3.0.5](https://github.com/atomastic/arrays) (2021-08-02)
 * fix except() method.
