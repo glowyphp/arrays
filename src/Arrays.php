@@ -1441,7 +1441,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @param mixed $offset The offset to retrieve.
      *
-     * @return mixed Returns the value of the array.
+     * @return string|int|float|bool|null|array|object|callable|resource Returns the value of the array.
      */
     public function offsetGet($offset)
     {
