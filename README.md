@@ -1,6 +1,6 @@
-<h1 align="center">Arrays Component</h1>
+<h1 align="center">Arrays</h1>
 <p align="center">
-Arrays Component provide a fluent, object-oriented interface for working with arrays, allowing you to chain multiple arrays operations together using a more readable syntax compared to traditional PHP arrays functions.
+Arrays Package provide a fluent, object-oriented interface for working with arrays, allowing you to chain multiple arrays operations together using a more readable syntax compared to traditional PHP arrays functions.
 </p>
 <p align="center">
 <a href="https://github.com/glowyphp/arrays/releases"><img alt="Version" src="https://img.shields.io/github/release/glowyphp/arrays.svg?label=version&color=green"></a> <a href="https://github.com/glowyphp/arrays"><img src="https://img.shields.io/badge/license-MIT-blue.svg?color=green" alt="License"></a> <a href="https://packagist.org/packages/glowy/arrays"><img src="https://poser.pugx.org/glowy/arrays/downloads" alt="Total downloads"></a> <img src="https://github.com/glowyphp/arrays/workflows/Static%20Analysis/badge.svg?branch=dev"> <img src="https://github.com/glowyphp/arrays/workflows/Tests/badge.svg">
@@ -19,7 +19,7 @@ composer require glowy/arrays
 ```
 
 ### Resources
-* [Documentation](https://digital.flextype.org/glowyphp/components/arrays)
+* [Documentation](https://digital.flextype.org/glowyphp/packages/arrays)
 
 ### Tests
 
