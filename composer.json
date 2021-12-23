@@ -1,13 +1,13 @@
 {
-    "name": "atomastic/arrays",
+    "name": "glowy/arrays",
     "description": "Arrays Component provide a fluent, object-oriented interface for working with arrays, allowing you to chain multiple arrays operations together using a more readable syntax compared to traditional PHP arrays functions.",
     "license": "MIT",
     "keywords": [
-        "Arrays", "arrays", "php-arrays", "php", "atomastic"
+        "Arrays", "arrays", "php-arrays", "php", "glowy", "glowyphp"
     ],
     "support": {
-      "source": "https://github.com/atomastic/arrays",
-      "issues": "https://github.com/atomastic/arrays/issues"
+      "source": "https://github.com/glowyphp/arrays",
+      "issues": "https://github.com/glowyphp/arrays/issues"
     },
     "authors": [
         {
@@ -20,11 +20,11 @@
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "atomastic/macroable": "^2.0"
+        "glowy/macroable": "^3.0"
     },
     "autoload":{
         "psr-4": {
-            "Atomastic\\Arrays\\": "src/"
+            "Glowy\\Arrays\\": "src/"
         },
         "files": [
             "src/helpers.php"
@@ -33,6 +33,7 @@
     "require-dev": {
         "doctrine/coding-standard": "9.0.0",
         "pestphp/pest": "^1.21.1",
-        "phpstan/phpstan": "^1.2.0"
+        "phpstan/phpstan": "^1.2.0",
+        "symfony/var-dumper": "^5.4.0"
     }
 }

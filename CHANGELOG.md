@@ -1,33 +1,33 @@
 <a name="3.1.0"></a>
-# [3.1.0](https://github.com/atomastic/arrays) (2021-10-26)
+# [3.1.0](https://github.com/glowyphp/arrays) (2021-10-26)
 * use `getArray` for every methods and set default items value = null
 
 <a name="3.0.5"></a>
-# [3.0.5](https://github.com/atomastic/arrays) (2021-08-02)
+# [3.0.5](https://github.com/glowyphp/arrays) (2021-08-02)
 * fix except() method.
 
 <a name="3.0.4"></a>
-# [3.0.4](https://github.com/atomastic/arrays) (2021-07-09)
+# [3.0.4](https://github.com/glowyphp/arrays) (2021-07-09)
 * fix PHPstan tests
 
 <a name="3.0.3"></a>
-# [3.0.3](https://github.com/atomastic/arrays) (2021-07-09)
+# [3.0.3](https://github.com/glowyphp/arrays) (2021-07-09)
 * fix delete() method and improve tests
 
 <a name="3.0.2"></a>
-# [3.0.2](https://github.com/atomastic/arrays) (2021-02-19)
+# [3.0.2](https://github.com/glowyphp/arrays) (2021-02-19)
 * fix dependencies.
 
 <a name="3.0.1"></a>
-# [3.0.1](https://github.com/atomastic/arrays) (2021-02-18)
+# [3.0.1](https://github.com/glowyphp/arrays) (2021-02-18)
 * fix where() method.
 
 <a name="3.0.0"></a>
-# [3.0.0](https://github.com/atomastic/arrays) (2021-02-18)
+# [3.0.0](https://github.com/glowyphp/arrays) (2021-02-18)
 * move to PHP 7.4
 
 <a name="2.2.0"></a>
-# [2.2.0](https://github.com/atomastic/arrays) (2020-12-10)
+# [2.2.0](https://github.com/glowyphp/arrays) (2020-12-10)
 * add whereIn() method.
 * add whereNotIn() method.
 * add whereBetween() method.
@@ -52,12 +52,12 @@
 * improve sortBy() method.
 
 <a name="2.1.0"></a>
-# [2.1.0](https://github.com/atomastic/arrays) (2020-12-05)
+# [2.1.0](https://github.com/glowyphp/arrays) (2020-12-05)
 * add ability to extend Arrays class with Macros.
 
     ```php
-    use Atomastic\Arrays\Arrays;
-    use Atomastic\Macroable\Macroable;
+    use Glowy\Arrays\Arrays;
+    use Glowy\Macroable\Macroable;
 
     Arrays::macro('customMethod', function($arg1 = 1, $arg2 = 1) {
         return $this->count() + $arg1 + $arg2;
@@ -69,7 +69,7 @@
     echo $arrays->customMethod();
     ```
 
-# [2.0.0](https://github.com/atomastic/arrays) (2020-12-02)
+# [2.0.0](https://github.com/glowyphp/arrays) (2020-12-02)
 * add new operators added for where() method.
 
     Supported operators:
@@ -99,7 +99,7 @@
 * USE sortBy() INSTEAD OF sortBySubkey() method.
 
 <a name="1.3.0"></a>
-# [1.3.0](https://github.com/atomastic/arrays) (2020-11-15)
+# [1.3.0](https://github.com/glowyphp/arrays) (2020-11-15)
 * add where() method.
 * add dump() method.
 * add dd() method.
@@ -113,7 +113,7 @@
 * add new requirements for php modules: ext-json and ext-mbstring.
 
 <a name="1.2.0"></a>
-# [1.2.0](https://github.com/atomastic/arrays) (2020-11-11)
+# [1.2.0](https://github.com/glowyphp/arrays) (2020-11-11)
 * add offset() method.
 * add limit() method.
 * add copy() method.
@@ -139,12 +139,12 @@
 
 
 <a name="1.1.0"></a>
-# [1.1.0](https://github.com/atomastic/arrays) (2020-10-30)
+# [1.1.0](https://github.com/glowyphp/arrays) (2020-10-30)
 * add next() method.
 * add prev() method.
 * add current() method.
 * add groupBy() method.
 
 <a name="1.0.0"></a>
-# [1.0.0](https://github.com/atomastic/arrays) (2020-10-03)
+# [1.0.0](https://github.com/glowyphp/arrays) (2020-10-03)
 * Initial release

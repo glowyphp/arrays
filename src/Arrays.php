@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Atomastic\Arrays;
+namespace Glowy\Arrays;
 
 use ArrayAccess;
 use ArrayIterator;
-use Atomastic\Macroable\Macroable;
+use Glowy\Macroable\Macroable;
 use Closure;
 use Countable;
 use IteratorAggregate;
