@@ -1,3 +1,9 @@
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/glowyphp/arrays) (2021-12-23)
+* Released under Glowy PHP Organization.
+* Add PHP 8.1 support.
+* Updated dependencies.
+
 <a name="3.1.0"></a>
 # [3.1.0](https://github.com/glowyphp/arrays) (2021-10-26)
 * use `getArray` for every methods and set default items value = null
