@@ -19,7 +19,7 @@ composer require glowy/arrays
 ```
 
 ### Resources
-* [Documentation](https://digital.flextype.org/glowyphp/packages/arrays)
+* [Documentation](https://awilum.github.io/glowyphp/arrays)
 
 ### Tests
 
