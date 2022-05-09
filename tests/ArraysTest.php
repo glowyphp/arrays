@@ -1492,6 +1492,16 @@ test('test whereNotRegexp() method', function (): void {
     );
 });
 
+test('test createFromQueryString() method', function (): void {
+   $collection = arraysFromQueryString('foo=bar&baz=qux');
+   $collection2 = Arrays::createFromQueryString('foo=bar&baz=qux');
+
+   $this->assertCount(2, $collection);
+   $this->assertEquals('bar', $collection->get('foo'));
+   $this->assertEquals('qux', $collection->get('baz'));
+   $this->assertEquals($collection, $collection2);
+});
+
 test('test isEmpty() method', function (): void {
     $this->assertFalse(Arrays::create([1, 2, 3, 4, 5])->isEmpty());
     $this->assertTrue(Arrays::create()->isEmpty());
