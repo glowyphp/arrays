@@ -52,6 +52,20 @@ if (! function_exists('arraysFromString')) {
     }
 }
 
+if (! function_exists('arraysFromQueryString')) {
+    /**
+     * Create a new arrayable object from the given query string.
+     *
+     * @param string $string    Input query string.
+     *
+     * @return Glowy\Arrays\Arrays<Arrays>
+     */
+    function arraysFromQueryString(string $string): Arrays
+    {
+        return Arrays::createFromQueryString($string);
+    }
+}
+
 if (! function_exists('arraysWithRange')) {
     /**
      * Create a new arrayable object with a range of elements.

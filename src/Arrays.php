@@ -158,6 +158,19 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Create a new arrayable object from the given query string.
+     *
+     * @param string $string    Input queary string.
+     *
+     * @return self Returns instance of The Arrays class.
+     */
+    public static function createFromQueryString(string $string): self
+    {
+        parse_str($string, $items);
+        return new static($items);
+    }
+
+    /**
      * Create a new arrayable object with a range of elements.
      *
      * @param float|int|string $low  First value of the sequence.
