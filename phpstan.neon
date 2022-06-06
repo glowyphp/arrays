@@ -1,5 +1,5 @@
 parameters:
-    level: max
+    level: 3
     paths:
         - %currentWorkingDirectory%/src/
         - %currentWorkingDirectory%/tests/
