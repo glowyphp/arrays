@@ -1602,9 +1602,13 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
                         return (bool) (mb_substr($valueToCompare, -mb_strlen($value), null, $encoding) === $value);
 
                     case 'newer':
+                        $valueToCompare = is_int($valueToCompare) ? date("Y-m-d H:i:s", $valueToCompare) : $valueToCompare;
+                        $value = is_int($valueToCompare) ? date("Y-m-d H:i:s", $value) : $value;
                         return (bool) (strtotime($valueToCompare) > strtotime($value));
 
                     case 'older':
+                        $valueToCompare = is_int($valueToCompare) ? date("Y-m-d H:i:s", $valueToCompare) : $valueToCompare;
+                        $value = is_int($valueToCompare) ? date("Y-m-d H:i:s", $value) : $value;
                         return (bool) (strtotime($valueToCompare) < strtotime($value));
 
                     case 'regexp':
