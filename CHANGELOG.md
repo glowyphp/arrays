@@ -1,6 +1,10 @@
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/glowyphp/arrays) (2022-06-17)
+* Added ability to compare unix timestamps in `where` method.
+
 <a name="4.1.0"></a>
 # [4.1.0](https://github.com/glowyphp/arrays) (2022-05-09)
-* Added createFromQueryString() method
+* Added createFromQueryString() method.
 
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/glowyphp/arrays) (2021-12-23)
