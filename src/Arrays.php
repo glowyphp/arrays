@@ -1548,58 +1548,70 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
                 switch ($operator) {
                     case 'in':
                         return (bool) (in_array($valueToCompare, (array) $value));
-
+                        break;
+                        
                     case 'nin':
                         return (bool) (! in_array($valueToCompare, (array) $value));
+                        break;
 
                     case 'lt':
                     case '<':
                         return (bool) ($valueToCompare < $value);
+                        break;
 
                     case 'gt':
                     case '>':
                         return (bool) ($valueToCompare > $value);
+                        break;
 
                     case 'lte':
                     case '<=':
                         return (bool) ($valueToCompare <= $value);
+                        break;
 
                     case 'gte':
                     case '>=':
                         return (bool) ($valueToCompare >= $value);
+                        break;
 
                     case 'eq':
                     case '=':
                         return (bool) ($valueToCompare === $value);
+                        break;
 
                     case 'neq':
                     case '<>':
                     case '!=':
                         return (bool) ($valueToCompare !== $value);
+                        break;
 
                     case 'contains':
                     case 'like':
                         return (bool) (mb_strpos($valueToCompare, $value, 0, $encoding) !== false);
+                        break;
 
                     case 'ncontains':
                     case 'nlike':
                         return (bool) (mb_strpos($valueToCompare, $value, 0, $encoding) === false);
+                        break;
 
                     case 'between':
                         $value = (array) $value;
-
                         return (bool) (($valueToCompare >= current($value) && $valueToCompare <= end($value)) !== false);
+                        break;
 
                     case 'nbetween':
                         $value = (array) $value;
-
                         return (bool) (($valueToCompare >= current($value) && $valueToCompare <= end($value)) === false);
+                        break;
 
                     case 'starts_with':
                         return (bool) (strncmp($valueToCompare, $value, mb_strlen($value)) === 0);
+                        break;
 
                     case 'ends_with':
                         return (bool) (mb_substr($valueToCompare, -mb_strlen($value), null, $encoding) === $value);
+                        break;
 
                     case 'newer':
                         $valueToCompare = is_int($valueToCompare) ? date("Y-m-d H:i:s", $valueToCompare) : $valueToCompare;
@@ -1613,12 +1625,15 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
 
                     case 'regexp':
                         return (bool) (preg_match("/{$value}/ium", $valueToCompare));
+                        break;
 
                     case 'nregexp':
                         return (bool) (! preg_match("/{$value}/ium", $valueToCompare));
+                        break;
 
                     default:
                         return false;
+                        break;
                 }
             },
             ARRAY_FILTER_USE_BOTH
