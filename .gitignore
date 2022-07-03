@@ -3,6 +3,7 @@
 composer.lock
 package-lock.json
 vendor/
+.phpunit.result.cache
 
 # OS Generated
 .DS_Store*

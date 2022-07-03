@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Glowy\Arrays\Arrays;
+namespace Glowy\Arrays;
 
 if (! function_exists('arrays')) {
     /**
@@ -12,9 +12,9 @@ if (! function_exists('arrays')) {
      *
      * @param  mixed $items Items
      *
-     * @return Glowy\Arrays\Arrays<Arrays>
+     * @return \Glowy\Arrays\Arrays
      */
-    function arrays($items = null): Arrays
+    function arrays($items = null): \Glowy\Arrays\Arrays
     {
         return Arrays::create($items);
     }
@@ -29,9 +29,9 @@ if (! function_exists('arraysFromJson')) {
      * @param int    $depth Decode Depth. Set the maximum depth. Must be greater than zero.
      * @param int    $flags Bitmask consisting of decode options
      *
-     * @return Glowy\Arrays\Arrays<Arrays>
+     * @return \Glowy\Arrays\Arrays
      */
-    function arraysFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): Arrays
+    function arraysFromJson(string $input, bool $assoc = true, int $depth = 512, int $flags = 0): \Glowy\Arrays\Arrays
     {
         return Arrays::createFromJson($input, $assoc, $depth, $flags);
     }
@@ -44,9 +44,9 @@ if (! function_exists('arraysFromString')) {
      * @param string $string    Input string.
      * @param string $separator Elements separator.
      *
-     * @return Glowy\Arrays\Arrays<Arrays>
+     * @return \Glowy\Arrays\Arrays
      */
-    function arraysFromString(string $string, string $separator): Arrays
+    function arraysFromString(string $string, string $separator): \Glowy\Arrays\Arrays
     {
         return Arrays::createFromString($string, $separator);
     }
@@ -58,9 +58,9 @@ if (! function_exists('arraysFromQueryString')) {
      *
      * @param string $string    Input query string.
      *
-     * @return Glowy\Arrays\Arrays<Arrays>
+     * @return \Glowy\Arrays\Arrays
      */
-    function arraysFromQueryString(string $string): Arrays
+    function arraysFromQueryString(string $string): \Glowy\Arrays\Arrays
     {
         return Arrays::createFromQueryString($string);
     }
@@ -75,9 +75,9 @@ if (! function_exists('arraysWithRange')) {
      * @param int              $step If a step value is given, it will be used as the increment between elements in the sequence.
      *                               step should be given as a positive number. If not specified, step will default to 1.
      *
-     * @return Glowy\Arrays\Arrays<Arrays>
+     * @return \Glowy\Arrays\Arrays
      */
-    function arraysWithRange($low, $high, int $step = 1): Arrays
+    function arraysWithRange($low, $high, int $step = 1): \Glowy\Arrays\Arrays
     {
         return Arrays::createWithRange($low, $high, $step);
     }
