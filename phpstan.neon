@@ -2,7 +2,6 @@ parameters:
     level: 3
     paths:
         - %currentWorkingDirectory%/src/
-        - %currentWorkingDirectory%/tests/
     reportUnmatchedIgnoredErrors: false
     checkGenericClassInNonGenericObjectType: false
     checkMissingIterableValueType: false
