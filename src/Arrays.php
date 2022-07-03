@@ -210,7 +210,7 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return self Returns instance of The Arrays class.
      */
-    public function set(?string $key, $value): self
+    public function set(string|null $key, $value): self
     {
         $array = &$this->items;
 
