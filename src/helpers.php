@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Glowy\Arrays;
 
+use Glowy\Arrays\Arrays;
+
 if (! function_exists('arrays')) {
     /**
      * Create a new arrayable object from the given elements.
