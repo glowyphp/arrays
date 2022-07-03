@@ -3,6 +3,11 @@
 declare(strict_types=1);
 
 use Glowy\Arrays\Arrays;
+use function Glowy\Arrays\arrays;
+use function Glowy\Arrays\arraysFromQueryString;
+use function Glowy\Arrays\arraysFromString;
+use function Glowy\Arrays\arraysWithRange;
+use function Glowy\Arrays\arraysFromJson;
 
 test('test arrays() helper', function (): void {
     $this->assertEquals(Arrays::create(), arrays());

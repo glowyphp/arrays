@@ -1,3 +1,8 @@
+<a name="5.0.0"></a>
+# [5.0.0](https://github.com/glowyphp/arrays) (2022-07-03)
+* Moving to PHP 8.1
+* All Helpers functions are placed into the Glowy/Arrays namespace.
+
 <a name="4.2.0"></a>
 # [4.2.0](https://github.com/glowyphp/arrays) (2022-06-17)
 * Added ability to compare unix timestamps in `where` method.

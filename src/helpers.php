@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Glowy\Arrays\Arrays;
+namespace Glowy\Arrays;
 
 if (! function_exists('arrays')) {
     /**
