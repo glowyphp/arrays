@@ -674,6 +674,24 @@ test('test skip() method', function (): void {
     );
 });
 
+test('test take() method', function (): void {
+    $this->assertEquals(
+        ['a', 'b'],
+        Arrays::create(['a', 'b', 'c', 'd', 'e'])->take(2)->toArray()
+    );
+
+    $this->assertEquals(
+        ['d', 'e'],
+        Arrays::create(['a', 'b', 'c', 'd', 'e'])->take(-2)->toArray()
+    );
+
+    // skip and take
+    $this->assertEquals(
+        ['c', 'd', 'e'],
+        Arrays::create(['a', 'b', 'c', 'd', 'e'])->skip(2)->take(3)->toArray()
+    );
+});
+
 test('test offset() method', function (): void {
     $this->assertEquals(
         ['c', 'd', 'e'],

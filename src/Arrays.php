@@ -1085,6 +1085,22 @@ class Arrays implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
+     * Take the first or last items.
+     *
+     * @param  int  $limit Limit of itmes to take.
+     * 
+     * @return self
+     */
+    public function take(int $limit)
+    {
+        if ($limit < 0) {
+            return $this->slice($limit, abs($limit));
+        }
+
+        return $this->slice(0, $limit);
+    }
+
+    /**
      * Verifies that all elements pass the test of the given callback.
      *
      * @param Closure $callback Function with (value, key) parameters and returns TRUE/FALSE
