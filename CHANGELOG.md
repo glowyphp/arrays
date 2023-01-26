@@ -1,3 +1,7 @@
+<a name="5.1.0"></a>
+# [5.1.0](https://github.com/glowyphp/arrays) (2023-XX-XX)
+* Added take() method.
+
 <a name="5.0.0"></a>
 # [5.0.0](https://github.com/glowyphp/arrays) (2022-07-03)
 * Moving to PHP 8.1
